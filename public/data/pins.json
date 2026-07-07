@@ -348,5 +348,14 @@
         }
       ]
     }
+  },
+  {
+    "id": "bon-ton",
+    "name": "Bon Ton",
+    "category": "food",
+    "lat": 33.772948167758344,
+    "lng": -84.38037513014436,
+    "media": [],
+    "description": "Best catfish Po Boy outside of New Orleans. They are a late night spot with a clubby date night feeling"
   }
 ]
