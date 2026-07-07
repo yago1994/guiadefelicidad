@@ -366,5 +366,22 @@
     "lng": -84.36683066651439,
     "media": [],
     "description": "And old timey cinema, not the best chairs our sound system but the vibes are great, good for Wes Anderson type movies"
+  },
+  {
+    "id": "apres-diem",
+    "name": "Apres Diem",
+    "category": "food",
+    "lat": 33.77918505070575,
+    "lng": -84.36715338641233,
+    "media": [],
+    "description": "Good datey spot for post-movies, they also have a nice tea sampler. Feels sort of European vibes",
+    "availability": {
+      "hours": [
+        {
+          "open": "18:00",
+          "close": "23:00"
+        }
+      ]
+    }
   }
 ]
