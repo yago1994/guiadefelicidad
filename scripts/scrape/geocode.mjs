@@ -24,10 +24,14 @@ export async function saveCache() {
  * Geocode an address via Nominatim. Committed cache + 1.1s spacing keeps us
  * comfortably inside their usage policy (max 1 req/s, identifying UA).
  */
+/** Number of actual Nominatim requests made this run (cache hits are free). */
+export let apiCalls = 0
+
 export async function geocode(address) {
   const c = await loadCache()
   const key = address.toLowerCase().trim()
   if (key in c) return c[key]
+  apiCalls++
 
   const q = /atlanta|ga\b|georgia/i.test(address) ? address : `${address}, Atlanta, GA`
   const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(q)}`

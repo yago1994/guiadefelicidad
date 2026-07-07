@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { fetchEvents as eventbrite } from './sources/eventbrite.mjs'
 import { fetchEvents as creativeLoafing } from './sources/creativeloafing.mjs'
-import { geocode, saveCache } from './geocode.mjs'
+import { apiCalls, geocode, saveCache } from './geocode.mjs'
 import { categorize, eventId, inAtlanta } from './util.mjs'
 
 const OUT_PATH = fileURLToPath(new URL('../../public/data/events.json', import.meta.url))
@@ -14,7 +14,7 @@ const SOURCES = [
   ['creativeloafing', creativeLoafing],
 ]
 const HORIZON_DAYS = 30
-const MAX_GEOCODES_PER_RUN = 60 // Nominatim politeness: bounded work per night
+const MAX_GEOCODES_PER_RUN = 60 // Nominatim politeness: bounded API calls per night (cache hits are free)
 
 async function main() {
   const raw = []
@@ -42,11 +42,9 @@ async function main() {
   })
 
   // geocode the ones missing coords (bounded per run; cache persists misses)
-  let geocoded = 0
   for (const e of events) {
-    if ((e.lat == null || e.lng == null) && e.address && geocoded < MAX_GEOCODES_PER_RUN) {
+    if ((e.lat == null || e.lng == null) && e.address && apiCalls < MAX_GEOCODES_PER_RUN) {
       const hit = await geocode(e.address)
-      geocoded++
       if (hit) {
         e.lat = hit.lat
         e.lng = hit.lng
@@ -54,7 +52,7 @@ async function main() {
     }
   }
   await saveCache()
-  console.log(`ℹ geocoded ${geocoded} addresses this run`)
+  console.log(`ℹ geocoded ${apiCalls} new addresses this run`)
 
   const before = events.length
   events = events.filter((e) => e.lat != null && e.lng != null && inAtlanta(e.lat, e.lng))
