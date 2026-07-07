@@ -400,5 +400,22 @@
         }
       ]
     }
+  },
+  {
+    "id": "rumi-s-kitchen",
+    "name": "Rumi's Kitchen",
+    "category": "food",
+    "lat": 33.786829814052965,
+    "lng": -84.38304756792992,
+    "media": [],
+    "description": "I have never had persian food until I moved to Atlanta, and WOW, it's good, get a lot of sabzi platters, they are free, and you can keep the meal pretty inexpensive. The eggplants are great, and so are the rices",
+    "availability": {
+      "hours": [
+        {
+          "open": "18:00",
+          "close": "22:00"
+        }
+      ]
+    }
   }
 ]
