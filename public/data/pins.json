@@ -357,5 +357,14 @@
     "lng": -84.38037513014436,
     "media": [],
     "description": "Best catfish Po Boy outside of New Orleans. They are a late night spot with a clubby date night feeling"
+  },
+  {
+    "id": "landmark-theatre",
+    "name": "Landmark Theatre",
+    "category": "art",
+    "lat": 33.779017628574266,
+    "lng": -84.36683066651439,
+    "media": [],
+    "description": "And old timey cinema, not the best chairs our sound system but the vibes are great, good for Wes Anderson type movies"
   }
 ]
