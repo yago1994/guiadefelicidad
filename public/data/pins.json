@@ -434,5 +434,25 @@
         }
       ]
     }
+  },
+  {
+    "id": "critical-mass",
+    "name": "Critical Mass",
+    "category": "active",
+    "lat": 33.75590777752299,
+    "lng": -84.38843320115406,
+    "media": [],
+    "description": "A beautiful ride in the city, the last Friday of the month, always leaving at 6:45p SHARP. There's no better way to see the city than riding with 100s of cyclists on the road. You'll feel safe if you are a moderate rider, maybe go with a friend if it's your first time",
+    "availability": {
+      "days": [
+        5
+      ],
+      "hours": [
+        {
+          "open": "18:45",
+          "close": "20:30"
+        }
+      ]
+    }
   }
 ]
