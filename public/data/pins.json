@@ -496,5 +496,22 @@
         }
       ]
     }
+  },
+  {
+    "id": "chomp-and-stomp",
+    "name": "Chomp and Stomp",
+    "category": "food",
+    "lat": 33.74947434847462,
+    "lng": -84.36423743745307,
+    "media": [],
+    "description": "Free Chili! The entire neighborhood starts on a battle for the best chili. You pay $10 to get a spoon from the local market and you are game to try all the chili.\n\nAlways sometime in November.",
+    "availability": {
+      "months": [
+        11
+      ],
+      "days": [
+        6
+      ]
+    }
   }
 ]
