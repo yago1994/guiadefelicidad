@@ -7,8 +7,22 @@
     "lng": -84.3665,
     "description": "Historic Sears building turned food hall. Grab something at the Central Food Hall and walk straight out onto the Beltline.",
     "availability": {
-      "hours": [{ "open": "11:00", "close": "21:00" }],
-      "peakHours": [{ "days": [5, 6], "from": "18:00", "to": "21:00" }]
+      "hours": [
+        {
+          "open": "11:00",
+          "close": "21:00"
+        }
+      ],
+      "peakHours": [
+        {
+          "days": [
+            5,
+            6
+          ],
+          "from": "18:00",
+          "to": "21:00"
+        }
+      ]
     },
     "media": []
   },
@@ -21,8 +35,25 @@
     "description": "The classic stroll. Street art, skaters, and golden-hour people watching between Ponce City Market and Krog Street.",
     "availability": {
       "peakHours": [
-        { "days": [0, 6], "from": "10:00", "to": "19:00" },
-        { "days": [1, 2, 3, 4, 5], "from": "17:00", "to": "20:00" }
+        {
+          "days": [
+            0,
+            6
+          ],
+          "from": "10:00",
+          "to": "19:00"
+        },
+        {
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "from": "17:00",
+          "to": "20:00"
+        }
       ]
     },
     "media": []
@@ -35,8 +66,22 @@
     "lng": -84.3738,
     "description": "Atlanta's living room. Skyline views from the Active Oval, picnics by Lake Clara Meer.",
     "availability": {
-      "hours": [{ "open": "06:00", "close": "23:00" }],
-      "peakHours": [{ "days": [0, 6], "from": "12:00", "to": "18:00" }]
+      "hours": [
+        {
+          "open": "06:00",
+          "close": "23:00"
+        }
+      ],
+      "peakHours": [
+        {
+          "days": [
+            0,
+            6
+          ],
+          "from": "12:00",
+          "to": "18:00"
+        }
+      ]
     },
     "media": []
   },
@@ -48,8 +93,17 @@
     "lng": -84.3556,
     "description": "A whole wall of confederate jasmine that perfumes the block. Best at dusk when the air is warm.",
     "availability": {
-      "months": [4, 5, 6],
-      "peakHours": [{ "from": "18:30", "to": "21:00" }]
+      "months": [
+        4,
+        5,
+        6
+      ],
+      "peakHours": [
+        {
+          "from": "18:30",
+          "to": "21:00"
+        }
+      ]
     },
     "media": []
   },
@@ -70,9 +124,29 @@
     "lng": -84.4416,
     "description": "Float the Chattahoochee on a tube or kayak. Rentals at Powers Island — bring a dry bag and sunscreen.",
     "availability": {
-      "months": [5, 6, 7, 8, 9],
-      "hours": [{ "open": "10:00", "close": "18:00" }],
-      "peakHours": [{ "days": [0, 6], "from": "11:00", "to": "16:00" }]
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "hours": [
+        {
+          "open": "10:00",
+          "close": "18:00"
+        }
+      ],
+      "peakHours": [
+        {
+          "days": [
+            0,
+            6
+          ],
+          "from": "11:00",
+          "to": "16:00"
+        }
+      ]
     },
     "media": []
   },
@@ -84,20 +158,15 @@
     "lng": -84.3701,
     "description": "Sunday-morning market at The Beacon. Peaches in summer, good coffee year-round.",
     "availability": {
-      "days": [0],
-      "hours": [{ "open": "09:00", "close": "13:00" }]
-    },
-    "media": []
-  },
-  {
-    "id": "dancing-goats-ponce",
-    "name": "Dancing Goats Coffee",
-    "category": "coffee",
-    "lat": 33.7719,
-    "lng": -84.3652,
-    "description": "Big patio next to Ponce City Market. Strong pour-overs, dog friendly.",
-    "availability": {
-      "hours": [{ "open": "07:00", "close": "19:00" }]
+      "days": [
+        0
+      ],
+      "hours": [
+        {
+          "open": "09:00",
+          "close": "13:00"
+        }
+      ]
     },
     "media": []
   }
