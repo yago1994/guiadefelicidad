@@ -10,6 +10,7 @@ A living map of Atlanta where pins appear **contextually** — only what's open,
 - **Two sources of truth:**
   1. **Curated pins** in [public/data/pins.json](public/data/pins.json), managed from the site itself in admin mode.
   2. **Scraped events** in `public/data/events.json`, refreshed nightly by a GitHub Actions cron ([.github/workflows/scrape-events.yml](.github/workflows/scrape-events.yml)) that sweeps Eventbrite Atlanta listings (incl. a Beltline keyword search) and the Creative Loafing calendar, geocodes via Nominatim (cached), and categorizes by keywords.
+- **Place search** — the 🔍 button searches restaurants, parks, and landmarks around Atlanta via [Photon](https://photon.komoot.io/) on OpenStreetMap data (free, no key). Anyone can search and get directions; in admin mode, *Add as pin* pre-fills the pin editor and imports the place's opening hours and website from OSM when available.
 - **Time scopes** — Now / Today / This week / All. "Now" honors seasons (months), weekdays, opening hours, and date windows; **peak hours** make a marker glow. "All" shows everything, dimming what's closed right now.
 - **Experiences** — ordered pin chains ("coffee → Beltline → jasmine wall") drawn as a dashed path with a step-by-step follow mode and Google Maps directions per stop.
 - **Media** — pins can carry short videos, images, and voice notes (recorded right in the browser), stored in `public/media/`.

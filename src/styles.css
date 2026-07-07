@@ -159,6 +159,95 @@ input[type='date'] {
   color: #1a1205;
 }
 
+.search-fab {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 16px;
+  background: rgba(18, 20, 28, 0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+}
+
+.search-overlay {
+  position: absolute;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  left: 10px;
+  right: 10px;
+  z-index: 40;
+  max-width: 480px;
+  margin: 0 auto;
+  background: #fffff2;
+  --panel: #fffff2;
+  --panel-2: #eceadb;
+  --text: #24262e;
+  --muted: #6d7080;
+  --border: #d6d4c2;
+  color: var(--text);
+  color-scheme: light;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px;
+}
+
+.search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.search-row input {
+  flex: 1;
+}
+
+.search-row .btn {
+  min-height: 40px;
+  padding: 8px 14px;
+  flex-shrink: 0;
+}
+
+.search-results {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.search-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  background: transparent;
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--text);
+}
+
+.search-item:hover {
+  background: var(--panel-2);
+}
+
+.search-item .search-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.search-item .grow {
+  min-width: 0;
+}
+
+.search-item .search-name {
+  font-weight: 700;
+  font-size: 14.5px;
+  display: block;
+}
+
+.search-status {
+  padding: 8px 10px 2px;
+}
+
 .filterbar {
   pointer-events: auto;
   display: flex;

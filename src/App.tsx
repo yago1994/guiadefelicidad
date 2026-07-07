@@ -5,6 +5,8 @@ import FilterBar from './components/FilterBar'
 import DetailSheet from './components/DetailSheet'
 import { ExperienceList, FollowBar } from './components/ExperiencePanel'
 import AdminGate from './components/admin/AdminGate'
+import SearchBar from './components/SearchBar'
+import { fetchOsmDetails, parseOpeningHours, type SearchResult } from './lib/geosearch'
 import PinEditor from './components/admin/PinEditor'
 import CategoryEditor from './components/admin/CategoryEditor'
 import ExperienceBuilder from './components/admin/ExperienceBuilder'
@@ -45,6 +47,9 @@ export default function App() {
   const [activeExpId, setActiveExpId] = useState<string | null>(null)
   const [expStep, setExpStep] = useState(0)
   const [mediaOverrides, setMediaOverrides] = useState<Record<string, string>>({})
+  const [showSearch, setShowSearch] = useState(false)
+  const [searchResult, setSearchResult] = useState<SearchResult | null>(null)
+  const [searchPinBusy, setSearchPinBusy] = useState(false)
 
   // ----- admin state -----
   const isAdminRoute = useHashRoute().startsWith('#/admin')
@@ -138,8 +143,19 @@ export default function App() {
         selected: selected?.kind === 'event' && selected.id === ev.id,
       })
     }
+    if (searchResult) {
+      specs.push({
+        id: '__search',
+        kind: 'pin',
+        lat: searchResult.lat,
+        lng: searchResult.lng,
+        icon: '🔍',
+        color: '#ffb74d',
+        state: 'peak',
+      })
+    }
     return specs
-  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById, isAdmin, lineEdit])
+  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById, isAdmin, lineEdit, searchResult])
 
   const lines = useMemo<LineSpec[]>(() => {
     if (!data) return []
@@ -180,6 +196,7 @@ export default function App() {
 
   // ----- interactions -----
   const handleMarkerClick = (id: string, kind: 'pin' | 'event') => {
+    if (id === '__search') return // the search card is already open
     if (expDraft && kind === 'pin') {
       setExpDraft((d) =>
         d ? { ...d, experience: { ...d.experience, steps: [...d.experience.steps, { pinId: id }] } } : d,
@@ -210,6 +227,7 @@ export default function App() {
       return
     }
     setSelected(null)
+    setSearchResult(null)
   }
 
   const finishLine = () => {
@@ -252,6 +270,48 @@ export default function App() {
     } catch (e) {
       alert(e instanceof Error ? e.message : 'Move failed.')
     }
+  }
+
+  const selectSearchResult = (result: SearchResult) => {
+    setShowSearch(false)
+    setSelected(null)
+    setSearchResult(result)
+    setFocus({ lat: result.lat, lng: result.lng })
+  }
+
+  /** Turn the highlighted search result into a pin, importing OSM hours/website. */
+  const addSearchResultAsPin = async () => {
+    if (!searchResult) return
+    setSearchPinBusy(true)
+    let availability
+    let url
+    try {
+      if (searchResult.osmType && searchResult.osmId) {
+        const details = await fetchOsmDetails(searchResult.osmType, searchResult.osmId)
+        const hours = details.openingHours ? parseOpeningHours(details.openingHours) : undefined
+        if (hours) availability = { hours }
+        url = details.website
+      }
+    } catch {
+      // enrichment is best-effort — the pin still gets name/coords/category
+    } finally {
+      setSearchPinBusy(false)
+    }
+    setPinDraft({
+      pin: {
+        id: '',
+        name: searchResult.name,
+        category: searchResult.category,
+        lat: searchResult.lat,
+        lng: searchResult.lng,
+        description: searchResult.address,
+        url,
+        availability,
+        media: [],
+      },
+      isNew: true,
+    })
+    setSearchResult(null)
   }
 
   const syncGoogleList = async () => {
@@ -459,11 +519,19 @@ export default function App() {
       />
 
       <div className="topbars">
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
           <div className="brand">
             <span className="dot" /> Guía de Felicidad
           </div>
           <TimeScopeBar scope={scope} onChange={setScope} />
+          <button
+            className="search-fab"
+            aria-label="Search places"
+            onClick={() => setShowSearch(true)}
+            style={{ pointerEvents: 'auto' }}
+          >
+            🔍
+          </button>
         </div>
         <FilterBar categories={data.categories} active={activeCats} onChange={setActiveCats} />
         {isAdmin && !expDraft && !drawingLine && !lineEdit && (
@@ -551,6 +619,39 @@ export default function App() {
 
       {data.eventsUpdatedAt && !activeExp && (
         <div className="updated-note">events updated {new Date(data.eventsUpdatedAt).toLocaleDateString()}</div>
+      )}
+
+      {showSearch && (
+        <SearchBar categories={catsById} onSelect={selectSearchResult} onClose={() => setShowSearch(false)} />
+      )}
+
+      {searchResult && !selectedItem && !pinDraft && !showSearch && (
+        <div className="sheet" role="dialog" aria-label={searchResult.name}>
+          <div className="grab" />
+          <button className="close" onClick={() => setSearchResult(null)} aria-label="Close">
+            ✕
+          </button>
+          <h2>
+            <span>{catsById.get(searchResult.category)?.icon ?? '📍'}</span> {searchResult.name}
+          </h2>
+          {searchResult.address && <p className="desc">{searchResult.address}</p>}
+          <p className="hint">Search result from OpenStreetMap — not on the map yet.</p>
+          <div className="actions">
+            <a
+              className="btn primary"
+              href={`https://www.google.com/maps/dir/?api=1&destination=${searchResult.lat},${searchResult.lng}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              🧭 Directions
+            </a>
+            {isAdmin && (
+              <button className="btn" disabled={searchPinBusy} onClick={addSearchResultAsPin}>
+                {searchPinBusy ? 'Fetching hours…' : '➕ Add as pin'}
+              </button>
+            )}
+          </div>
+        </div>
       )}
 
       {selectedItem && !expDraft && (
