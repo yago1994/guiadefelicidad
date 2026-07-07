@@ -417,5 +417,22 @@
         }
       ]
     }
+  },
+  {
+    "id": "delbar",
+    "name": "Delbar",
+    "category": "food",
+    "lat": 33.76142605383639,
+    "lng": -84.36040278748874,
+    "media": [],
+    "description": "Another Persian gem of the city, the food is incredible, always always go for the Kashk Bademjoon and then get a rice or something like that, never fails, though it's ALWAYS busy, best is to go when it's raining or a bad day because it'll be more empty.",
+    "availability": {
+      "peakHours": [
+        {
+          "from": "21:00",
+          "to": "22:00"
+        }
+      ]
+    }
   }
 ]
