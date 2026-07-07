@@ -331,5 +331,22 @@
       ]
     ],
     "media": []
+  },
+  {
+    "id": "pollo-primo",
+    "name": "Pollo Primo",
+    "category": "food",
+    "lat": 33.7327769312802,
+    "lng": -84.3489432976344,
+    "media": [],
+    "description": "This is hands-down the best roasted chicken in the city, maybe the entire US. You have to go at happy hour and get the meal",
+    "availability": {
+      "hours": [
+        {
+          "open": "12:00",
+          "close": "16:30"
+        }
+      ]
+    }
   }
 ]
