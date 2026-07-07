@@ -383,5 +383,22 @@
         }
       ]
     }
+  },
+  {
+    "id": "trader-joes",
+    "name": "Trader Joes",
+    "category": "market",
+    "lat": 33.77979079583531,
+    "lng": -84.36787927593555,
+    "media": [],
+    "description": "Life is excellent when you have a Trader Joes nearby. Perfect for running down to grab a couple things to eat dinner, live life simply",
+    "availability": {
+      "hours": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ]
+    }
   }
 ]
