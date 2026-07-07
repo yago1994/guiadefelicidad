@@ -463,5 +463,15 @@
     "lng": -84.40563479288137,
     "media": [],
     "description": "Greeeaaaattt Pizza in the city, it's a bit on the pricier side, but if you want good pizza, this is the place to go"
+  },
+  {
+    "id": "the-goat-farm",
+    "name": "The Goat Farm",
+    "category": "art",
+    "lat": 33.785974513235445,
+    "lng": -84.4167698115391,
+    "media": [],
+    "description": "This is one of the first places I ever saw when I came to Atlanta and I fell in love with it, a old decrepit steel industrial zone, resembled the feel from the movie the Time Machine when they are moving through ages. Now it's an upbeat art district with a lot of exhibitions and studios for local artists, they always have events, keep an eye for whatever is coming up.",
+    "url": "https://www.thegoatfarm.info/"
   }
 ]
