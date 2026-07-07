@@ -1,0 +1,41 @@
+name: Sync Google Maps list
+
+on:
+  workflow_dispatch:
+    inputs:
+      list_url:
+        description: 'Shared list link (maps.app.goo.gl/…). Falls back to the GOOGLE_LIST_URL repo variable.'
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-google-list
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/sync-google-list.mjs
+        env:
+          GOOGLE_LIST_URL: ${{ inputs.list_url || vars.GOOGLE_LIST_URL }}
+      - name: Commit imported pins
+        run: |
+          git config user.name "google-list-bot"
+          git config user.email "actions@github.com"
+          git add public/data/pins.json
+          if git diff --cached --quiet; then
+            echo "List unchanged."
+          else
+            git commit -m "Sync pins from Google Maps list"
+            git push
+          fi

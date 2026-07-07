@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import MapView, { type MarkerSpec, type PathSpec } from './components/MapView'
+import MapView, { type LineSpec, type MarkerSpec, type PathSpec } from './components/MapView'
 import TimeScopeBar from './components/TimeScopeBar'
 import FilterBar from './components/FilterBar'
 import DetailSheet from './components/DetailSheet'
@@ -11,7 +11,7 @@ import ExperienceBuilder from './components/admin/ExperienceBuilder'
 import { loadAppData } from './lib/data'
 import { now } from './lib/clock'
 import { eventState, pinState } from './lib/visibility'
-import { getToken, setToken, updateJsonFile, uploadMediaFile } from './lib/github'
+import { dispatchWorkflow, getToken, setToken, updateJsonFile, uploadMediaFile } from './lib/github'
 import { slugify } from './lib/slug'
 import type { AppData, Category, Experience, MediaItem, Pin, TimeScope } from './lib/types'
 
@@ -50,6 +50,8 @@ export default function App() {
   const isAdminRoute = useHashRoute().startsWith('#/admin')
   const [token, setTokenState] = useState<string | null>(() => getToken())
   const [placingPin, setPlacingPin] = useState(false)
+  const [drawingLine, setDrawingLine] = useState<[number, number][] | null>(null)
+  const [syncing, setSyncing] = useState(false)
   const [pinDraft, setPinDraft] = useState<{ pin: Pin; isNew: boolean } | null>(null)
   const [showCats, setShowCats] = useState(false)
   const [expDraft, setExpDraft] = useState<ExpDraft | null>(null)
@@ -114,6 +116,8 @@ export default function App() {
         color: cat?.color ?? '#607d8b',
         state,
         selected: selected?.kind === 'pin' && selected.id === pin.id,
+        // line anchors follow their line — reposition those by redrawing
+        draggable: isAdmin && !pin.line,
       })
     }
     for (const ev of data.events) {
@@ -133,7 +137,30 @@ export default function App() {
       })
     }
     return specs
-  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById])
+  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById, isAdmin])
+
+  const lines = useMemo<LineSpec[]>(() => {
+    if (!data) return []
+    const specs: LineSpec[] = []
+    if (!activeExp) {
+      for (const pin of data.pins) {
+        if (!pin.line || pin.line.length < 2) continue
+        if (activeCats && !activeCats.has(pin.category)) continue
+        const st = pinState(pin, at, scope)
+        if (st === 'hidden') continue
+        let state: LineSpec['state'] = st
+        if (scope === 'all') {
+          const nowState = pinState(pin, at, 'now')
+          state = nowState === 'hidden' ? 'dimmed' : nowState
+        }
+        specs.push({ id: pin.id, coords: pin.line, color: catsById.get(pin.category)?.color ?? '#607d8b', state })
+      }
+    }
+    if (drawingLine) {
+      specs.push({ id: '__draft', coords: drawingLine, color: '#ffb74d', state: 'peak' })
+    }
+    return specs
+  }, [data, at, scope, activeCats, activeExp, catsById, drawingLine])
 
   const path = useMemo<PathSpec | null>(() => {
     const exp = activeExp ?? (expDraft ? expDraft.experience : null)
@@ -159,6 +186,10 @@ export default function App() {
   }
 
   const handleMapClick = (lngLat: { lat: number; lng: number }) => {
+    if (drawingLine) {
+      setDrawingLine([...drawingLine, [lngLat.lng, lngLat.lat]])
+      return
+    }
     if (placingPin) {
       setPlacingPin(false)
       setPinDraft({
@@ -168,6 +199,57 @@ export default function App() {
       return
     }
     setSelected(null)
+  }
+
+  const finishLine = () => {
+    if (!drawingLine || drawingLine.length < 2) return
+    const mid = drawingLine[Math.floor(drawingLine.length / 2)]
+    setPinDraft({
+      pin: { id: '', name: '', category: '', lat: mid[1], lng: mid[0], line: drawingLine, media: [] },
+      isNew: true,
+    })
+    setDrawingLine(null)
+  }
+
+  const handleMarkerMoved = async (id: string, lngLat: { lat: number; lng: number }) => {
+    const pin = pinsById.get(id)
+    if (!pin || !isAdmin) return
+    if (!confirm(`Move "${pin.name}" to the new spot?`)) return
+    try {
+      const pins = await updateJsonFile<Pin[]>(
+        requireToken(),
+        PINS_PATH,
+        (cur) => (cur ?? data?.pins ?? []).map((p) => (p.id === id ? { ...p, lat: lngLat.lat, lng: lngLat.lng } : p)),
+        `Move pin: ${pin.name}`,
+      )
+      setData((d) => (d ? { ...d, pins } : d))
+    } catch (e) {
+      alert(e instanceof Error ? e.message : 'Move failed.')
+    }
+  }
+
+  const syncGoogleList = async () => {
+    let listUrl = localStorage.getItem('gdf-google-list-url') ?? ''
+    const entered = prompt(
+      'Google Maps list share link (maps.app.goo.gl/…).\nLeave as-is to reuse, or paste a new one:',
+      listUrl,
+    )
+    if (entered === null) return
+    listUrl = entered.trim()
+    if (!listUrl) return
+    localStorage.setItem('gdf-google-list-url', listUrl)
+    setSyncing(true)
+    try {
+      await dispatchWorkflow(requireToken(), 'sync-google-list.yml', { list_url: listUrl })
+      alert('Sync started! The workflow scrapes your list and commits new pins — they appear on the site in ~3 minutes.')
+    } catch (e) {
+      alert(
+        (e instanceof Error ? e.message : 'Sync failed.') +
+          '\n\nNote: your token needs "Actions: read & write" permission to trigger the sync.',
+      )
+    } finally {
+      setSyncing(false)
+    }
   }
 
   const stepTo = (n: number) => {
@@ -338,7 +420,15 @@ export default function App() {
 
   return (
     <div className="app">
-      <MapView markers={markers} path={path} focus={focus} onMarkerClick={handleMarkerClick} onMapClick={handleMapClick} />
+      <MapView
+        markers={markers}
+        lines={lines}
+        path={path}
+        focus={focus}
+        onMarkerClick={handleMarkerClick}
+        onMarkerMoved={handleMarkerMoved}
+        onMapClick={handleMapClick}
+      />
 
       <div className="topbars">
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -348,10 +438,22 @@ export default function App() {
           <TimeScopeBar scope={scope} onChange={setScope} />
         </div>
         <FilterBar categories={data.categories} active={activeCats} onChange={setActiveCats} />
-        {isAdmin && !expDraft && (
+        {isAdmin && !expDraft && !drawingLine && (
           <div className="admin-bar">
             <button className="btn" onClick={() => setPlacingPin((v) => !v)}>
               {placingPin ? '✕ Cancel placing' : '📍 Add pin'}
+            </button>
+            <button
+              className="btn"
+              onClick={() => {
+                setPlacingPin(false)
+                setDrawingLine([])
+              }}
+            >
+              〰️ Draw line pin
+            </button>
+            <button className="btn" disabled={syncing} onClick={syncGoogleList}>
+              {syncing ? '⏳ Starting…' : '⟳ Sync Google list'}
             </button>
             <button className="btn" onClick={() => setShowCats(true)}>
               🏷️ Categories
@@ -381,6 +483,22 @@ export default function App() {
           </div>
         )}
         {placingPin && <div className="admin-banner">Tap the map where the pin should go</div>}
+        {drawingLine && (
+          <div className="admin-banner" style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            Tap along the route ({drawingLine.length} points)
+            <button
+              className="btn"
+              style={{ minHeight: 30, padding: '4px 12px' }}
+              disabled={drawingLine.length < 2}
+              onClick={finishLine}
+            >
+              ✓ Finish
+            </button>
+            <button className="btn" style={{ minHeight: 30, padding: '4px 12px' }} onClick={() => setDrawingLine(null)}>
+              ✕
+            </button>
+          </div>
+        )}
         {expDraft && <div className="admin-banner">Building “{expDraft.experience.name || 'experience'}” — tap pins to add stops</div>}
       </div>
 

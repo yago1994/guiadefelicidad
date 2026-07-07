@@ -11,36 +11,67 @@ export interface MarkerSpec {
   state: 'visible' | 'peak' | 'dimmed'
   stepNumber?: number
   selected?: boolean
+  draggable?: boolean
+}
+
+export interface LineSpec {
+  id: string
+  coords: [number, number][] // [lng, lat]
+  color: string
+  state: 'visible' | 'peak' | 'dimmed'
 }
 
 export interface PathSpec {
-  coords: [number, number][] // [lng, lat]
+  coords: [number, number][]
   color: string
 }
 
 interface Props {
   markers: MarkerSpec[]
+  lines: LineSpec[]
   path: PathSpec | null
   focus: { lat: number; lng: number } | null
   onMarkerClick: (id: string, kind: 'pin' | 'event') => void
+  onMarkerMoved: (id: string, lngLat: { lat: number; lng: number }) => void
   onMapClick: (lngLat: { lat: number; lng: number }) => void
 }
 
 const ATLANTA: [number, number] = [-84.372, 33.765]
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty'
+const LINE_LAYER = 'pin-lines-line'
+const LINE_GLOW_LAYER = 'pin-lines-glow'
 
 function signature(s: MarkerSpec): string {
-  return [s.lat, s.lng, s.icon, s.color, s.state, s.stepNumber ?? '', s.selected ? 1 : 0].join('|')
+  return [s.lat, s.lng, s.icon, s.color, s.state, s.stepNumber ?? '', s.selected ? 1 : 0, s.draggable ? 1 : 0].join('|')
 }
 
-export default function MapView({ markers, path, focus, onMarkerClick, onMapClick }: Props) {
+function linesToGeoJSON(lines: LineSpec[]): GeoJSON.FeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: lines
+      .filter((l) => l.coords.length > 1)
+      .map((l) => ({
+        type: 'Feature',
+        properties: {
+          id: l.id,
+          color: l.color,
+          width: l.state === 'peak' ? 7 : 4.5,
+          opacity: l.state === 'dimmed' ? 0.3 : 0.85,
+          glow: l.state === 'peak' ? 0.35 : 0,
+        },
+        geometry: { type: 'LineString', coordinates: l.coords },
+      })),
+  }
+}
+
+export default function MapView({ markers, lines, path, focus, onMarkerClick, onMarkerMoved, onMapClick }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<maplibregl.Map | null>(null)
   const loadedRef = useRef(false)
   const markerObjs = useRef<Map<string, { marker: maplibregl.Marker; sig: string }>>(new Map())
   // keep latest handlers without re-binding map listeners
-  const handlers = useRef({ onMarkerClick, onMapClick })
-  handlers.current = { onMarkerClick, onMapClick }
+  const handlers = useRef({ onMarkerClick, onMapClick, onMarkerMoved })
+  handlers.current = { onMarkerClick, onMapClick, onMarkerMoved }
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return
@@ -52,15 +83,51 @@ export default function MapView({ markers, path, focus, onMarkerClick, onMapClic
       attributionControl: { compact: true },
     })
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right')
-    map.addControl(
-      new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true }),
-      'bottom-right',
-    )
-    map.on('click', (e) => handlers.current.onMapClick({ lat: e.lngLat.lat, lng: e.lngLat.lng }))
+    const geolocate = new maplibregl.GeolocateControl({
+      positionOptions: { enableHighAccuracy: true },
+      trackUserLocation: true,
+      showUserLocation: true,
+    })
+    map.addControl(geolocate, 'bottom-right')
+    map.on('click', (e) => {
+      // a tap on a line pin counts as a marker click, not a map click
+      if (map.getLayer(LINE_LAYER)) {
+        const feats = map.queryRenderedFeatures(e.point, { layers: [LINE_LAYER] })
+        const id = feats[0]?.properties?.id
+        if (typeof id === 'string' && !id.startsWith('__')) {
+          handlers.current.onMarkerClick(id, 'pin')
+          return
+        }
+      }
+      handlers.current.onMapClick({ lat: e.lngLat.lat, lng: e.lngLat.lng })
+    })
     // 'style.load' fires as soon as the style JSON is ready — 'load' can be
     // delayed indefinitely by slow tile fetches, and layers don't need tiles.
     map.on('style.load', () => {
       loadedRef.current = true
+      map.addSource('pin-lines', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+      map.addLayer({
+        id: LINE_GLOW_LAYER,
+        type: 'line',
+        source: 'pin-lines',
+        layout: { 'line-cap': 'round', 'line-join': 'round' },
+        paint: {
+          'line-color': ['get', 'color'],
+          'line-width': 16,
+          'line-opacity': ['get', 'glow'],
+        },
+      })
+      map.addLayer({
+        id: LINE_LAYER,
+        type: 'line',
+        source: 'pin-lines',
+        layout: { 'line-cap': 'round', 'line-join': 'round' },
+        paint: {
+          'line-color': ['get', 'color'],
+          'line-width': ['get', 'width'],
+          'line-opacity': ['get', 'opacity'],
+        },
+      })
       map.addSource('experience-path', {
         type: 'geojson',
         data: { type: 'FeatureCollection', features: [] },
@@ -77,6 +144,14 @@ export default function MapView({ markers, path, focus, onMarkerClick, onMapClic
           'line-dasharray': [0.2, 2],
         },
       })
+    })
+    // show the user's live location without requiring a tap on the control
+    map.once('idle', () => {
+      try {
+        geolocate.trigger()
+      } catch {
+        // geolocation unavailable (permissions / insecure context) — control stays usable
+      }
     })
     if (import.meta.env.DEV) {
       ;(window as unknown as { __map: maplibregl.Map }).__map = map
@@ -131,7 +206,18 @@ export default function MapView({ markers, path, focus, onMarkerClick, onMapClic
         e.stopPropagation()
         handlers.current.onMarkerClick(spec.id, spec.kind)
       })
-      const marker = new maplibregl.Marker({ element: el }).setLngLat([spec.lng, spec.lat]).addTo(map)
+      const marker = new maplibregl.Marker({ element: el, draggable: spec.draggable })
+        .setLngLat([spec.lng, spec.lat])
+        .addTo(map)
+      if (spec.draggable) {
+        marker.on('dragend', () => {
+          const pos = marker.getLngLat()
+          // snap back — the pin only actually moves once the save lands and
+          // the updated spec recreates the marker at its new home
+          marker.setLngLat([spec.lng, spec.lat])
+          handlers.current.onMarkerMoved(spec.id, { lat: pos.lat, lng: pos.lng })
+        })
+      }
       markerObjs.current.set(spec.id, { marker, sig })
     }
     for (const [id, obj] of markerObjs.current) {
@@ -141,6 +227,18 @@ export default function MapView({ markers, path, focus, onMarkerClick, onMapClic
       }
     }
   }, [markers])
+
+  // line pins
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    const apply = () => {
+      const src = map.getSource('pin-lines') as maplibregl.GeoJSONSource | undefined
+      src?.setData(linesToGeoJSON(lines))
+    }
+    if (loadedRef.current) apply()
+    else map.once('style.load', apply)
+  }, [lines])
 
   // experience path line
   useEffect(() => {

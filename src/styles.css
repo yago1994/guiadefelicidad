@@ -4,11 +4,28 @@
   --panel-2: #262a3a;
   --text: #f2f3f7;
   --muted: #9aa0b4;
+  --border: #3a3f55;
   --accent: #ffb74d;
-  --danger: #ff5e78;
+  --danger: #e6304f;
   --radius: 14px;
   --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: dark;
+}
+
+/* Cards & panels use an off-white theme — the scoped variables restyle
+   everything inside (buttons, inputs, chips) without separate rules. */
+.sheet,
+.panel,
+.modal,
+.follow-bar {
+  --panel: #fffff2;
+  --panel-2: #eceadb;
+  --text: #24262e;
+  --muted: #6d7080;
+  --border: #d6d4c2;
+  color-scheme: light;
+  color: var(--text);
 }
 
 * {
@@ -55,7 +72,7 @@ textarea {
   font: inherit;
   color: var(--text);
   background: var(--panel-2);
-  border: 1px solid #3a3f55;
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 8px 10px;
   width: 100%;
@@ -64,7 +81,6 @@ textarea {
 input[type='time'],
 input[type='date'] {
   width: auto;
-  color-scheme: dark;
 }
 
 /* ---------- top bars ---------- */
@@ -296,7 +312,7 @@ input[type='date'] {
   width: 40px;
   height: 4px;
   border-radius: 2px;
-  background: #3a3f55;
+  background: var(--border);
   margin: 0 auto 12px;
 }
 

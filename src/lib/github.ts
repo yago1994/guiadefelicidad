@@ -111,6 +111,24 @@ export async function updateJsonFile<T>(
   return next
 }
 
+/** Trigger a workflow_dispatch run (requires a token with Actions: write). */
+export async function dispatchWorkflow(
+  token: string,
+  workflowFile: string,
+  inputs: Record<string, string> = {},
+): Promise<void> {
+  const { owner, repo } = repoInfo()
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflowFile}/dispatches`, {
+    method: 'POST',
+    headers: { ...headers(token), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ref: 'main', inputs }),
+  })
+  if (!res.ok) {
+    const body = await res.text()
+    throw new Error(`Could not start the workflow (${res.status}): ${body.slice(0, 160)}`)
+  }
+}
+
 export const MAX_MEDIA_BYTES = 25 * 1024 * 1024
 
 export async function uploadMediaFile(

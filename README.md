@@ -13,17 +13,22 @@ A living map of Atlanta where pins appear **contextually** — only what's open,
 - **Time scopes** — Now / Today / This week / All. "Now" honors seasons (months), weekdays, opening hours, and date windows; **peak hours** make a marker glow. "All" shows everything, dimming what's closed right now.
 - **Experiences** — ordered pin chains ("coffee → Beltline → jasmine wall") drawn as a dashed path with a step-by-step follow mode and Google Maps directions per stop.
 - **Media** — pins can carry short videos, images, and voice notes (recorded right in the browser), stored in `public/media/`.
+- **Line pins** — a pin can be a whole walkable stretch (like the Beltline Eastside Trail): it draws as a colored line that follows the same visibility rules and glows at peak hours.
+- **Google Maps list sync** — import places from a shared Google Maps list (`maps.app.goo.gl/…`). The [sync workflow](.github/workflows/sync-google-list.yml) drives headless Chromium to read the list (no official API exists), then merges places into `pins.json` as `gmap-*` pins — your edits to category, hours, and media on imported pins survive re-syncs, and nothing is ever deleted. Trigger it from admin mode (⟳ Sync Google list) or from the Actions tab.
 
 ## Admin mode
 
-Open `/#/admin` on the site and paste a **fine-grained GitHub personal access token** with *Contents: read & write* on this repo only ([create one here](https://github.com/settings/personal-access-tokens/new)). The token lives only in your browser's localStorage.
+Open `/#/admin` on the site and paste a **fine-grained GitHub personal access token** scoped to this repo only, with *Contents: read & write* — plus *Actions: read & write* if you want the ⟳ Sync Google list button ([create one here](https://github.com/settings/personal-access-tokens/new)). The token lives only in your browser's localStorage.
 
 Every save is a commit to `main`, which redeploys the site (~2 min):
 
 - **📍 Add pin** — tap the map, fill the form (category, description, seasonality, hours, peak hours, date windows).
 - **✏️ Edit pin** — open a pin → *Edit pin*. Upload video/audio/images (≤ 25 MB) or record a voice note. Media shows on the live site after the deploy.
+- **↔️ Move a pin** — just drag its marker; confirm and it commits.
+- **〰️ Draw line pin** — tap along a route, *Finish*, then fill the pin form.
 - **🏷️ Categories** — add/edit categories (emoji icon + color).
 - **✨ New experience** — tap pins in order, annotate stops, save.
+- **⟳ Sync Google list** — paste your shared list link once; each press re-imports the list via GitHub Actions.
 
 ## Development
 

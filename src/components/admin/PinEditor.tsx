@@ -112,7 +112,9 @@ export default function PinEditor({
         </div>
 
         <p className="hint">
-          📍 {pin.lat.toFixed(5)}, {pin.lng.toFixed(5)}
+          {pin.line
+            ? `〰️ Line pin with ${pin.line.length} points (to reshape it, delete and redraw)`
+            : `📍 ${pin.lat.toFixed(5)}, ${pin.lng.toFixed(5)} — drag the marker on the map to move it`}
         </p>
 
         <AvailabilityEditor value={availability} onChange={setAvailability} />

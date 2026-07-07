@@ -39,12 +39,17 @@ export interface Pin {
   id: string
   name: string
   category: string
+  /** Anchor point — for line pins, a representative point on the line. */
   lat: number
   lng: number
   description?: string
   url?: string
   availability?: Availability
   media?: MediaItem[]
+  /** When set, the pin is a walkable stretch drawn as a line ([lng, lat] pairs). */
+  line?: [number, number][]
+  /** Pins imported from the Google Maps list sync. */
+  origin?: 'google'
 }
 
 export interface Category {
