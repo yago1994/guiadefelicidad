@@ -43,7 +43,7 @@ export async function fetchEvents() {
   const byUrl = new Map()
   for (const page of PAGES) {
     try {
-      const $ = await fetchHtml(page.url)
+      const $ = await fetchHtml(page.url, { browserHeaders: true })
       for (const node of itemListEvents($)) {
         const ev = { ...fromJsonLd(node, 'eventbrite'), categoryHint: page.hint }
         if (ev.url && !byUrl.has(ev.url)) byUrl.set(ev.url, ev)
@@ -58,7 +58,7 @@ export async function fetchEvents() {
   const needTimes = [...byUrl.values()].filter((e) => e.start && e.start.length <= 10).slice(0, MAX_DETAIL_LOOKUPS)
   for (const ev of needTimes) {
     try {
-      const $ = await fetchHtml(ev.url)
+      const $ = await fetchHtml(ev.url, { browserHeaders: true })
       const detail = extractJsonLdEvents($).map((n) => fromJsonLd(n, 'eventbrite'))[0]
       if (detail?.start) {
         ev.start = detail.start

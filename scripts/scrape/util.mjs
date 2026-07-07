@@ -7,15 +7,28 @@ export function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms))
 }
 
-export async function fetchHtml(url, { bustCache = false } = {}) {
+const BROWSER_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+
+export async function fetchHtml(url, { bustCache = false, browserHeaders = false } = {}) {
   const target = bustCache ? `${url}${url.includes('?') ? '&' : '?'}_=${Date.now()}` : url
   const res = await fetch(target, {
-    headers: {
-      'User-Agent': USER_AGENT,
-      Accept: 'text/html,application/xhtml+xml',
-      'Cache-Control': 'no-cache',
-      Pragma: 'no-cache',
-    },
+    headers: browserHeaders
+      ? {
+          'User-Agent': BROWSER_UA,
+          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Sec-Fetch-Dest': 'document',
+          'Sec-Fetch-Mode': 'navigate',
+          'Sec-Fetch-Site': 'none',
+          'Upgrade-Insecure-Requests': '1',
+        }
+      : {
+          'User-Agent': USER_AGENT,
+          Accept: 'text/html,application/xhtml+xml',
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
     redirect: 'follow',
     signal: AbortSignal.timeout(30_000),
   })
