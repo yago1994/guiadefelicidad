@@ -454,5 +454,14 @@
         }
       ]
     }
+  },
+  {
+    "id": "antico-s-pizza",
+    "name": "Antico's Pizza",
+    "category": "food",
+    "lat": 33.78465068339662,
+    "lng": -84.40563479288137,
+    "media": [],
+    "description": "Greeeaaaattt Pizza in the city, it's a bit on the pricier side, but if you want good pizza, this is the place to go"
   }
 ]
