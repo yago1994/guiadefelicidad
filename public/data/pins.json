@@ -473,5 +473,28 @@
     "media": [],
     "description": "This is one of the first places I ever saw when I came to Atlanta and I fell in love with it, a old decrepit steel industrial zone, resembled the feel from the movie the Time Machine when they are moving through ages. Now it's an upbeat art district with a lot of exhibitions and studios for local artists, they always have events, keep an eye for whatever is coming up.",
     "url": "https://www.thegoatfarm.info/"
+  },
+  {
+    "id": "bomb-biscuit",
+    "name": "Bomb Biscuit",
+    "category": "food",
+    "lat": 33.74608171579631,
+    "lng": -84.37045469778622,
+    "media": [],
+    "description": "A new find, and quickly skyrocketed to a frequent stop on a Saturday/Sunday morning, the chicken biscuits are... oh.. heavenly, the kind of food that you get a crave and you can't stop until you've had it. A MUST GET. \n\nGo early before brunch time.",
+    "availability": {
+      "hours": [
+        {
+          "open": "09:00",
+          "close": "14:00"
+        }
+      ],
+      "peakHours": [
+        {
+          "from": "09:00",
+          "to": "11:00"
+        }
+      ]
+    }
   }
 ]
