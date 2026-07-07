@@ -169,5 +169,31 @@
       ]
     },
     "media": []
+  },
+  {
+    "id": "freedom-park",
+    "name": "Freedom Park",
+    "category": "park",
+    "lat": 33.77009010637745,
+    "lng": -84.34696920914303,
+    "media": [],
+    "description": "Love this park! It's empty and feels like you aren't even in a city, perfect spot for a picnic, relaxing from the crowds",
+    "availability": {
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "peakHours": [
+        {
+          "from": "17:00",
+          "to": "20:00"
+        }
+      ]
+    }
   }
 ]
