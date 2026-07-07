@@ -13,6 +13,8 @@ interface Props {
   onDelete?: (pin: Pin) => Promise<void>
   onUploadMedia?: (pin: Pin, blob: Blob, filename: string, type: MediaItem['type']) => Promise<Pin>
   onRemoveMedia?: (pin: Pin, index: number) => Promise<Pin>
+  /** Switch to on-map line reshaping; receives the current form state. */
+  onReshape?: (current: Pin) => void
   onCancel: () => void
 }
 
@@ -36,6 +38,7 @@ export default function PinEditor({
   onDelete,
   onUploadMedia,
   onRemoveMedia,
+  onReshape,
   onCancel,
 }: Props) {
   const [pin, setPin] = useState<Pin>({ ...draft })
@@ -111,11 +114,25 @@ export default function PinEditor({
           <input id="pin-url" value={pin.url ?? ''} onChange={(e) => set({ url: e.target.value })} placeholder="https://…" />
         </div>
 
-        <p className="hint">
-          {pin.line
-            ? `〰️ Line pin with ${pin.line.length} points (to reshape it, delete and redraw)`
-            : `📍 ${pin.lat.toFixed(5)}, ${pin.lng.toFixed(5)} — drag the marker on the map to move it`}
-        </p>
+        {pin.line ? (
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
+            <span className="hint">〰️ Line pin with {pin.line.length} points</span>
+            {onReshape && (
+              <button
+                type="button"
+                className="btn"
+                style={{ minHeight: 34, padding: '6px 12px' }}
+                onClick={() => onReshape({ ...pin, availability: cleanAvailability(availability) })}
+              >
+                ✏️ Reshape on map
+              </button>
+            )}
+          </div>
+        ) : (
+          <p className="hint">
+            📍 {pin.lat.toFixed(5)}, {pin.lng.toFixed(5)} — drag the marker on the map to move it
+          </p>
+        )}
 
         <AvailabilityEditor value={availability} onChange={setAvailability} />
 

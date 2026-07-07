@@ -51,6 +51,7 @@ export default function App() {
   const [token, setTokenState] = useState<string | null>(() => getToken())
   const [placingPin, setPlacingPin] = useState(false)
   const [drawingLine, setDrawingLine] = useState<[number, number][] | null>(null)
+  const [lineEdit, setLineEdit] = useState<{ coords: [number, number][]; draft: Pin; isNew: boolean } | null>(null)
   const [syncing, setSyncing] = useState(false)
   const [pinDraft, setPinDraft] = useState<{ pin: Pin; isNew: boolean } | null>(null)
   const [showCats, setShowCats] = useState(false)
@@ -98,6 +99,7 @@ export default function App() {
 
     const specs: MarkerSpec[] = []
     for (const pin of data.pins) {
+      if (lineEdit && pin.id === lineEdit.draft.id) continue // being reshaped — handles replace it
       if (activeCats && !activeCats.has(pin.category)) continue
       const st = pinState(pin, at, scope)
       if (st === 'hidden') continue
@@ -137,7 +139,7 @@ export default function App() {
       })
     }
     return specs
-  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById, isAdmin])
+  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById, isAdmin, lineEdit])
 
   const lines = useMemo<LineSpec[]>(() => {
     if (!data) return []
@@ -145,6 +147,7 @@ export default function App() {
     if (!activeExp) {
       for (const pin of data.pins) {
         if (!pin.line || pin.line.length < 2) continue
+        if (lineEdit && pin.id === lineEdit.draft.id) continue // shown as the editable draft instead
         if (activeCats && !activeCats.has(pin.category)) continue
         const st = pinState(pin, at, scope)
         if (st === 'hidden') continue
@@ -159,8 +162,11 @@ export default function App() {
     if (drawingLine) {
       specs.push({ id: '__draft', coords: drawingLine, color: '#ffb74d', state: 'peak' })
     }
+    if (lineEdit) {
+      specs.push({ id: '__edit', coords: lineEdit.coords, color: '#ffb74d', state: 'peak' })
+    }
     return specs
-  }, [data, at, scope, activeCats, activeExp, catsById, drawingLine])
+  }, [data, at, scope, activeCats, activeExp, catsById, drawingLine, lineEdit])
 
   const path = useMemo<PathSpec | null>(() => {
     const exp = activeExp ?? (expDraft ? expDraft.experience : null)
@@ -186,6 +192,11 @@ export default function App() {
   }
 
   const handleMapClick = (lngLat: { lat: number; lng: number }) => {
+    if (lineEdit) {
+      // tapping the map extends the line from its end
+      setLineEdit({ ...lineEdit, coords: [...lineEdit.coords, [lngLat.lng, lngLat.lat]] })
+      return
+    }
     if (drawingLine) {
       setDrawingLine([...drawingLine, [lngLat.lng, lngLat.lat]])
       return
@@ -209,6 +220,21 @@ export default function App() {
       isNew: true,
     })
     setDrawingLine(null)
+  }
+
+  const startReshape = (current: Pin) => {
+    if (!pinDraft || !current.line) return
+    setLineEdit({ coords: current.line, draft: current, isNew: pinDraft.isNew })
+    setPinDraft(null)
+  }
+
+  /** Leave reshape mode, back into the pin editor (keeping form edits). */
+  const finishReshape = (keep: boolean) => {
+    if (!lineEdit) return
+    const coords = keep && lineEdit.coords.length >= 2 ? lineEdit.coords : lineEdit.draft.line!
+    const mid = coords[Math.floor(coords.length / 2)]
+    setPinDraft({ pin: { ...lineEdit.draft, line: coords, lat: mid[1], lng: mid[0] }, isNew: lineEdit.isNew })
+    setLineEdit(null)
   }
 
   const handleMarkerMoved = async (id: string, lngLat: { lat: number; lng: number }) => {
@@ -425,6 +451,8 @@ export default function App() {
         lines={lines}
         path={path}
         focus={focus}
+        editableLine={lineEdit?.coords ?? null}
+        onEditableLineChange={(coords) => setLineEdit((le) => (le ? { ...le, coords } : le))}
         onMarkerClick={handleMarkerClick}
         onMarkerMoved={handleMarkerMoved}
         onMapClick={handleMapClick}
@@ -438,7 +466,7 @@ export default function App() {
           <TimeScopeBar scope={scope} onChange={setScope} />
         </div>
         <FilterBar categories={data.categories} active={activeCats} onChange={setActiveCats} />
-        {isAdmin && !expDraft && !drawingLine && (
+        {isAdmin && !expDraft && !drawingLine && !lineEdit && (
           <div className="admin-bar">
             <button className="btn" onClick={() => setPlacingPin((v) => !v)}>
               {placingPin ? '✕ Cancel placing' : '📍 Add pin'}
@@ -483,6 +511,17 @@ export default function App() {
           </div>
         )}
         {placingPin && <div className="admin-banner">Tap the map where the pin should go</div>}
+        {lineEdit && (
+          <div className="admin-banner" style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            Drag points · tap a point to remove · tap the map to extend ({lineEdit.coords.length} points)
+            <button className="btn" style={{ minHeight: 30, padding: '4px 12px' }} onClick={() => finishReshape(true)}>
+              ✓ Done
+            </button>
+            <button className="btn" style={{ minHeight: 30, padding: '4px 12px' }} onClick={() => finishReshape(false)}>
+              ✕
+            </button>
+          </div>
+        )}
         {drawingLine && (
           <div className="admin-banner" style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
             Tap along the route ({drawingLine.length} points)
@@ -576,6 +615,7 @@ export default function App() {
           onDelete={deletePin}
           onUploadMedia={uploadPinMedia}
           onRemoveMedia={removePinMedia}
+          onReshape={startReshape}
           onCancel={() => setPinDraft(null)}
         />
       )}

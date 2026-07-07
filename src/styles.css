@@ -284,6 +284,23 @@ input[type='date'] {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
+.vertex-handle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #ff9800;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+  cursor: grab;
+}
+
+.vertex-handle.mid {
+  width: 12px;
+  height: 12px;
+  border-width: 2px;
+  opacity: 0.65;
+}
+
 /* ---------- bottom sheet ---------- */
 
 .sheet {

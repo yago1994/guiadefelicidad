@@ -31,6 +31,9 @@ interface Props {
   lines: LineSpec[]
   path: PathSpec | null
   focus: { lat: number; lng: number } | null
+  /** When set, renders draggable vertex handles for reshaping a line. */
+  editableLine: [number, number][] | null
+  onEditableLineChange: (coords: [number, number][]) => void
   onMarkerClick: (id: string, kind: 'pin' | 'event') => void
   onMarkerMoved: (id: string, lngLat: { lat: number; lng: number }) => void
   onMapClick: (lngLat: { lat: number; lng: number }) => void
@@ -64,14 +67,25 @@ function linesToGeoJSON(lines: LineSpec[]): GeoJSON.FeatureCollection {
   }
 }
 
-export default function MapView({ markers, lines, path, focus, onMarkerClick, onMarkerMoved, onMapClick }: Props) {
+export default function MapView({
+  markers,
+  lines,
+  path,
+  focus,
+  editableLine,
+  onEditableLineChange,
+  onMarkerClick,
+  onMarkerMoved,
+  onMapClick,
+}: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<maplibregl.Map | null>(null)
   const loadedRef = useRef(false)
   const markerObjs = useRef<Map<string, { marker: maplibregl.Marker; sig: string }>>(new Map())
+  const editHandles = useRef<maplibregl.Marker[]>([])
   // keep latest handlers without re-binding map listeners
-  const handlers = useRef({ onMarkerClick, onMapClick, onMarkerMoved })
-  handlers.current = { onMarkerClick, onMapClick, onMarkerMoved }
+  const handlers = useRef({ onMarkerClick, onMapClick, onMarkerMoved, onEditableLineChange })
+  handlers.current = { onMarkerClick, onMapClick, onMarkerMoved, onEditableLineChange }
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return
@@ -227,6 +241,57 @@ export default function MapView({ markers, lines, path, focus, onMarkerClick, on
       }
     }
   }, [markers])
+
+  // vertex handles for line reshaping: drag a dot to move it, tap to remove,
+  // drag a small mid-segment handle to insert a point between two others
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    editHandles.current.forEach((m) => m.remove())
+    editHandles.current = []
+    if (!editableLine) return
+    const coords = editableLine
+
+    const addHandle = (pos: [number, number], mid: boolean, onDragEnd: (p: { lng: number; lat: number }) => void, onTap?: () => void) => {
+      const el = document.createElement('div')
+      el.className = `vertex-handle ${mid ? 'mid' : ''}`
+      const marker = new maplibregl.Marker({ element: el, draggable: true }).setLngLat(pos).addTo(map)
+      let dragged = false
+      marker.on('dragstart', () => {
+        dragged = true
+      })
+      marker.on('dragend', () => {
+        const p = marker.getLngLat()
+        onDragEnd({ lng: p.lng, lat: p.lat })
+      })
+      el.addEventListener('click', (e) => {
+        e.stopPropagation()
+        if (dragged) {
+          dragged = false
+          return
+        }
+        onTap?.()
+      })
+      editHandles.current.push(marker)
+    }
+
+    coords.forEach((c, i) => {
+      addHandle(
+        c,
+        false,
+        (p) => handlers.current.onEditableLineChange(coords.map((cc, j) => (j === i ? [p.lng, p.lat] : cc))),
+        () => {
+          if (coords.length > 2) handlers.current.onEditableLineChange(coords.filter((_, j) => j !== i))
+        },
+      )
+    })
+    for (let i = 0; i < coords.length - 1; i++) {
+      const mid: [number, number] = [(coords[i][0] + coords[i + 1][0]) / 2, (coords[i][1] + coords[i + 1][1]) / 2]
+      addHandle(mid, true, (p) =>
+        handlers.current.onEditableLineChange([...coords.slice(0, i + 1), [p.lng, p.lat], ...coords.slice(i + 1)]),
+      )
+    }
+  }, [editableLine])
 
   // line pins
   useEffect(() => {
