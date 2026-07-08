@@ -718,5 +718,205 @@
         10
       ]
     }
+  },
+  {
+    "id": "gmap-joe-s-coffeehouse-eav",
+    "name": "Joe's Coffeehouse EAV",
+    "category": "coffee",
+    "lat": 33.740369699999995,
+    "lng": -84.3454548,
+    "description": "510 Flat Shoals Ave SE, Atlanta, GA 30316",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-gaja-korean-bar",
+    "name": "Gaja Korean Bar",
+    "category": "food",
+    "lat": 33.7405484,
+    "lng": -84.3463317,
+    "description": "491 Flat Shoals Ave SE A, Atlanta, GA 30316",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-ok-yaki",
+    "name": "OK YAKI",
+    "category": "food",
+    "lat": 33.7348145,
+    "lng": -84.3488241,
+    "description": "714 Moreland Ave SE Ste D, Atlanta, GA 30316",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-pollo-primo",
+    "name": "Pollo Primo",
+    "category": "other",
+    "lat": 33.73279,
+    "lng": -84.3489586,
+    "description": "792 Moreland Ave SE, Atlanta, GA 30316",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-bookish-atlanta",
+    "name": "Bookish Atlanta",
+    "category": "market",
+    "lat": 33.7403061,
+    "lng": -84.3486796,
+    "description": "1188 Glenwood Ave SE, Atlanta, GA 30316",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-press-shop",
+    "name": "Press Shop",
+    "category": "other",
+    "lat": 33.7369743,
+    "lng": -84.38517739999999,
+    "description": "72 Georgia Ave SE Ste 300, Atlanta, GA 30312",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-halfway-crooks-beer",
+    "name": "Halfway Crooks Beer",
+    "category": "food",
+    "lat": 33.7369699,
+    "lng": -84.38576379999999,
+    "description": "60 Georgia Ave SE, Atlanta, GA 30312",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-little-tart-bakeshop",
+    "name": "Little Tart Bakeshop",
+    "category": "coffee",
+    "lat": 33.7369522,
+    "lng": -84.38567619999999,
+    "description": "68 Georgia Ave SE, Atlanta, GA 30312",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-west-lake",
+    "name": "West Lake",
+    "category": "other",
+    "lat": 33.75327,
+    "lng": -84.4453,
+    "description": "Atlanta, GA 30318",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-west-end",
+    "name": "West End",
+    "category": "other",
+    "lat": 33.73612,
+    "lng": -84.41364,
+    "description": "680 Lee St SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-west-end-library",
+    "name": "West End Library",
+    "category": "other",
+    "lat": 33.7403112,
+    "lng": -84.4208876,
+    "description": "525 Peeples St SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-firewall",
+    "name": "Firewall",
+    "category": "food",
+    "lat": 33.7436261,
+    "lng": -84.4383819,
+    "description": "1548 Ralph David Abernathy Blvd SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-lionel-hampton-beecher-hills-park",
+    "name": "Lionel Hampton-Beecher Hills Park",
+    "category": "park",
+    "lat": 33.7381606,
+    "lng": -84.4669235,
+    "description": "SW Connector Trail, Atlanta, GA 30311",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-westview-cemetery-inc",
+    "name": "Westview Cemetery Inc.",
+    "category": "other",
+    "lat": 33.7464651,
+    "lng": -84.4421867,
+    "description": "1680 Westview Dr SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-createatl",
+    "name": "CreateATL",
+    "category": "other",
+    "lat": 33.730308199999996,
+    "lng": -84.4140113,
+    "description": "900 Murphy Ave SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-boggs-social-supply",
+    "name": "Boggs Social & Supply",
+    "category": "food",
+    "lat": 33.7373611,
+    "lng": -84.4303736,
+    "description": "1310 White St SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-wild-heaven-beer-west-end-brewery-gardens",
+    "name": "Wild Heaven Beer: West End Brewery & Gardens",
+    "category": "food",
+    "lat": 33.7304904,
+    "lng": -84.4193695,
+    "description": "1010 White St SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-cultured-south-fermentation-co",
+    "name": "Cultured South Fermentation Co.",
+    "category": "coffee",
+    "lat": 33.7317848,
+    "lng": -84.4220886,
+    "description": "1038 White St SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-westview-corner-grocery",
+    "name": "Westview Corner Grocery",
+    "category": "coffee",
+    "lat": 33.7438937,
+    "lng": -84.4385396,
+    "description": "1562 Ralph David Abernathy Blvd SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-el-tesoro-west-end",
+    "name": "El Tesoro West End",
+    "category": "food",
+    "lat": 33.7318686,
+    "lng": -84.4217556,
+    "description": "1036 White St SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
   }
 ]
