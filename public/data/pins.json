@@ -119,8 +119,8 @@
     "id": "jasmine-wall-cabbagetown",
     "name": "Jasmine wall in Cabbagetown",
     "category": "flowers",
-    "lat": 33.7509,
-    "lng": -84.3556,
+    "lat": 33.771719597350625,
+    "lng": -84.37414616200311,
     "description": "A whole wall of confederate jasmine that perfumes the block. Best at dusk when the air is warm.",
     "availability": {
       "months": [
@@ -537,9 +537,24 @@
     "description": "Free neighborhood festival — live music, a tour of historic homes, and the eclectic Inman Park Festival Parade (starts Edgewood & Euclid, Saturday 2pm). Look out for the Krewe of the Grateful Gluttons' Gnome March tradition — pointy red hats mandatory. Runs Friday through Sunday.",
     "url": "https://festival.inmanpark.org/",
     "availability": {
-      "months": [4],
-      "dateRanges": [{ "start": "2026-04-24", "end": "2026-04-26" }],
-      "peakHours": [{ "days": [6], "from": "14:00", "to": "16:00" }]
+      "months": [
+        4
+      ],
+      "dateRanges": [
+        {
+          "start": "2026-04-24",
+          "end": "2026-04-26"
+        }
+      ],
+      "peakHours": [
+        {
+          "days": [
+            6
+          ],
+          "from": "14:00",
+          "to": "16:00"
+        }
+      ]
     }
   },
   {
@@ -552,8 +567,15 @@
     "description": "Free weekend street festival in Candler Park — live music, food, and a beer garden.",
     "url": "https://fallfest.candlerpark.org/",
     "availability": {
-      "months": [10],
-      "dateRanges": [{ "start": "2026-10-03", "end": "2026-10-04" }]
+      "months": [
+        10
+      ],
+      "dateRanges": [
+        {
+          "start": "2026-10-03",
+          "end": "2026-10-04"
+        }
+      ]
     }
   },
   {
@@ -566,9 +588,21 @@
     "description": "Front porches become stages — around 100 local bands play across the neighborhood in one afternoon. Ticketed as of 2026 ($10–20).",
     "url": "https://www.virginiahighlanddistrict.com/porchfest",
     "availability": {
-      "months": [5],
-      "dateRanges": [{ "start": "2026-05-16", "end": "2026-05-16" }],
-      "hours": [{ "open": "11:00", "close": "18:00" }]
+      "months": [
+        5
+      ],
+      "dateRanges": [
+        {
+          "start": "2026-05-16",
+          "end": "2026-05-16"
+        }
+      ],
+      "hours": [
+        {
+          "open": "11:00",
+          "close": "18:00"
+        }
+      ]
     }
   },
   {
@@ -581,10 +615,30 @@
     "description": "Atlanta's weirdest Halloween party — costumes mandatory, everyone welcome. Parade steps off Sunday at 1pm.",
     "url": "https://www.little5pointsofficial.com/halloween",
     "availability": {
-      "months": [10],
-      "dateRanges": [{ "start": "2026-10-17", "end": "2026-10-18" }],
-      "hours": [{ "open": "12:00", "close": "19:00" }],
-      "peakHours": [{ "days": [0], "from": "13:00", "to": "14:30" }]
+      "months": [
+        10
+      ],
+      "dateRanges": [
+        {
+          "start": "2026-10-17",
+          "end": "2026-10-18"
+        }
+      ],
+      "hours": [
+        {
+          "open": "12:00",
+          "close": "19:00"
+        }
+      ],
+      "peakHours": [
+        {
+          "days": [
+            0
+          ],
+          "from": "13:00",
+          "to": "14:30"
+        }
+      ]
     }
   },
   {
@@ -597,8 +651,15 @@
     "description": "Chantelle Rytter and the Krewe of the Grateful Gluttons lead Atlanta's biggest night parade — giant handmade lanterns along the Westside Trail (Adair Park → Lee + White). Moved back to fall for 2026. Exact times TBD — check beltline.org closer to the date.",
     "url": "https://beltline.org/art/lantern-parade/",
     "availability": {
-      "months": [9],
-      "dateRanges": [{ "start": "2026-09-19", "end": "2026-09-19" }]
+      "months": [
+        9
+      ],
+      "dateRanges": [
+        {
+          "start": "2026-09-19",
+          "end": "2026-09-19"
+        }
+      ]
     }
   },
   {
@@ -611,10 +672,27 @@
     "description": "Glowing lanterns, larger-than-life puppets, live music, and food trucks through City Springs. Pre-party from 6pm, parade lines up at 8, steps off 8:30pm.",
     "url": "https://www.sandyspringsga.gov/lanternparade/",
     "availability": {
-      "months": [5],
-      "dateRanges": [{ "start": "2026-05-09", "end": "2026-05-09" }],
-      "hours": [{ "open": "18:00", "close": "21:30" }],
-      "peakHours": [{ "from": "20:00", "to": "21:00" }]
+      "months": [
+        5
+      ],
+      "dateRanges": [
+        {
+          "start": "2026-05-09",
+          "end": "2026-05-09"
+        }
+      ],
+      "hours": [
+        {
+          "open": "18:00",
+          "close": "21:30"
+        }
+      ],
+      "peakHours": [
+        {
+          "from": "20:00",
+          "to": "21:00"
+        }
+      ]
     }
   },
   {
@@ -626,7 +704,11 @@
     "media": [],
     "description": "Mile-long lantern parade through downtown Hapeville, led by the Krewe of Grateful Gluttons — festival at 5pm, parade around 8:10pm. Held in March; 2026 date not yet announced (2025 edition was March 22) — check the City of Hapeville events page.",
     "url": "https://www.weirdgonepro.com/butterfly-parade",
-    "availability": { "months": [3] }
+    "availability": {
+      "months": [
+        3
+      ]
+    }
   },
   {
     "id": "parliament-of-owls",
@@ -637,7 +719,11 @@
     "media": [],
     "description": "A 1.2-mile lantern-parade loop through Midtown starting and ending at Colony Square, with owl-themed puppets by the Krewe of the Grateful Gluttons. Held in August; exact 2026 date varies year to year — check colonysquare.com.",
     "url": "https://colonysquare.com/events/parliament-of-owls-parade/",
-    "availability": { "months": [8] }
+    "availability": {
+      "months": [
+        8
+      ]
+    }
   },
   {
     "id": "weird-things-are-parade",
@@ -648,6 +734,10 @@
     "media": [],
     "description": "Chantelle Rytter's \"upside-down\" parade at the Historic Fourth Ward Park Amphitheater — instead of marching, 40+ life-size puppets stay put and you stroll among them, with live music and shadow puppetry. Usually October; exact 2026 date not yet confirmed — check beltline.org.",
     "url": "https://beltline.org/art/lantern-parade/",
-    "availability": { "months": [10] }
+    "availability": {
+      "months": [
+        10
+      ]
+    }
   }
 ]
