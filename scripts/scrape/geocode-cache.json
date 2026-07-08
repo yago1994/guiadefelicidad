@@ -44,5 +44,38 @@
     "lat": 33.7836216,
     "lng": -84.4120487
   },
-  "the star community bar, atlanta, ga": null
+  "the star community bar, atlanta, ga": null,
+  "aurora theatre, atlanta, ga": null,
+  "the battery atlanta, atlanta, ga": {
+    "lat": 33.8897596,
+    "lng": -84.4685156
+  },
+  "wild aster books, atlanta, ga": null,
+  "wrecking bar brewpub, atlanta, ga": {
+    "lat": 33.762309,
+    "lng": -84.3496422
+  },
+  "eddie's attic, atlanta, ga": null,
+  "tabernacle, atlanta, ga": {
+    "lat": 33.7587133,
+    "lng": -84.3914223
+  },
+  "state farm arena, atlanta, ga": {
+    "lat": 33.7573698,
+    "lng": -84.3963848
+  },
+  "vinyl, atlanta, ga": null,
+  "dad's garage theatre, atlanta, ga": {
+    "lat": 33.7530549,
+    "lng": -84.3686547
+  },
+  "529 bar, atlanta, ga": {
+    "lat": 33.7398862,
+    "lng": -84.3452626
+  },
+  "red light cafe, atlanta, ga": {
+    "lat": 33.7878572,
+    "lng": -84.3688693
+  },
+  "dynamic el dorado, atlanta, ga": null
 }
