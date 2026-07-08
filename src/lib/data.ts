@@ -1,4 +1,4 @@
-import type { AppData, Category, EventsFile, Experience, Pin } from './types'
+import type { AppData, Category, EventsFile, Experience, ExperienceType, Pin } from './types'
 
 const base = import.meta.env.BASE_URL
 
@@ -13,16 +13,18 @@ async function getJson<T>(path: string, fallback: T): Promise<T> {
 }
 
 export async function loadAppData(): Promise<AppData> {
-  const [categories, pins, experiences, eventsFile] = await Promise.all([
+  const [categories, pins, experiences, experienceTypes, eventsFile] = await Promise.all([
     getJson<Category[]>('data/categories.json', []),
     getJson<Pin[]>('data/pins.json', []),
     getJson<Experience[]>('data/experiences.json', []),
+    getJson<ExperienceType[]>('data/experience-types.json', []),
     getJson<EventsFile>('data/events.json', { updatedAt: null, events: [] }),
   ])
   return {
     categories,
     pins,
     experiences,
+    experienceTypes,
     events: eventsFile.events,
     eventsUpdatedAt: eventsFile.updatedAt,
   }

@@ -11,8 +11,9 @@ A living map of Atlanta where pins appear **contextually** — only what's open,
   1. **Curated pins** in [public/data/pins.json](public/data/pins.json), managed from the site itself in admin mode.
   2. **Scraped events** in `public/data/events.json`, refreshed nightly by a GitHub Actions cron ([.github/workflows/scrape-events.yml](.github/workflows/scrape-events.yml)) that sweeps Eventbrite Atlanta listings (incl. a Beltline keyword search) and the Creative Loafing calendar, geocodes via Nominatim (cached), and categorizes by keywords.
 - **Place search** — the 🔍 button searches restaurants, parks, and landmarks around Atlanta via [Photon](https://photon.komoot.io/) on OpenStreetMap data (free, no key). Anyone can search and get directions; in admin mode, *Add as pin* pre-fills the pin editor and imports the place's opening hours and website from OSM when available.
-- **Time scopes** — Now / Today / This week / All. "Now" honors seasons (months), weekdays, opening hours, and date windows; **peak hours** make a marker glow. "All" shows everything, dimming what's closed right now.
-- **Experiences** — ordered pin chains ("coffee → Beltline → jasmine wall") drawn as a dashed path with a step-by-step follow mode and Google Maps directions per stop.
+- **Time scopes** — Now / Today / This week / All. "Now" honors seasons (months), weekdays, opening hours, date windows, and recurring patterns; **peak hours** make a marker glow. "All" shows everything, dimming what's closed right now.
+- **Recurring patterns** — a pin can exist on an "Nth weekday of the month" schedule (e.g. Critical Mass = last Friday of every month). Combine with "months" for a once-a-year event (e.g. Chomp and Stomp = 1st Saturday of November) — see `Availability.recurrence` in [types.ts](src/lib/types.ts).
+- **Experiences** — ordered pin chains ("coffee → Beltline → jasmine wall") drawn as a dashed path with a step-by-step follow mode and Google Maps directions per stop. Each experience has a **type** (Signature route, Food crawl, Nature & outdoors, Date night, Nightlife…) that sets its path/marker color — manage types from admin mode (🎭 Experience types).
 - **Media** — pins can carry short videos, images, and voice notes (recorded right in the browser), stored in `public/media/`.
 - **Line pins** — a pin can be a whole walkable stretch (like the Beltline Eastside Trail): it draws as a colored line that follows the same visibility rules and glows at peak hours.
 - **Google Maps list sync** — import places from a shared Google Maps list (`maps.app.goo.gl/…`). The [sync workflow](.github/workflows/sync-google-list.yml) drives headless Chromium to read the list (no official API exists), then merges places into `pins.json` as `gmap-*` pins — your edits to category, hours, and media on imported pins survive re-syncs, and nothing is ever deleted. Trigger it from admin mode (⟳ Sync Google list) or from the Actions tab.
@@ -28,7 +29,8 @@ Every save is a commit to `main`, which redeploys the site (~2 min):
 - **↔️ Move a pin** — just drag its marker; confirm and it commits.
 - **〰️ Draw line pin** — tap along a route, *Finish*, then fill the pin form. To edit later: open the pin → *Reshape on map* — drag points to move them, tap a point to remove it, drag a small mid-segment handle to add one, tap the map to extend the end.
 - **🏷️ Categories** — add/edit categories (emoji icon + color).
-- **✨ New experience** — tap pins in order, annotate stops, save.
+- **✨ New experience** — tap pins in order, annotate stops, pick a type, save.
+- **🎭 Experience types** — add/rename/recolor types; experiences using a deleted type fall back to the first remaining one.
 - **⟳ Sync Google list** — paste your shared list link once; each press re-imports the list via GitHub Actions.
 
 ## Development
@@ -45,7 +47,7 @@ Testing tip: append `?t=2026-04-15T18:30` to the URL to fake the clock and previ
 
 ## Data model
 
-See [src/lib/types.ts](src/lib/types.ts). A pin's `availability` supports `months`, `days` (weekdays), `hours` (may cross midnight), `dateRanges`, and `peakHours` — all optional; omitted means unrestricted.
+See [src/lib/types.ts](src/lib/types.ts). A pin's `availability` supports `months`, `days` (weekdays), `hours` (may cross midnight), `dateRanges`, `recurrence` (nth-weekday-of-month), and `peakHours` — all optional; omitted means unrestricted.
 
 ## Not in v1
 

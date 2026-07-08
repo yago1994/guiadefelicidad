@@ -10,16 +10,18 @@ import { fetchOsmDetails, parseOpeningHours, type SearchResult } from './lib/geo
 import PinEditor from './components/admin/PinEditor'
 import CategoryEditor from './components/admin/CategoryEditor'
 import ExperienceBuilder from './components/admin/ExperienceBuilder'
+import ExperienceTypeEditor from './components/admin/ExperienceTypeEditor'
 import { loadAppData } from './lib/data'
 import { now } from './lib/clock'
 import { eventState, pinState } from './lib/visibility'
 import { dispatchWorkflow, getToken, setToken, updateJsonFile, uploadMediaFile } from './lib/github'
 import { slugify } from './lib/slug'
-import type { AppData, Category, Experience, MediaItem, Pin, TimeScope } from './lib/types'
+import type { AppData, Category, Experience, ExperienceType, MediaItem, Pin, TimeScope } from './lib/types'
 
 const PINS_PATH = 'public/data/pins.json'
 const CATS_PATH = 'public/data/categories.json'
 const EXPS_PATH = 'public/data/experiences.json'
+const EXP_TYPES_PATH = 'public/data/experience-types.json'
 
 function useHashRoute(): string {
   const [hash, setHash] = useState(window.location.hash)
@@ -60,6 +62,7 @@ export default function App() {
   const [syncing, setSyncing] = useState(false)
   const [pinDraft, setPinDraft] = useState<{ pin: Pin; isNew: boolean } | null>(null)
   const [showCats, setShowCats] = useState(false)
+  const [showExpTypes, setShowExpTypes] = useState(false)
   const [expDraft, setExpDraft] = useState<ExpDraft | null>(null)
   const [saving, setSaving] = useState(false)
 
@@ -74,6 +77,10 @@ export default function App() {
 
   const pinsById = useMemo(() => new Map((data?.pins ?? []).map((p) => [p.id, p])), [data?.pins])
   const catsById = useMemo(() => new Map((data?.categories ?? []).map((c) => [c.id, c])), [data?.categories])
+  const expTypesById = useMemo(
+    () => new Map((data?.experienceTypes ?? []).map((t) => [t.id, t])),
+    [data?.experienceTypes],
+  )
   const activeExp = data?.experiences.find((e) => e.id === activeExpId) ?? null
 
   // ----- markers -----
@@ -191,8 +198,9 @@ export default function App() {
       .map((s) => pinsById.get(s.pinId))
       .filter((p): p is Pin => Boolean(p))
       .map((p) => [p.lng, p.lat] as [number, number])
-    return coords.length > 1 ? { coords, color: exp.color } : null
-  }, [activeExp, expDraft, pinsById])
+    const color = expTypesById.get(exp.type)?.color ?? '#7c4dff'
+    return coords.length > 1 ? { coords, color } : null
+  }, [activeExp, expDraft, pinsById, expTypesById])
 
   // ----- interactions -----
   const handleMarkerClick = (id: string, kind: 'pin' | 'event') => {
@@ -465,6 +473,35 @@ export default function App() {
     }
   }
 
+  const saveExperienceTypes = async (next: ExperienceType[]) => {
+    setSaving(true)
+    try {
+      const validIds = new Set(next.map((t) => t.id))
+      const fallback = next[0]?.id
+      const experienceTypes = await updateJsonFile<ExperienceType[]>(
+        requireToken(),
+        EXP_TYPES_PATH,
+        () => next,
+        'Update experience types',
+      )
+      let experiences = data?.experiences ?? []
+      // reassign any experience whose type got deleted, so nothing goes colorless
+      if (experiences.some((e) => !validIds.has(e.type))) {
+        experiences = await updateJsonFile<Experience[]>(
+          requireToken(),
+          EXPS_PATH,
+          (cur) => (cur ?? data?.experiences ?? []).map((e) => (validIds.has(e.type) ? e : { ...e, type: fallback })),
+          'Reassign experiences after type change',
+        )
+      }
+      setData((d) => (d ? { ...d, experienceTypes, experiences } : d))
+      setExpDraft((d) => (d && !validIds.has(d.experience.type) ? { ...d, experience: { ...d.experience, type: fallback } } : d))
+      setShowExpTypes(false)
+    } finally {
+      setSaving(false)
+    }
+  }
+
   const deleteExperience = async () => {
     if (!expDraft) return
     setSaving(true)
@@ -554,12 +591,15 @@ export default function App() {
             <button className="btn" onClick={() => setShowCats(true)}>
               🏷️ Categories
             </button>
+            <button className="btn" onClick={() => setShowExpTypes(true)}>
+              🎭 Experience types
+            </button>
             <button
               className="btn"
               onClick={() => {
                 setActiveExpId(null)
                 setExpDraft({
-                  experience: { id: '', name: '', color: '#7c4dff', steps: [] },
+                  experience: { id: '', name: '', type: data.experienceTypes[0]?.id ?? '', steps: [] },
                   isNew: true,
                 })
               }}
@@ -672,6 +712,7 @@ export default function App() {
       {showExpList && (
         <ExperienceList
           experiences={data.experiences}
+          types={expTypesById}
           isAdmin={isAdmin}
           onSelect={(id) => {
             setShowExpList(false)
@@ -693,6 +734,7 @@ export default function App() {
       {activeExp && (
         <FollowBar
           experience={activeExp}
+          types={expTypesById}
           pins={pinsById}
           step={expStep}
           onStep={stepTo}
@@ -728,11 +770,22 @@ export default function App() {
           draft={expDraft.experience}
           isNew={expDraft.isNew}
           pins={pinsById}
+          types={data.experienceTypes}
           saving={saving}
           onChange={(experience) => setExpDraft((d) => (d ? { ...d, experience } : d))}
           onSave={saveExperience}
           onDelete={expDraft.isNew ? undefined : deleteExperience}
+          onManageTypes={() => setShowExpTypes(true)}
           onCancel={() => setExpDraft(null)}
+        />
+      )}
+
+      {showExpTypes && (
+        <ExperienceTypeEditor
+          types={data.experienceTypes}
+          saving={saving}
+          onSave={saveExperienceTypes}
+          onClose={() => setShowExpTypes(false)}
         />
       )}
     </div>

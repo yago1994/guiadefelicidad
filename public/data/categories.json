@@ -8,5 +8,7 @@
   { "id": "active", "name": "Active & outdoors", "icon": "🚴", "color": "#29b6f6" },
   { "id": "art", "name": "Art & culture", "icon": "🎨", "color": "#ec407a" },
   { "id": "food-drink", "name": "Food & drink events", "icon": "🍻", "color": "#ffa726" },
+  { "id": "festival", "name": "Festivals", "icon": "🎉", "color": "#d84315" },
+  { "id": "parade", "name": "Parades", "icon": "🎊", "color": "#ab47bc" },
   { "id": "other", "name": "Other", "icon": "📍", "color": "#90a4ae" }
 ]

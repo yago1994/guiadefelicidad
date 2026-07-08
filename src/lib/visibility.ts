@@ -1,4 +1,4 @@
-import type { Availability, EventItem, Pin, PinState, TimeScope } from './types'
+import type { Availability, EventItem, Pin, PinState, RecurrenceRule, TimeScope } from './types'
 
 const DAY_MS = 24 * 60 * 60 * 1000
 /** Events with no end time are assumed to last this long. */
@@ -20,7 +20,56 @@ function dateKey(d: Date): string {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`
 }
 
-/** Month / weekday / date-range checks — "does this pin exist on this calendar day?" */
+function daysInMonth(year: number, month: number): number {
+  return new Date(year, month + 1, 0).getDate()
+}
+
+/** Normalizes a (year, month) pair after adding `delta` months, handling year rollover. */
+function shiftMonth(year: number, month: number, delta: number): { year: number; month: number } {
+  const total = year * 12 + month + delta
+  return { year: Math.floor(total / 12), month: ((total % 12) + 12) % 12 }
+}
+
+/** The date of the Nth (or, for ordinal -1, last) `weekday` in `year`/`month` (0-indexed). */
+export function nthWeekdayOfMonth(year: number, month: number, weekday: number, ordinal: number): Date {
+  if (ordinal > 0) {
+    const first = new Date(year, month, 1)
+    const offset = (weekday - first.getDay() + 7) % 7
+    return new Date(year, month, 1 + offset + (ordinal - 1) * 7)
+  }
+  const lastDay = daysInMonth(year, month)
+  const last = new Date(year, month, lastDay)
+  const offset = (last.getDay() - weekday + 7) % 7
+  return new Date(year, month, lastDay - offset)
+}
+
+function atMidnight(d: Date): number {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime()
+}
+
+/**
+ * Does `day` fall within this rule's window? Checks the rule's anchor for
+ * both `day`'s month and the previous month, so a multi-day span starting
+ * near a month boundary (e.g. "last Friday", duration 3) is still caught
+ * when `day` lands in the following month.
+ */
+function inRecurrenceWindow(rule: RecurrenceRule, day: Date): boolean {
+  const duration = rule.durationDays ?? 1
+  const dayTime = atMidnight(day)
+  for (const delta of [0, -1]) {
+    const { year, month } = shiftMonth(day.getFullYear(), day.getMonth(), delta)
+    const anchor = atMidnight(nthWeekdayOfMonth(year, month, rule.weekday, rule.ordinal))
+    if (dayTime >= anchor && dayTime <= anchor + (duration - 1) * DAY_MS) return true
+  }
+  return false
+}
+
+export function matchesRecurrence(rules: RecurrenceRule[] | undefined, day: Date): boolean {
+  if (!rules?.length) return true
+  return rules.some((r) => inRecurrenceWindow(r, day))
+}
+
+/** Month / weekday / date-range / recurrence checks — "does this pin exist on this calendar day?" */
 export function existsOnDay(av: Availability | undefined, day: Date): boolean {
   if (!av) return true
   if (av.months?.length && !av.months.includes(day.getMonth() + 1)) return false
@@ -29,6 +78,7 @@ export function existsOnDay(av: Availability | undefined, day: Date): boolean {
     const key = dateKey(day)
     if (!av.dateRanges.some((r) => r.start <= key && key <= r.end)) return false
   }
+  if (!matchesRecurrence(av.recurrence, day)) return false
   return true
 }
 

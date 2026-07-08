@@ -1,0 +1,7 @@
+[
+  { "id": "signature", "name": "Signature route", "color": "#7c4dff" },
+  { "id": "food-crawl", "name": "Food crawl", "color": "#ff7043" },
+  { "id": "nature-walk", "name": "Nature & outdoors", "color": "#66bb6a" },
+  { "id": "date-night", "name": "Date night", "color": "#ec407a" },
+  { "id": "nightlife", "name": "Nightlife", "color": "#5c6bc0" }
+]

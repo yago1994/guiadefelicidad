@@ -16,6 +16,15 @@ export interface DateRange {
   end: string // "YYYY-MM-DD" inclusive
 }
 
+export interface RecurrenceRule {
+  /** 0=Sun … 6=Sat */
+  weekday: number
+  /** Which occurrence of that weekday in the month: 1st/2nd/3rd/4th, or -1 for "last". */
+  ordinal: 1 | 2 | 3 | 4 | -1
+  /** How many days the occurrence spans, starting on the matched day. Default 1. */
+  durationDays?: number
+}
+
 export interface Availability {
   /** Months (1–12) the pin is in season. Omitted = all year. */
   months?: number[]
@@ -27,6 +36,12 @@ export interface Availability {
   dateRanges?: DateRange[]
   /** When the spot is extra alive — rendered as a glowing "peak" marker. */
   peakHours?: PeakRule[]
+  /**
+   * "Nth weekday of every month" patterns, e.g. Critical Mass = last Friday.
+   * Combine with `months` to make it yearly instead of monthly (e.g. "1st
+   * Saturday of November" for a once-a-year festival).
+   */
+  recurrence?: RecurrenceRule[]
 }
 
 export interface MediaItem {
@@ -64,11 +79,18 @@ export interface ExperienceStep {
   note?: string
 }
 
+export interface ExperienceType {
+  id: string
+  name: string
+  color: string
+}
+
 export interface Experience {
   id: string
   name: string
   description?: string
-  color: string
+  /** References an ExperienceType id — determines the path/marker color. */
+  type: string
   steps: ExperienceStep[]
 }
 
@@ -95,6 +117,7 @@ export interface AppData {
   categories: Category[]
   pins: Pin[]
   experiences: Experience[]
+  experienceTypes: ExperienceType[]
   events: EventItem[]
   eventsUpdatedAt: string | null
 }

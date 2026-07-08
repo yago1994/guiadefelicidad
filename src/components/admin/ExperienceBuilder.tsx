@@ -1,13 +1,15 @@
-import type { Experience, Pin } from '../../lib/types'
+import type { Experience, ExperienceType, Pin } from '../../lib/types'
 
 interface Props {
   draft: Experience
   isNew: boolean
   pins: Map<string, Pin>
+  types: ExperienceType[]
   saving: boolean
   onChange: (next: Experience) => void
   onSave: () => Promise<void>
   onDelete?: () => Promise<void>
+  onManageTypes: () => void
   onCancel: () => void
 }
 
@@ -15,7 +17,18 @@ interface Props {
  * Docked panel (not a modal) so the map stays tappable — tapping pins on the
  * map appends steps while this is open.
  */
-export default function ExperienceBuilder({ draft, isNew, pins, saving, onChange, onSave, onDelete, onCancel }: Props) {
+export default function ExperienceBuilder({
+  draft,
+  isNew,
+  pins,
+  types,
+  saving,
+  onChange,
+  onSave,
+  onDelete,
+  onManageTypes,
+  onCancel,
+}: Props) {
   const move = (i: number, dir: -1 | 1) => {
     const steps = [...draft.steps]
     const j = i + dir
@@ -31,19 +44,38 @@ export default function ExperienceBuilder({ draft, isNew, pins, saving, onChange
         Tap pins on the map to add stops in order.
       </p>
 
-      <div className="field" style={{ display: 'flex', gap: 8 }}>
+      <div className="field">
         <input
           value={draft.name}
           placeholder="Experience name"
           onChange={(e) => onChange({ ...draft, name: e.target.value })}
         />
-        <input
-          type="color"
-          value={draft.color}
-          style={{ width: 46, flexShrink: 0 }}
-          onChange={(e) => onChange({ ...draft, color: e.target.value })}
-          aria-label="Path color"
+      </div>
+      <div className="field" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <select value={draft.type} onChange={(e) => onChange({ ...draft, type: e.target.value })} style={{ flex: 1 }}>
+          <option value="" disabled>
+            Pick a type…
+          </option>
+          {types.map((t) => (
+            <option key={t.id} value={t.id}>
+              {t.name}
+            </option>
+          ))}
+        </select>
+        <span
+          aria-hidden
+          style={{
+            width: 22,
+            height: 22,
+            borderRadius: '50%',
+            flexShrink: 0,
+            background: types.find((t) => t.id === draft.type)?.color ?? '#888',
+            border: '2px solid rgba(0,0,0,0.15)',
+          }}
         />
+        <button type="button" className="btn" style={{ minHeight: 34, padding: '6px 10px', flexShrink: 0 }} onClick={onManageTypes}>
+          🎭 Types
+        </button>
       </div>
       <div className="field">
         <input
@@ -87,7 +119,11 @@ export default function ExperienceBuilder({ draft, isNew, pins, saving, onChange
       ))}
 
       <div className="actions">
-        <button className="btn primary" disabled={saving || !draft.name.trim() || draft.steps.length < 2} onClick={onSave}>
+        <button
+          className="btn primary"
+          disabled={saving || !draft.name.trim() || !draft.type || draft.steps.length < 2}
+          onClick={onSave}
+        >
           {saving ? 'Saving…' : 'Save experience'}
         </button>
         <button className="btn" disabled={saving} onClick={onCancel}>

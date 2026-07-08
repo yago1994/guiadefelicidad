@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { eventState, pinState } from './visibility'
+import { eventState, nthWeekdayOfMonth, pinState } from './visibility'
 import type { EventItem, Pin } from './types'
 
 function pin(availability?: Pin['availability']): Pin {
@@ -77,6 +77,56 @@ describe('pinState — today / week / all scopes', () => {
 
   it('all shows everything', () => {
     expect(pinState(pin({ months: [4] }), january, 'all')).toBe('visible')
+  })
+})
+
+describe('nthWeekdayOfMonth', () => {
+  it('finds the last Friday of a month', () => {
+    expect(nthWeekdayOfMonth(2026, 5, 5, -1)).toEqual(new Date(2026, 5, 26)) // June 2026
+    expect(nthWeekdayOfMonth(2026, 6, 5, -1)).toEqual(new Date(2026, 6, 31)) // July 2026
+  })
+
+  it('finds the 1st and 4th Saturday of a month', () => {
+    expect(nthWeekdayOfMonth(2026, 10, 6, 1)).toEqual(new Date(2026, 10, 7)) // Nov 2026
+    expect(nthWeekdayOfMonth(2026, 10, 6, 4)).toEqual(new Date(2026, 10, 28))
+  })
+
+  it('treats -1 and the highest valid ordinal the same in a 4-occurrence month', () => {
+    // Nov 2026 has exactly 4 Saturdays, so ordinal 4 and -1 must agree
+    expect(nthWeekdayOfMonth(2026, 10, 6, 4)).toEqual(nthWeekdayOfMonth(2026, 10, 6, -1))
+  })
+})
+
+describe('pinState — recurrence', () => {
+  it('matches "last Friday of every month" (Critical Mass) regardless of month', () => {
+    const criticalMass = pin({ recurrence: [{ weekday: 5, ordinal: -1 }] })
+    expect(pinState(criticalMass, new Date('2026-06-26T19:00:00'), 'today')).toBe('visible')
+    expect(pinState(criticalMass, new Date('2026-07-31T19:00:00'), 'today')).toBe('visible')
+    expect(pinState(criticalMass, new Date('2026-06-19T19:00:00'), 'today')).toBe('hidden') // a week early
+  })
+
+  it('combines recurrence with months for an annual nth-weekday festival', () => {
+    // "1st Saturday of November" — Chomp and Stomp style
+    const festival = pin({ months: [11], recurrence: [{ weekday: 6, ordinal: 1 }] })
+    expect(pinState(festival, new Date('2026-11-07T12:00:00'), 'today')).toBe('visible')
+    expect(pinState(festival, new Date('2026-11-14T12:00:00'), 'today')).toBe('hidden')
+    expect(pinState(festival, new Date('2026-10-03T12:00:00'), 'today')).toBe('hidden') // right weekday, wrong month
+  })
+
+  it('spans multiple days from the anchor via durationDays', () => {
+    // last Friday of April 2026 is the 24th — a 3-day festival runs Fri–Sun
+    const fest = pin({ months: [4], recurrence: [{ weekday: 5, ordinal: -1, durationDays: 3 }] })
+    expect(pinState(fest, new Date('2026-04-24T10:00:00'), 'today')).toBe('visible')
+    expect(pinState(fest, new Date('2026-04-25T10:00:00'), 'today')).toBe('visible')
+    expect(pinState(fest, new Date('2026-04-26T10:00:00'), 'today')).toBe('visible')
+    expect(pinState(fest, new Date('2026-04-23T10:00:00'), 'today')).toBe('hidden')
+    expect(pinState(fest, new Date('2026-04-27T10:00:00'), 'today')).toBe('hidden')
+  })
+
+  it('week scope picks up an upcoming monthly recurrence', () => {
+    const criticalMass = pin({ recurrence: [{ weekday: 5, ordinal: -1 }] })
+    // 2026-06-22 is a Monday; the last Friday of June (26th) is within the next 7 days
+    expect(pinState(criticalMass, new Date('2026-06-22T09:00:00'), 'week')).toBe('visible')
   })
 })
 

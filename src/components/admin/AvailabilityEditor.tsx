@@ -1,7 +1,14 @@
-import type { Availability, DateRange, HoursRule, PeakRule } from '../../lib/types'
+import type { Availability, DateRange, HoursRule, PeakRule, RecurrenceRule } from '../../lib/types'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const ORDINALS: { value: RecurrenceRule['ordinal']; label: string }[] = [
+  { value: 1, label: '1st' },
+  { value: 2, label: '2nd' },
+  { value: 3, label: '3rd' },
+  { value: 4, label: '4th' },
+  { value: -1, label: 'Last' },
+]
 
 function ToggleChips({
   options,
@@ -46,6 +53,7 @@ export default function AvailabilityEditor({
   const hours = value.hours ?? []
   const peaks = value.peakHours ?? []
   const ranges = value.dateRanges ?? []
+  const recurrence = value.recurrence ?? []
 
   const setHour = (i: number, patch: Partial<HoursRule>) =>
     set({ hours: hours.map((h, j) => (j === i ? { ...h, ...patch } : h)) })
@@ -53,6 +61,8 @@ export default function AvailabilityEditor({
     set({ peakHours: peaks.map((p, j) => (j === i ? { ...p, ...patch } : p)) })
   const setRange = (i: number, patch: Partial<DateRange>) =>
     set({ dateRanges: ranges.map((r, j) => (j === i ? { ...r, ...patch } : r)) })
+  const setRecurrence = (i: number, patch: Partial<RecurrenceRule>) =>
+    set({ recurrence: recurrence.map((r, j) => (j === i ? { ...r, ...patch } : r)) })
 
   return (
     <>
@@ -72,6 +82,63 @@ export default function AvailabilityEditor({
           selected={value.days ?? []}
           onChange={(sel) => set({ days: sel.length ? sel : undefined })}
         />
+      </div>
+
+      <div className="field">
+        <label>Recurring pattern (e.g. "last Friday of the month")</label>
+        {recurrence.map((r, i) => (
+          <div className="rule-row" key={i}>
+            <div className="times">
+              <select value={r.ordinal} onChange={(e) => setRecurrence(i, { ordinal: Number(e.target.value) as RecurrenceRule['ordinal'] })}>
+                {ORDINALS.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+              <select value={r.weekday} onChange={(e) => setRecurrence(i, { weekday: Number(e.target.value) })}>
+                {DAYS.map((d, idx) => (
+                  <option key={d} value={idx}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+              <span>of the month</span>
+            </div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13.5 }}>
+              Spans
+              <input
+                type="number"
+                min={1}
+                max={10}
+                style={{ width: 56 }}
+                value={r.durationDays ?? 1}
+                onChange={(e) => setRecurrence(i, { durationDays: Math.max(1, Number(e.target.value) || 1) })}
+              />
+              day(s)
+            </label>
+            <button
+              type="button"
+              className="remove"
+              onClick={() =>
+                set({ recurrence: recurrence.filter((_, j) => j !== i).length ? recurrence.filter((_, j) => j !== i) : undefined })
+              }
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          className="add-rule"
+          onClick={() => set({ recurrence: [...recurrence, { weekday: 5, ordinal: -1 }] })}
+        >
+          + Add recurring pattern
+        </button>
+        <p className="hint" style={{ marginTop: 4 }}>
+          Combine with "Months in season" above to make it yearly instead of monthly — e.g. pick November + "1st
+          Saturday" for a once-a-year festival.
+        </p>
       </div>
 
       <div className="field">

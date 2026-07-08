@@ -3,7 +3,7 @@
     "id": "old-fourth-ward-evening",
     "name": "Old Fourth Ward golden hour",
     "description": "Coffee, a Beltline stroll, tunnel art, and jasmine at dusk.",
-    "color": "#7c4dff",
+    "type": "signature",
     "steps": [
       { "pinId": "dancing-goats-ponce", "note": "Start with a cortado on the patio" },
       { "pinId": "ponce-city-market", "note": "Snack from the food hall if you're hungry" },

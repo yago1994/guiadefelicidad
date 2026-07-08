@@ -1,4 +1,4 @@
-import type { Availability, EventItem } from './types'
+import type { Availability, EventItem, RecurrenceRule } from './types'
 import { isPeakAt } from './visibility'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -9,6 +9,13 @@ function fmtTime(hhmm: string): string {
   const ampm = h >= 12 ? 'PM' : 'AM'
   const h12 = h % 12 === 0 ? 12 : h % 12
   return m ? `${h12}:${String(m).padStart(2, '0')} ${ampm}` : `${h12} ${ampm}`
+}
+
+const ORDINAL_WORD: Record<number, string> = { 1: '1st', 2: '2nd', 3: '3rd', 4: '4th', [-1]: 'Last' }
+
+function recurrenceLine(r: RecurrenceRule, monthWord: string): string {
+  const span = r.durationDays && r.durationDays > 1 ? ` (${r.durationDays} days)` : ''
+  return `${ORDINAL_WORD[r.ordinal]} ${DAYS[r.weekday]} of ${monthWord}${span}`
 }
 
 function listMonths(months: number[]): string {
@@ -42,6 +49,10 @@ export function availabilityLines(av: Availability | undefined): string[] {
   }
   for (const r of av.dateRanges ?? []) {
     lines.push(`${r.start} → ${r.end}`)
+  }
+  if (av.recurrence?.length) {
+    const monthWord = av.months?.length === 1 ? MONTHS[av.months[0] - 1] : 'the month'
+    for (const r of av.recurrence) lines.push(recurrenceLine(r, monthWord))
   }
   return lines
 }

@@ -24,6 +24,7 @@ function cleanAvailability(av: Availability): Availability | undefined {
   if (av.days?.length) out.days = av.days
   if (av.hours?.length) out.hours = av.hours
   if (av.peakHours?.length) out.peakHours = av.peakHours
+  if (av.recurrence?.length) out.recurrence = av.recurrence
   if (av.dateRanges?.length) out.dateRanges = av.dateRanges.filter((r) => r.start && r.end)
   if (!out.dateRanges?.length) delete out.dateRanges
   return Object.keys(out).length ? out : undefined
