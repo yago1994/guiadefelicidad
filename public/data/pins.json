@@ -135,7 +135,12 @@
         }
       ]
     },
-    "media": []
+    "media": [
+      {
+        "type": "audio",
+        "src": "media/jasmine-wall-cabbagetown/1783519757104-voice-note.webm"
+      }
+    ]
   },
   {
     "id": "krog-street-tunnel",
