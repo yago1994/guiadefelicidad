@@ -77,5 +77,39 @@
     "lat": 33.7878572,
     "lng": -84.3688693
   },
-  "dynamic el dorado, atlanta, ga": null
+  "dynamic el dorado, atlanta, ga": null,
+  "atlanta motor speedway, atlanta, ga": null,
+  "atlanta history center, atlanta, ga": {
+    "lat": 33.8417815,
+    "lng": -84.3860102
+  },
+  "atlantic station, atlanta, ga": {
+    "lat": 33.7900612,
+    "lng": -84.398518
+  },
+  "el viñedo local, atlanta, ga": {
+    "lat": 33.7743842,
+    "lng": -84.3849526
+  },
+  "ameris bank amphitheatre, atlanta, ga": null,
+  "shakespeare tavern playhouse, atlanta, ga": null,
+  "gateway center arena, atlanta, ga": null,
+  "whole world improv theatre co, atlanta, ga": {
+    "lat": 33.7879325,
+    "lng": -84.3895418
+  },
+  "helium comedy club - atlanta, atlanta, ga": null,
+  "aisle 5, atlanta, ga": {
+    "lat": 33.7642271,
+    "lng": -84.3502481
+  },
+  "7 stages theatre, atlanta, ga": {
+    "lat": 33.7639017,
+    "lng": -84.350933
+  },
+  "center stage theater, atlanta, ga": {
+    "lat": 33.7921213,
+    "lng": -84.388235
+  },
+  "37 main restaurant + bar, atlanta, ga": null
 }
