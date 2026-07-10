@@ -111,5 +111,31 @@
     "lat": 33.7921213,
     "lng": -84.388235
   },
-  "37 main restaurant + bar, atlanta, ga": null
+  "37 main restaurant + bar, atlanta, ga": null,
+  "academy theatre, atlanta, ga": {
+    "lat": 33.6587717,
+    "lng": -84.408573
+  },
+  "buckhead village, atlanta, ga": {
+    "lat": 33.8375608,
+    "lng": -84.3761288
+  },
+  "mimms museum of technology and art, atlanta, ga": null,
+  "the third door, atlanta, ga": null,
+  "avon theater, atlanta, ga": null,
+  "roswell city hall, atlanta, ga": null,
+  "onstage atlanta, atlanta, ga": null,
+  "atlanta comedy theater, atlanta, ga": null,
+  "the garden club at wild heaven west end, atlanta, ga": null,
+  "woodstock arts theatre, atlanta, ga": null,
+  "artsxchange - southeast community cultural center, atlanta, ga": null,
+  "fox theatre, atlanta, ga": {
+    "lat": 33.7726429,
+    "lng": -84.3855618
+  },
+  "jess lucas y-teen park, atlanta, ga": null,
+  "variety playhouse, atlanta, ga": {
+    "lat": 33.76351,
+    "lng": -84.3508547
+  }
 }
