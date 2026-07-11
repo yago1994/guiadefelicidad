@@ -725,7 +725,7 @@
     "category": "coffee",
     "lat": 33.740369699999995,
     "lng": -84.3454548,
-    "description": "510 Flat Shoals Ave SE, Atlanta, GA 30316",
+    "description": "Indie, neighborhood coffee shop since 2002 featuring latte art & baked goods, plus outdoor seating.",
     "media": [],
     "origin": "google"
   },
@@ -735,7 +735,7 @@
     "category": "food",
     "lat": 33.7405484,
     "lng": -84.3463317,
-    "description": "491 Flat Shoals Ave SE A, Atlanta, GA 30316",
+    "description": "Small, hip spot offering a focused menu of traditional Korean dishes given contemporary spins.",
     "media": [],
     "origin": "google"
   },
@@ -835,7 +835,7 @@
     "category": "park",
     "lat": 33.7381606,
     "lng": -84.4669235,
-    "description": "SW Connector Trail, Atlanta, GA 30311",
+    "description": "Unspoilt mature hardwood forest preserve with a multi-use trail once used by Civil War troops.",
     "media": [],
     "origin": "google"
   },
@@ -865,7 +865,7 @@
     "category": "food",
     "lat": 33.7373611,
     "lng": -84.4303736,
-    "description": "1310 White St SW, Atlanta, GA 30310",
+    "description": "Offbeat watering hole with regular live music & outdoor seating, plus rotating pop-up food vendors.",
     "media": [],
     "origin": "google"
   },
@@ -906,6 +906,26 @@
     "lat": 33.7318686,
     "lng": -84.4217556,
     "description": "1036 White St SW, Atlanta, GA 30310",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-pollo-primo",
+    "name": "Pollo Primo",
+    "category": "other",
+    "lat": 33.73279,
+    "lng": -84.3489586,
+    "description": "792 Moreland Ave SE, Atlanta, GA 30316",
+    "media": [],
+    "origin": "google"
+  },
+  {
+    "id": "gmap-q-time-restaurant",
+    "name": "Q Time Restaurant",
+    "category": "food",
+    "lat": 33.7379815,
+    "lng": -84.42440909999999,
+    "description": "Modest counter-serve standby in a strip mall dishing up BBQ plates & other Southern staples.",
     "media": [],
     "origin": "google"
   }
