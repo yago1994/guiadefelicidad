@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Availability, Category, MediaItem, Pin } from '../../lib/types'
+import { isSingleSegmentLine, lineSegments } from '../../lib/geo'
 import { slugify } from '../../lib/slug'
 import AvailabilityEditor from './AvailabilityEditor'
 import MediaUploader from './MediaUploader'
@@ -116,9 +117,14 @@ export default function PinEditor({
         </div>
 
         {pin.line ? (
-          <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12 }}>
-            <span className="hint">〰️ Line pin with {pin.line.length} points</span>
-            {onReshape && (
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
+            <span className="hint">
+              〰️{' '}
+              {isSingleSegmentLine(pin.line)
+                ? `Line pin with ${pin.line.length} points`
+                : `Line pin with ${lineSegments(pin.line).length} segments (${lineSegments(pin.line).flat().length} points total)`}
+            </span>
+            {onReshape && isSingleSegmentLine(pin.line) && (
               <button
                 type="button"
                 className="btn"

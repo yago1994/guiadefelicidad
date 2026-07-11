@@ -15,7 +15,7 @@ A living map of Atlanta where pins appear **contextually** — only what's open,
 - **Recurring patterns** — a pin can exist on an "Nth weekday of the month" schedule (e.g. Critical Mass = last Friday of every month). Combine with "months" for a once-a-year event (e.g. Chomp and Stomp = 1st Saturday of November) — see `Availability.recurrence` in [types.ts](src/lib/types.ts).
 - **Experiences** — ordered pin chains ("coffee → Beltline → jasmine wall") drawn as a dashed path with a step-by-step follow mode and Google Maps directions per stop. Each experience has a **type** (Signature route, Food crawl, Nature & outdoors, Date night, Nightlife…) that sets its path/marker color — manage types from admin mode (🎭 Experience types).
 - **Media** — pins can carry short videos, images, and voice notes (recorded right in the browser), stored in `public/media/`.
-- **Line pins** — a pin can be a whole walkable stretch (like the Beltline Eastside Trail): it draws as a colored line that follows the same visibility rules and glows at peak hours.
+- **Line pins** — a pin can be a whole walkable stretch (like the Beltline Eastside Trail): it draws as a colored line that follows the same visibility rules and glows at peak hours. A line can also be several disjoint segments sharing one pin (e.g. **Atlanta BeltLine (full loop)**, whose Northside quadrant isn't fully connected in real life) — real gaps stay gaps instead of a fake straight connector.
 - **Google Maps list sync** — import places from a shared Google Maps list (`maps.app.goo.gl/…`). The [sync workflow](.github/workflows/sync-google-list.yml) drives headless Chromium to read the list (no official API exists), then merges places into `pins.json` as `gmap-*` pins — your edits to category, hours, and media on imported pins survive re-syncs, and nothing is ever deleted. Trigger it from admin mode (⟳ Sync Google list) or from the Actions tab.
 
 ## Admin mode
@@ -28,9 +28,9 @@ Every save is a commit to `main`, which redeploys the site (~2 min):
 - **Live-edit description** — click a pin's description right in its card and start typing; it saves on blur, no need to open the full editor. Errors (e.g. network) show inline and keep your edit so nothing is lost.
 - **✏️ Edit pin** — open a pin → *Edit pin* for everything else (category, availability, media). Upload video/audio/images (≤ 25 MB) or record a voice note. Media shows on the live site after the deploy.
 - **↔️ Move a pin** — just drag its marker; confirm and it commits.
-- **〰️ Draw line pin** — tap along a route, *Finish*, then fill the pin form. To edit later: open the pin → *Reshape on map* — drag points to move them, tap a point to remove it, drag a small mid-segment handle to add one, tap the map to extend the end.
+- **〰️ Draw line pin** — tap along a route, *Finish*, then fill the pin form. To edit later: open the pin → *Reshape on map* — drag points to move them, tap a point to remove it, drag a small mid-segment handle to add one, tap the map to extend the end. (Reshape only works on single-path lines; multi-segment lines like the full BeltLine loop are edited by hand in `pins.json`.)
 - **🏷️ Categories** — add/edit categories (emoji icon + color).
-- **✨ New experience** — tap pins in order, annotate stops, pick a type, save.
+- **✨ New experience** — tap pins in order, annotate stops, pick a type, save. Every pin is tappable while building or editing, even ones hidden right now by season/hours — they show dimmed instead of disappearing, so nothing is unreachable.
 - **🎭 Experience types** — add/rename/recolor types; experiences using a deleted type fall back to the first remaining one.
 - **⟳ Sync Google list** — paste your shared list link once; each press re-imports the list via GitHub Actions.
 

@@ -61,8 +61,13 @@ export interface Pin {
   url?: string
   availability?: Availability
   media?: MediaItem[]
-  /** When set, the pin is a walkable stretch drawn as a line ([lng, lat] pairs). */
-  line?: [number, number][]
+  /**
+   * When set, the pin is a walkable stretch drawn as a line. Either one
+   * continuous path ([lng, lat] pairs) — the shape the admin's draw/reshape
+   * UI produces — or several disjoint segments for a route with real gaps
+   * (e.g. the full BeltLine loop, where some quadrants aren't yet connected).
+   */
+  line?: [number, number][] | [number, number][][]
   /** Pins imported from the Google Maps list sync. */
   origin?: 'google'
 }

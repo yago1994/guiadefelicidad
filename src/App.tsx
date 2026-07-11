@@ -12,6 +12,7 @@ import CategoryEditor from './components/admin/CategoryEditor'
 import ExperienceBuilder from './components/admin/ExperienceBuilder'
 import ExperienceTypeEditor from './components/admin/ExperienceTypeEditor'
 import { loadAppData } from './lib/data'
+import { isSingleSegmentLine, lineSegments } from './lib/geo'
 import { now } from './lib/clock'
 import { eventState, pinState } from './lib/visibility'
 import { dispatchWorkflow, getToken, setToken, updateJsonFile, uploadMediaFile } from './lib/github'
@@ -114,9 +115,11 @@ export default function App() {
       if (lineEdit && pin.id === lineEdit.draft.id) continue // being reshaped — handles replace it
       if (activeCats && !activeCats.has(pin.category)) continue
       const st = pinState(pin, at, scope)
-      if (st === 'hidden') continue
-      let state: MarkerSpec['state'] = st
-      if (scope === 'all') {
+      // while building/editing an experience, every pin must be tappable —
+      // a seasonal or closed-right-now pin would otherwise be un-addable
+      if (st === 'hidden' && !expDraft) continue
+      let state: MarkerSpec['state'] = st === 'hidden' ? 'dimmed' : st
+      if (scope === 'all' || (expDraft && st === 'hidden')) {
         const nowState = pinState(pin, at, 'now')
         state = nowState === 'hidden' ? 'dimmed' : nowState
       }
@@ -162,14 +165,14 @@ export default function App() {
       })
     }
     return specs
-  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById, isAdmin, lineEdit, searchResult])
+  }, [data, at, scope, activeCats, selected, activeExp, expStep, pinsById, catsById, isAdmin, lineEdit, searchResult, expDraft])
 
   const lines = useMemo<LineSpec[]>(() => {
     if (!data) return []
     const specs: LineSpec[] = []
     if (!activeExp) {
       for (const pin of data.pins) {
-        if (!pin.line || pin.line.length < 2) continue
+        if (!pin.line?.length) continue
         if (lineEdit && pin.id === lineEdit.draft.id) continue // shown as the editable draft instead
         if (activeCats && !activeCats.has(pin.category)) continue
         const st = pinState(pin, at, scope)
@@ -179,14 +182,14 @@ export default function App() {
           const nowState = pinState(pin, at, 'now')
           state = nowState === 'hidden' ? 'dimmed' : nowState
         }
-        specs.push({ id: pin.id, coords: pin.line, color: catsById.get(pin.category)?.color ?? '#607d8b', state })
+        specs.push({ id: pin.id, coords: lineSegments(pin.line), color: catsById.get(pin.category)?.color ?? '#607d8b', state })
       }
     }
     if (drawingLine) {
-      specs.push({ id: '__draft', coords: drawingLine, color: '#ffb74d', state: 'peak' })
+      specs.push({ id: '__draft', coords: [drawingLine], color: '#ffb74d', state: 'peak' })
     }
     if (lineEdit) {
-      specs.push({ id: '__edit', coords: lineEdit.coords, color: '#ffb74d', state: 'peak' })
+      specs.push({ id: '__edit', coords: [lineEdit.coords], color: '#ffb74d', state: 'peak' })
     }
     return specs
   }, [data, at, scope, activeCats, activeExp, catsById, drawingLine, lineEdit])
@@ -249,7 +252,9 @@ export default function App() {
   }
 
   const startReshape = (current: Pin) => {
-    if (!pinDraft || !current.line) return
+    // the vertex-handle reshape UI only understands one continuous path —
+    // a multi-segment line (e.g. the full BeltLine loop) isn't editable here
+    if (!pinDraft || !current.line || !isSingleSegmentLine(current.line)) return
     setLineEdit({ coords: current.line, draft: current, isNew: pinDraft.isNew })
     setPinDraft(null)
   }
@@ -257,7 +262,8 @@ export default function App() {
   /** Leave reshape mode, back into the pin editor (keeping form edits). */
   const finishReshape = (keep: boolean) => {
     if (!lineEdit) return
-    const coords = keep && lineEdit.coords.length >= 2 ? lineEdit.coords : lineEdit.draft.line!
+    // safe: startReshape only enters reshape mode for single-segment lines
+    const coords = keep && lineEdit.coords.length >= 2 ? lineEdit.coords : (lineEdit.draft.line as [number, number][])
     const mid = coords[Math.floor(coords.length / 2)]
     setPinDraft({ pin: { ...lineEdit.draft, line: coords, lat: mid[1], lng: mid[0] }, isNew: lineEdit.isNew })
     setLineEdit(null)

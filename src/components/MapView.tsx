@@ -16,7 +16,8 @@ export interface MarkerSpec {
 
 export interface LineSpec {
   id: string
-  coords: [number, number][] // [lng, lat]
+  /** One or more disjoint [lng, lat] segments — rendered as a MultiLineString. */
+  coords: [number, number][][]
   color: string
   state: 'visible' | 'peak' | 'dimmed'
 }
@@ -52,7 +53,8 @@ function linesToGeoJSON(lines: LineSpec[]): GeoJSON.FeatureCollection {
   return {
     type: 'FeatureCollection',
     features: lines
-      .filter((l) => l.coords.length > 1)
+      .map((l) => ({ ...l, coords: l.coords.filter((seg) => seg.length > 1) }))
+      .filter((l) => l.coords.length > 0)
       .map((l) => ({
         type: 'Feature',
         properties: {
@@ -62,7 +64,7 @@ function linesToGeoJSON(lines: LineSpec[]): GeoJSON.FeatureCollection {
           opacity: l.state === 'dimmed' ? 0.3 : 0.85,
           glow: l.state === 'peak' ? 0.35 : 0,
         },
-        geometry: { type: 'LineString', coordinates: l.coords },
+        geometry: { type: 'MultiLineString', coordinates: l.coords },
       })),
   }
 }
