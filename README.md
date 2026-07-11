@@ -25,7 +25,8 @@ Open `/#/admin` on the site and paste a **fine-grained GitHub personal access to
 Every save is a commit to `main`, which redeploys the site (~2 min):
 
 - **📍 Add pin** — tap the map, fill the form (category, description, seasonality, hours, peak hours, date windows).
-- **✏️ Edit pin** — open a pin → *Edit pin*. Upload video/audio/images (≤ 25 MB) or record a voice note. Media shows on the live site after the deploy.
+- **Live-edit description** — click a pin's description right in its card and start typing; it saves on blur, no need to open the full editor. Errors (e.g. network) show inline and keep your edit so nothing is lost.
+- **✏️ Edit pin** — open a pin → *Edit pin* for everything else (category, availability, media). Upload video/audio/images (≤ 25 MB) or record a voice note. Media shows on the live site after the deploy.
 - **↔️ Move a pin** — just drag its marker; confirm and it commits.
 - **〰️ Draw line pin** — tap along a route, *Finish*, then fill the pin form. To edit later: open the pin → *Reshape on map* — drag points to move them, tap a point to remove it, drag a small mid-segment handle to add one, tap the map to extend the end.
 - **🏷️ Categories** — add/edit categories (emoji icon + color).

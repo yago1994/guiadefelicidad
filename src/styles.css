@@ -449,6 +449,49 @@ input[type='date'] {
   margin: 10px 0;
 }
 
+.desc-edit {
+  margin: 10px 0;
+}
+
+.desc-edit-input {
+  display: block;
+  width: 100%;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 4px 6px;
+  margin: 0 -6px;
+  resize: vertical;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.desc-edit-input::placeholder {
+  color: var(--muted);
+}
+
+.desc-edit-input:hover {
+  background: var(--panel-2);
+}
+
+.desc-edit-input:focus {
+  background: var(--panel-2);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.desc-edit-input:disabled {
+  opacity: 0.6;
+}
+
+.desc-edit-status {
+  display: block;
+  margin-top: 2px;
+}
+
 .badge-now {
   display: inline-block;
   font-size: 12px;

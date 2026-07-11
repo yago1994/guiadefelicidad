@@ -436,6 +436,18 @@ export default function App() {
     return updated
   }
 
+  const saveDescription = async (pin: Pin, description: string) => {
+    const trimmed = description.trim()
+    if (trimmed === (pin.description ?? '')) return
+    const pins = await updateJsonFile<Pin[]>(
+      requireToken(),
+      PINS_PATH,
+      (cur) => (cur ?? data?.pins ?? []).map((p) => (p.id === pin.id ? { ...p, description: trimmed || undefined } : p)),
+      `Update description: ${pin.name}`,
+    )
+    setData((d) => (d ? { ...d, pins } : d))
+  }
+
   const saveCategories = async (next: Category[]) => {
     setSaving(true)
     try {
@@ -706,6 +718,7 @@ export default function App() {
             setSelected(null)
             setPinDraft({ pin, isNew: false })
           }}
+          onSaveDescription={saveDescription}
         />
       )}
 

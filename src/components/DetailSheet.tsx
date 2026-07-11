@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import type { Category, EventItem, MediaItem, Pin } from '../lib/types'
 import { mediaUrl } from '../lib/data'
 import { availabilityLines, directionsUrl, eventWhen, peakBadge } from '../lib/format'
@@ -10,6 +11,64 @@ interface Props {
   isAdmin: boolean
   onClose: () => void
   onEdit?: (pin: Pin) => void
+  onSaveDescription?: (pin: Pin, description: string) => Promise<void>
+}
+
+/**
+ * Click-to-edit description, saved on blur. Keyed by pin id from the parent
+ * so switching pins remounts it with fresh state instead of leaking edits.
+ */
+function EditableDescription({
+  pin,
+  onSave,
+}: {
+  pin: Pin
+  onSave: (pin: Pin, description: string) => Promise<void>
+}) {
+  const [value, setValue] = useState(pin.description ?? '')
+  const [saved, setSaved] = useState(pin.description ?? '')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const taRef = useRef<HTMLTextAreaElement>(null)
+
+  const commit = async () => {
+    if (value === saved) return
+    setBusy(true)
+    setError(null)
+    try {
+      await onSave(pin, value)
+      setSaved(value)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Save failed — try again.')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <div className="desc-edit">
+      <textarea
+        ref={taRef}
+        className="desc-edit-input"
+        rows={2}
+        placeholder="Add a description…"
+        value={value}
+        disabled={busy}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            setValue(saved)
+            taRef.current?.blur()
+          } else if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+            taRef.current?.blur()
+          }
+        }}
+      />
+      {busy && <span className="hint desc-edit-status">Saving…</span>}
+      {error && <span className="error-text desc-edit-status">{error}</span>}
+    </div>
+  )
 }
 
 function Media({ m, overrides }: { m: MediaItem; overrides: Record<string, string> }) {
@@ -24,7 +83,16 @@ function Media({ m, overrides }: { m: MediaItem; overrides: Record<string, strin
   )
 }
 
-export default function DetailSheet({ item, category, at, mediaOverrides, isAdmin, onClose, onEdit }: Props) {
+export default function DetailSheet({
+  item,
+  category,
+  at,
+  mediaOverrides,
+  isAdmin,
+  onClose,
+  onEdit,
+  onSaveDescription,
+}: Props) {
   const isPin = item.kind === 'pin'
   const name = isPin ? item.pin.name : item.event.title
   const lat = isPin ? item.pin.lat : item.event.lat
@@ -52,7 +120,11 @@ export default function DetailSheet({ item, category, at, mediaOverrides, isAdmi
 
       {isPin ? (
         <>
-          {item.pin.description && <p className="desc">{item.pin.description}</p>}
+          {isAdmin && onSaveDescription ? (
+            <EditableDescription key={item.pin.id} pin={item.pin} onSave={onSaveDescription} />
+          ) : (
+            item.pin.description && <p className="desc">{item.pin.description}</p>
+          )}
           <ul className="avail-lines">
             {availabilityLines(item.pin.availability).map((l, i) => (
               <li key={i}>🕐 {l}</li>
