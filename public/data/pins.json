@@ -1191,5 +1191,23 @@
     "lng": -84.456331618207,
     "media": [],
     "description": "This is the easiest spot to enter the park from Sam's house. You can walk (20m), bike (10m), or drive (3m) here."
+  },
+  {
+    "id": "dekalb-farmers-market",
+    "name": "Dekalb Farmers Market",
+    "category": "market",
+    "lat": 33.7866081,
+    "lng": -84.2694773,
+    "description": "A HUGE warehouse of international foods, tons of amazing and cheap produce, fresh fish and meats, bakery, and more. We love this place!",
+    "url": "http://www.dekalbfarmersmarket.com/",
+    "availability": {
+      "hours": [
+        {
+          "open": "09:00",
+          "close": "21:00"
+        }
+      ]
+    },
+    "media": []
   }
 ]
