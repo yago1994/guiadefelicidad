@@ -970,5 +970,40 @@
       ]
     },
     "media": []
+  },
+  {
+    "id": "the-little-tart-bakeshop",
+    "name": "The Little Tart Bakeshop",
+    "category": "coffee",
+    "lat": 33.746078,
+    "lng": -84.3727959,
+    "description": "Date nights!",
+    "url": "https://www.littletartatl.com/location/grant-park/",
+    "availability": {
+      "hours": [
+        {
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "open": "07:00",
+          "close": "18:00"
+        }
+      ],
+      "peakHours": [
+        {
+          "from": "17:00",
+          "to": "21:00",
+          "days": [
+            0,
+            6
+          ]
+        }
+      ]
+    },
+    "media": []
   }
 ]
