@@ -1173,5 +1173,14 @@
         }
       ]
     }
+  },
+  {
+    "id": "sam-s-house",
+    "name": "Sam's house!",
+    "category": "other",
+    "lat": 33.73723857973785,
+    "lng": -84.44351024018442,
+    "media": [],
+    "description": "This is Sam and Fluffy's home!"
   }
 ]
