@@ -1077,5 +1077,14 @@
       ]
     },
     "media": []
+  },
+  {
+    "id": "opo-coffee",
+    "name": "Opo Coffee",
+    "category": "coffee",
+    "lat": 33.7719093,
+    "lng": -84.2921403,
+    "description": "Cute coffee spot, perfect to bring your books from Charis to",
+    "media": []
   }
 ]
