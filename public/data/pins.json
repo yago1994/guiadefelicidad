@@ -950,5 +950,25 @@
     "description": "Modest counter-serve standby in a strip mall dishing up BBQ plates & other Southern staples.",
     "media": [],
     "origin": "google"
+  },
+  {
+    "id": "fat-matt-s-rib-shack",
+    "name": "Fat Matt's Rib Shack",
+    "category": "food",
+    "lat": 33.804508,
+    "lng": -84.3671002,
+    "description": "Best BBQ in town in my opinion, they have a solid ribs sandwich for ~$10 and Blues Wednesday",
+    "availability": {
+      "peakHours": [
+        {
+          "from": "18:00",
+          "to": "21:00",
+          "days": [
+            3
+          ]
+        }
+      ]
+    },
+    "media": []
   }
 ]
