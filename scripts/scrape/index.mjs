@@ -2,6 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { fetchEvents as eventbrite } from './sources/eventbrite.mjs'
 import { fetchEvents as creativeLoafing } from './sources/creativeloafing.mjs'
+import { fetchEvents as goatFarm } from './sources/goatfarm.mjs'
 import { apiCalls, geocode, saveCache } from './geocode.mjs'
 import { categorize, eventId, inAtlanta } from './util.mjs'
 
@@ -12,6 +13,7 @@ const OUT_PATH = fileURLToPath(new URL('../../public/data/events.json', import.m
 const SOURCES = [
   ['eventbrite', eventbrite],
   ['creativeloafing', creativeLoafing],
+  ['goatfarm', goatFarm],
 ]
 const HORIZON_DAYS = 30
 const MAX_GEOCODES_PER_RUN = 60 // Nominatim politeness: bounded API calls per night (cache hits are free)
