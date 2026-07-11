@@ -1156,5 +1156,22 @@
     "lng": -84.3546775,
     "description": "Cute indie bookstore, pretty standard pick of titles.",
     "media": []
+  },
+  {
+    "id": "yago-s-house",
+    "name": "Yago's house!",
+    "category": "other",
+    "lat": 33.776960486084505,
+    "lng": -84.38412478780317,
+    "media": [],
+    "description": "Art House Cafe and home of the Pita Salad, this explosion of art is Yago's home!",
+    "availability": {
+      "peakHours": [
+        {
+          "from": "17:00",
+          "to": "20:00"
+        }
+      ]
+    }
   }
 ]
