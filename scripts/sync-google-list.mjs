@@ -4,14 +4,22 @@
  * Google offers no API for saved lists, and the list page renders client-side,
  * so this drives headless Chromium (Playwright) and captures the page's own
  * `search?tbm=map` data feed — which contains every place's name, coordinates,
- * address, and types. Scrolling the list panel pages through lists > 20 items.
+ * address, place_id, and types. Scrolling the list panel pages through lists
+ * > 20 items. Personal notes added when saving a place to a list are NOT
+ * exposed anywhere on this page or feed (confirmed by inspecting both) — as
+ * a substitute, each place's own Google-authored editorial blurb (the one-
+ * line description Maps shows on the place's profile) is fetched from its
+ * individual place page. Coverage is partial: Google only writes these for
+ * some businesses, so many places fall back to their street address.
  *
  * Usage: GOOGLE_LIST_URL="https://maps.app.goo.gl/…" node scripts/sync-google-list.mjs
  *        DRY_RUN=1 to report without writing.
  *
  * Merge rules: imported pins get id `gmap-<slug>` and origin "google". Existing
  * pins keep every admin edit (category, availability, media, description) —
- * only name/coords refresh. Nothing is ever deleted.
+ * only name/coords refresh. The one exception: a pin whose description still
+ * exactly matches its address (i.e. never hand-edited) is upgraded if Google
+ * has since surfaced a real editorial description for it. Nothing is ever deleted.
  */
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
@@ -20,6 +28,8 @@ import { chromium } from 'playwright'
 const PINS_PATH = fileURLToPath(new URL('../public/data/pins.json', import.meta.url))
 const LIST_URL = process.env.GOOGLE_LIST_URL
 const DRY_RUN = Boolean(process.env.DRY_RUN)
+// bounds how many individual place pages get visited per run (politeness + runtime)
+const MAX_DESCRIPTION_LOOKUPS = 40
 
 const TYPE_TO_CATEGORY = [
   [/coffee|cafe|bakery|tea/, 'coffee'],
@@ -93,6 +103,7 @@ function parseFeed(body) {
       lat,
       lng,
       address: typeof place[39] === 'string' ? place[39] : undefined,
+      placeId: typeof place[78] === 'string' ? place[78] : undefined,
       types: Array.isArray(place[76]) ? place[76].map((t) => t?.[0]).filter((t) => typeof t === 'string') : [],
     })
   }
@@ -150,6 +161,60 @@ async function scrapeList(url) {
   }
 }
 
+/**
+ * Google's own one-line editorial blurb for a place, scraped from its
+ * individual Maps page (`div.PYvSYb`). Returns null when Google has none for
+ * that business — that's the common case, not a failure.
+ */
+async function fetchEditorialDescription(browser, placeId) {
+  const page = await browser.newPage({
+    userAgent:
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    locale: 'en-US',
+  })
+  try {
+    await page.goto(`https://www.google.com/maps/place/?q=place_id:${placeId}`, {
+      waitUntil: 'domcontentloaded',
+      timeout: 30_000,
+    })
+    try {
+      await page
+        .locator('button:has-text("Accept all"), button:has-text("Aceptar todo"), button:has-text("Reject all")')
+        .first()
+        .click({ timeout: 4_000 })
+    } catch {
+      // no consent screen
+    }
+    await page.locator('.PYvSYb').first().waitFor({ timeout: 5_000 }).catch(() => {})
+    const text = await page.evaluate(() => document.querySelector('.PYvSYb')?.innerText?.trim() || null)
+    return text || null
+  } catch {
+    return null
+  } finally {
+    await page.close()
+  }
+}
+
+/** Fetches editorial descriptions for a bounded set of places, keyed by placeId. */
+async function fetchDescriptions(places) {
+  const withPlaceId = places.filter((p) => p.placeId).slice(0, MAX_DESCRIPTION_LOOKUPS)
+  if (withPlaceId.length === 0) return new Map()
+  if (places.length > withPlaceId.length) {
+    console.log(`ℹ description lookup capped at ${MAX_DESCRIPTION_LOOKUPS} places this run`)
+  }
+  const browser = await chromium.launch()
+  const found = new Map()
+  try {
+    for (const place of withPlaceId) {
+      const text = await fetchEditorialDescription(browser, place.placeId)
+      if (text) found.set(place.placeId, text)
+    }
+  } finally {
+    await browser.close()
+  }
+  return found
+}
+
 async function main() {
   if (!LIST_URL) {
     console.error('Set GOOGLE_LIST_URL to your shared list link (maps.app.goo.gl/…).')
@@ -166,17 +231,34 @@ async function main() {
 
   const pins = JSON.parse(await readFile(PINS_PATH, 'utf8'))
   const byId = new Map(pins.map((p) => [p.id, p]))
+
+  // fetch real descriptions for brand-new places, plus any previously-synced
+  // pin whose description still exactly equals its address (i.e. was never
+  // hand-edited by the admin, so it's safe to upgrade)
+  const needsDescription = places.filter((place) => {
+    const existing = byId.get(`gmap-${slugify(place.name)}`)
+    return !existing || existing.description === place.address
+  })
+  const descriptions = await fetchDescriptions(needsDescription)
+  console.log(`ℹ found real descriptions for ${descriptions.size}/${needsDescription.length} places checked`)
+
   let added = 0
   let updated = 0
+  let descriptionsUpgraded = 0
   for (const place of places) {
     const id = `gmap-${slugify(place.name)}`
     const existing = byId.get(id)
+    const desc = place.placeId ? descriptions.get(place.placeId) : undefined
     if (existing) {
       if (existing.lat !== place.lat || existing.lng !== place.lng || existing.name !== place.name) {
         existing.name = place.name
         existing.lat = place.lat
         existing.lng = place.lng
         updated++
+      }
+      if (existing.description === place.address && desc) {
+        existing.description = desc
+        descriptionsUpgraded++
       }
     } else {
       byId.set(id, {
@@ -185,19 +267,24 @@ async function main() {
         category: categoryFor(place.types),
         lat: place.lat,
         lng: place.lng,
-        description: place.address,
+        description: desc ?? place.address,
         media: [],
         origin: 'google',
       })
       added++
     }
   }
-  console.log(`ℹ ${added} new pins, ${updated} updated, ${places.length - added - updated} unchanged`)
+  console.log(
+    `ℹ ${added} new pins, ${updated} updated, ${descriptionsUpgraded} descriptions upgraded, ${places.length - added - updated} unchanged`,
+  )
   if (DRY_RUN) {
     console.log('DRY_RUN — not writing. New pins would be:')
     for (const place of places) {
       const id = `gmap-${slugify(place.name)}`
-      if (!pins.some((p) => p.id === id)) console.log(`  + ${id} (${categoryFor(place.types)}) @ ${place.lat},${place.lng}`)
+      if (!pins.some((p) => p.id === id)) {
+        const desc = place.placeId ? descriptions.get(place.placeId) : undefined
+        console.log(`  + ${id} (${categoryFor(place.types)}) @ ${place.lat},${place.lng} — ${desc ?? place.address}`)
+      }
     }
     return
   }
