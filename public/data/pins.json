@@ -1035,5 +1035,14 @@
       ]
     },
     "media": []
+  },
+  {
+    "id": "brownwood-park",
+    "name": "Brownwood Park",
+    "category": "park",
+    "lat": 33.737616,
+    "lng": -84.3469207,
+    "description": "Cute little park in a neighborhood, calm and full of kid playground - perfect for a little walk",
+    "media": []
   }
 ]
