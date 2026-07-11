@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: sync-google-list
@@ -29,13 +30,23 @@ jobs:
         env:
           GOOGLE_LIST_URL: ${{ inputs.list_url || vars.GOOGLE_LIST_URL }}
       - name: Commit imported pins
+        id: commit
         run: |
           git config user.name "google-list-bot"
           git config user.email "actions@github.com"
           git add public/data/pins.json
           if git diff --cached --quiet; then
             echo "List unchanged."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Sync pins from Google Maps list"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+      # A push made with the default GITHUB_TOKEN does NOT trigger deploy.yml's
+      # `on: push` (GitHub's anti-recursion rule) — dispatch it explicitly.
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        run: gh workflow run deploy.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}

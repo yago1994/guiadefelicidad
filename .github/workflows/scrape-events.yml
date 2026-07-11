@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: scrape
@@ -25,13 +26,23 @@ jobs:
       - run: npm ci
       - run: node scripts/scrape/index.mjs
       - name: Commit updated events
+        id: commit
         run: |
           git config user.name "events-bot"
           git config user.email "actions@github.com"
           git add public/data/events.json scripts/scrape/geocode-cache.json
           if git diff --cached --quiet; then
             echo "No event changes tonight."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "Nightly events update"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+      # A push made with the default GITHUB_TOKEN does NOT trigger deploy.yml's
+      # `on: push` (GitHub's anti-recursion rule) — dispatch it explicitly.
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        run: gh workflow run deploy.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}
