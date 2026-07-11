@@ -5,11 +5,43 @@
     "description": "Coffee, a Beltline stroll, tunnel art, and jasmine at dusk.",
     "type": "signature",
     "steps": [
-      { "pinId": "dancing-goats-ponce", "note": "Start with a cortado on the patio" },
-      { "pinId": "ponce-city-market", "note": "Snack from the food hall if you're hungry" },
-      { "pinId": "beltline-eastside", "note": "Walk south on the Eastside Trail" },
-      { "pinId": "krog-street-tunnel", "note": "Check what's new on the walls" },
-      { "pinId": "jasmine-wall-cabbagetown", "note": "Finish smelling the jasmine at dusk (Apr–Jun)" }
+      {
+        "pinId": "dancing-goats-ponce",
+        "note": "Start with a cortado on the patio"
+      },
+      {
+        "pinId": "ponce-city-market",
+        "note": "Snack from the food hall if you're hungry"
+      },
+      {
+        "pinId": "beltline-eastside",
+        "note": "Walk south on the Eastside Trail"
+      },
+      {
+        "pinId": "krog-street-tunnel",
+        "note": "Check what's new on the walls"
+      },
+      {
+        "pinId": "jasmine-wall-cabbagetown",
+        "note": "Finish smelling the jasmine at dusk (Apr–Jun)"
+      }
     ]
+  },
+  {
+    "id": "movie-night",
+    "name": "Movie night!",
+    "type": "date-night",
+    "steps": [
+      {
+        "pinId": "trader-joes"
+      },
+      {
+        "pinId": "landmark-theatre"
+      },
+      {
+        "pinId": "apres-diem"
+      }
+    ],
+    "description": "Grab some snacks at TJs and head over to the movies with a night-cap after"
   }
 ]
