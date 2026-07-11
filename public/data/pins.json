@@ -863,10 +863,10 @@
   {
     "id": "gmap-westview-cemetery-inc",
     "name": "Westview Cemetery Inc.",
-    "category": "other",
+    "category": "park",
     "lat": 33.7464651,
     "lng": -84.4421867,
-    "description": "1680 Westview Dr SW, Atlanta, GA 30310",
+    "description": "This cemetery is like a huge park. It's super quiet and doesn't get many visitors, unlike Oakland Cemetery, so it's perfect for a peaceful walk among the huge trees and open grassy areas. During some hours you can also explore the mausoleum, which feels on the outside like you got transported to Europe or feels on the inside like you might be inside a scary movie. \n\nNote: they generally frown upon biking here but if you're quiet, respectful, and play dumb about the no bikes sign you can usually get a loop in.",
     "media": [],
     "origin": "google"
   },
