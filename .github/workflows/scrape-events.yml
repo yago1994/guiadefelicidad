@@ -1,9 +1,12 @@
-name: Nightly events scrape
+name: Weekly events scrape
 
 on:
   schedule:
-    # 09:10 UTC ≈ 4:10–5:10 AM Atlanta time depending on DST
-    - cron: '10 9 * * *'
+    # Monday 09:10 UTC ≈ 4:10–5:10 AM Atlanta time depending on DST.
+    # Paired with the 14-day fetch horizon in scripts/scrape/index.mjs: every
+    # event enters that window at least a week before it happens, so a single
+    # weekly run is enough to catch it before the day arrives.
+    - cron: '10 9 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -32,10 +35,10 @@ jobs:
           git config user.email "actions@github.com"
           git add public/data/events.json scripts/scrape/geocode-cache.json
           if git diff --cached --quiet; then
-            echo "No event changes tonight."
+            echo "No event changes this week."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "Nightly events update"
+            git commit -m "Weekly events update"
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi

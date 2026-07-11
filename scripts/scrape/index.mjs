@@ -15,8 +15,10 @@ const SOURCES = [
   ['creativeloafing', creativeLoafing],
   ['goatfarm', goatFarm],
 ]
-const HORIZON_DAYS = 30
-const MAX_GEOCODES_PER_RUN = 60 // Nominatim politeness: bounded API calls per night (cache hits are free)
+// paired with the weekly cron: every event enters this window at least a
+// week before it happens, so one run per week is enough to catch it
+const HORIZON_DAYS = 14
+const MAX_GEOCODES_PER_RUN = 60 // Nominatim politeness: bounded API calls per run (cache hits are free)
 
 async function main() {
   const raw = []

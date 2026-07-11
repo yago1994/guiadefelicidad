@@ -43,7 +43,7 @@ export async function geocode(address) {
       if (json[0]) result = { lat: Number(json[0].lat), lng: Number(json[0].lon) }
     }
   } catch {
-    // treat as unresolvable this run; cached miss below avoids re-hitting nightly
+    // treat as unresolvable this run; cached miss below avoids re-hitting it next time
   }
   c[key] = result
   await sleep(1100)
