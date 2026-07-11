@@ -1147,5 +1147,14 @@
       ]
     },
     "media": []
+  },
+  {
+    "id": "virginia-highland-books",
+    "name": "Virginia Highland Books",
+    "category": "market",
+    "lat": 33.7829119,
+    "lng": -84.3546775,
+    "description": "Cute indie bookstore, pretty standard pick of titles.",
+    "media": []
   }
 ]
