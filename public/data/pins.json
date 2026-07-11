@@ -1044,5 +1044,38 @@
     "lng": -84.3469207,
     "description": "Cute little park in a neighborhood, calm and full of kid playground - perfect for a little walk",
     "media": []
+  },
+  {
+    "id": "charis-books-more",
+    "name": "Charis Books & More",
+    "category": "market",
+    "lat": 33.7681348,
+    "lng": -84.2923637,
+    "description": "Atlanta's oldest feminist bookstore! They stock local zines and host lots of events.",
+    "url": "https://www.charisbooksandmore.com",
+    "availability": {
+      "hours": [
+        {
+          "days": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "open": "10:00",
+          "close": "19:00"
+        },
+        {
+          "days": [
+            0
+          ],
+          "open": "12:00",
+          "close": "18:00"
+        }
+      ]
+    },
+    "media": []
   }
 ]
