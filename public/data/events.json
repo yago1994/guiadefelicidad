@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-11T17:10:55.557Z",
+  "updatedAt": "2026-07-11T17:19:39.948Z",
   "events": [
     {
       "id": "goatfarm-summer-at-warhorse-2026-05-29",
@@ -469,8 +469,8 @@
       "address": "3005 Peachtree Road, Atlanta, GA, 30305",
       "lat": 33.836854,
       "lng": -84.3811022,
-      "start": "2026-07-13T18:00:00-04:00",
-      "end": "2026-07-13T21:00:00-04:00",
+      "start": "2026-07-13",
+      "end": "2026-07-13",
       "url": "https://www.eventbrite.com/e/an-evening-with-michelle-lamb-the-spaces-between-my-dreams-tickets-1991830791516",
       "source": "eventbrite"
     },
@@ -482,8 +482,8 @@
       "address": "352 University Avenue Southwest, Atlanta, GA, 30310",
       "lat": 33.72131,
       "lng": -84.401736,
-      "start": "2026-07-13T18:30:00-04:00",
-      "end": "2026-07-13T20:00:00-04:00",
+      "start": "2026-07-13",
+      "end": "2026-07-13",
       "url": "https://www.eventbrite.com/e/networking-on-the-atlanta-beltline-with-the-yec-tickets-1990781968458",
       "source": "eventbrite"
     },
@@ -508,22 +508,9 @@
       "address": "670 DeKalb Avenue Northeast, Atlanta, GA, 30312",
       "lat": 33.7536959,
       "lng": -84.3662011,
-      "start": "2026-07-15T18:15:00-04:00",
-      "end": "2026-07-15T19:30:00-04:00",
+      "start": "2026-07-15",
+      "end": "2026-07-15",
       "url": "https://www.eventbrite.com/e/jetset-mat-pilates-x-the-edge-on-the-beltline-tickets-1993393605936",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-jazz-on-the-beltline-live-music-margarita-wine-fli-2026-07-15",
-      "title": "Jazz on the Beltline (Live Music, Margarita & Wine Flights!)",
-      "category": "music",
-      "venue": "Buena Vida Tapas Bar",
-      "address": "385 North Angier Avenue Northeast, Atlanta, GA, 30308",
-      "lat": 33.7693111,
-      "lng": -84.3636566,
-      "start": "2026-07-15T18:30:00-04:00",
-      "end": "2026-07-15T21:30:00-04:00",
-      "url": "https://www.eventbrite.com/e/jazz-on-the-beltline-live-music-margarita-wine-flights-tickets-1993614325113",
       "source": "eventbrite"
     },
     {
@@ -534,9 +521,22 @@
       "address": "550 Somerset Terrace Northeast, Atlanta, GA, 30306",
       "lat": 33.768937,
       "lng": -84.3615985,
-      "start": "2026-07-15T19:00:00-04:00",
-      "end": "2026-07-15T21:00:00-04:00",
+      "start": "2026-07-15",
+      "end": "2026-07-15",
       "url": "https://www.eventbrite.com/e/official-beltline-baddies-community-walk-run-atlanta-beltline-tickets-1993683541140",
+      "source": "eventbrite"
+    },
+    {
+      "id": "eventbrite-jazz-on-the-beltline-live-music-margarita-wine-fli-2026-07-15",
+      "title": "Jazz on the Beltline (Live Music, Margarita & Wine Flights!)",
+      "category": "music",
+      "venue": "Buena Vida Tapas Bar",
+      "address": "385 North Angier Avenue Northeast, Atlanta, GA, 30308",
+      "lat": 33.7693111,
+      "lng": -84.3636566,
+      "start": "2026-07-15",
+      "end": "2026-07-15",
+      "url": "https://www.eventbrite.com/e/jazz-on-the-beltline-live-music-margarita-wine-flights-tickets-1993614325113",
       "source": "eventbrite"
     },
     {
@@ -553,6 +553,19 @@
       "source": "eventbrite"
     },
     {
+      "id": "eventbrite-fuego-fridays-energetic-latin-dj-tapas-eclipse-di--2026-07-17",
+      "title": "Fuego Fridays: Energetic Latin DJ + Tapas - Eclipse di Luna, Beltline",
+      "category": "music",
+      "venue": "Eclipse di Luna - Beltline",
+      "address": "661 Auburn Avenue Northeast, Atlanta, GA, 30312",
+      "lat": 33.7560346,
+      "lng": -84.3654586,
+      "start": "2026-07-17",
+      "end": "2026-07-18",
+      "url": "https://www.eventbrite.com/e/fuego-fridays-energetic-latin-dj-tapas-eclipse-di-luna-beltline-tickets-1983304541272",
+      "source": "eventbrite"
+    },
+    {
       "id": "eventbrite-bring-it-back-atl-s-90s-2000s-dance-party-2026-07-17",
       "title": "Bring It Back, Atl’s 90s/2000s Dance Party",
       "category": "music",
@@ -563,19 +576,6 @@
       "start": "2026-07-17T20:00:00-04:00",
       "end": "2026-07-18T01:00:00-04:00",
       "url": "https://www.eventbrite.com/e/bring-it-back-atls-90s2000s-dance-party-tickets-1992789833035",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-fuego-fridays-energetic-latin-dj-tapas-eclipse-di--2026-07-17",
-      "title": "Fuego Fridays: Energetic Latin DJ + Tapas - Eclipse di Luna, Beltline",
-      "category": "music",
-      "venue": "Eclipse di Luna - Beltline",
-      "address": "661 Auburn Avenue Northeast, Atlanta, GA, 30312",
-      "lat": 33.7560346,
-      "lng": -84.3654586,
-      "start": "2026-07-17T20:30:00-04:00",
-      "end": "2026-07-18T01:00:00-04:00",
-      "url": "https://www.eventbrite.com/e/fuego-fridays-energetic-latin-dj-tapas-eclipse-di-luna-beltline-tickets-1983304541272",
       "source": "eventbrite"
     },
     {
@@ -631,6 +631,19 @@
       "source": "eventbrite"
     },
     {
+      "id": "eventbrite-the-self-care-lab-walk-club-2026-07-18",
+      "title": "The Self Care Lab Walk Club",
+      "category": "other",
+      "venue": "Atlanta Beltline Eastside Trail",
+      "address": "Atlanta Beltline Eastside Trail, Atlanta, GA",
+      "lat": 33.7690132,
+      "lng": -84.3623836,
+      "start": "2026-07-18",
+      "end": "2026-07-18",
+      "url": "https://www.eventbrite.com/e/the-self-care-lab-walk-club-tickets-1979095438733",
+      "source": "eventbrite"
+    },
+    {
       "id": "eventbrite-july-piedmont-park-nature-photography-meetup-2026-07-18",
       "title": "July Piedmont Park Nature Photography Meetup",
       "category": "park",
@@ -641,19 +654,6 @@
       "start": "2026-07-18",
       "end": "2026-07-18",
       "url": "https://www.eventbrite.com/e/july-piedmont-park-nature-photography-meetup-tickets-1992788034656",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-the-self-care-lab-walk-club-2026-07-18",
-      "title": "The Self Care Lab Walk Club",
-      "category": "other",
-      "venue": "Atlanta Beltline Eastside Trail",
-      "address": "Atlanta Beltline Eastside Trail, Atlanta, GA",
-      "lat": 33.7690132,
-      "lng": -84.3623836,
-      "start": "2026-07-18T08:30:00-04:00",
-      "end": "2026-07-18T11:30:00-04:00",
-      "url": "https://www.eventbrite.com/e/the-self-care-lab-walk-club-tickets-1979095438733",
       "source": "eventbrite"
     },
     {
@@ -732,110 +732,6 @@
       "start": "2026-07-25",
       "end": "2026-07-25",
       "url": "https://www.eventbrite.com/e/the-riches-collective-where-business-networking-fitness-meets-tickets-1992749136310",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-take-flight-wine-rooftop-afterwork-social-networki-2026-07-29",
-      "title": "Take Flight - Wine, Rooftop, Afterwork Social  & Networking (Buckhead)",
-      "category": "food-drink",
-      "venue": "Hyatt Centric Buckhead Atlanta",
-      "address": "3301 Lenox Parkway, Atlanta, GA, 30326",
-      "lat": 33.84350209999999,
-      "lng": -84.36174249999999,
-      "start": "2026-07-29T18:00:00-04:00",
-      "end": "2026-07-29T23:00:00-04:00",
-      "url": "https://www.eventbrite.com/e/take-flight-wine-rooftop-afterwork-social-networking-buckhead-tickets-1992963498473",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-sea-of-charms-book-release-signing-with-sarah-beth-2026-07-29",
-      "title": "Sea of Charms Book Release & Signing with Sarah Beth Durst",
-      "category": "art",
-      "venue": "The Solarium",
-      "address": "319 West Hill Street, Decatur, GA, 30030",
-      "lat": 33.7600082,
-      "lng": -84.3019138,
-      "start": "2026-07-29T19:00:00-04:00",
-      "end": "2026-07-29T22:00:00-04:00",
-      "url": "https://www.eventbrite.com/e/sea-of-charms-book-release-signing-with-sarah-beth-durst-tickets-1987357119643",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-staged-reading-of-the-world-to-come-2026-07-30",
-      "title": "Staged Reading of THE WORLD TO COME",
-      "category": "art",
-      "venue": "The Breman Museum",
-      "address": "1440 Spring Street Northwest, Atlanta, GA, 30309",
-      "lat": 33.79368880000001,
-      "lng": -84.3895321,
-      "start": "2026-07-30T19:00:00-04:00",
-      "end": "2026-07-30T22:00:00-04:00",
-      "url": "https://www.eventbrite.com/e/staged-reading-of-the-world-to-come-tickets-1989311310681",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-o-god-my-heart-is-ready-opening-reception-2026-07-31",
-      "title": "O God My Heart is Ready Opening Reception",
-      "category": "art",
-      "venue": "Callanwolde Fine Arts Center",
-      "address": "980 Briarcliff Rd NE, Atlanta, GA, 30306",
-      "lat": 33.7822718,
-      "lng": -84.34580419999998,
-      "start": "2026-07-31T18:00:00-04:00",
-      "end": "2026-07-31T21:00:00-04:00",
-      "url": "https://www.eventbrite.com/e/o-god-my-heart-is-ready-opening-reception-tickets-1988927520755",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-the-happy-hour-experience-2026-08-02",
-      "title": "The Happy Hour Experience",
-      "category": "food-drink",
-      "venue": "Perfect Note ATLANTA",
-      "address": "3000 Windy Hill Road Southeast, Marietta, GA, 30067",
-      "lat": 33.9049717,
-      "lng": -84.4650642,
-      "start": "2026-08-02T14:00:00-04:00",
-      "end": "2026-08-02T17:00:00-04:00",
-      "url": "https://www.eventbrite.com/e/the-happy-hour-experience-tickets-1989625310864",
-      "source": "eventbrite"
-    },
-    {
-      "id": "eventbrite-r-b-only-live-atlanta-ga-2026-08-07",
-      "title": "R&B ONLY LIVE - Atlanta, GA",
-      "category": "art",
-      "venue": "The Eastern",
-      "address": "777 Memorial Drive Southeast, Atlanta, GA, 30316",
-      "lat": 33.745344,
-      "lng": -84.36057269999999,
-      "start": "2026-08-07T20:00:00-04:00",
-      "end": "2026-08-08T01:00:00-04:00",
-      "url": "https://www.eventbrite.com/e/rb-only-live-atlanta-ga-tickets-1993067289916",
-      "source": "eventbrite"
-    },
-    {
-      "id": "goatfarm-reptar-w-cdsm-2026-08-07",
-      "title": "Reptar w/ CDSM",
-      "category": "art",
-      "venue": "The Goat Farm",
-      "address": "1200 Foster St NW, Atlanta, GA 30318",
-      "lat": 33.785974513235445,
-      "lng": -84.4167698115391,
-      "start": "2026-08-07T23:30:00Z",
-      "end": "2026-08-08T03:00:00Z",
-      "url": "https://www.thegoatfarm.info/events/reptar-w-cdsm",
-      "source": "goatfarm"
-    },
-    {
-      "id": "eventbrite-garden-of-hip-hop-festival-2026-08-08",
-      "title": "Garden Of Hip Hop Festival",
-      "category": "art",
-      "venue": "4295 Hendrix Dr",
-      "address": "4295 Hendrix Drive, Forest Park, GA, 30297",
-      "lat": 33.6369938,
-      "lng": -84.3718753,
-      "start": "2026-08-08",
-      "end": "2026-08-08",
-      "url": "https://www.eventbrite.com/e/garden-of-hip-hop-festival-tickets-1380645250109",
       "source": "eventbrite"
     }
   ]
