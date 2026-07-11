@@ -1095,5 +1095,57 @@
     "lng": -84.3032761,
     "description": "Spacious, artsy coffeeshop, typically pretty quiet, a good spot for working on a laptop",
     "media": []
+  },
+  {
+    "id": "chai-pani",
+    "name": "Chai Pani",
+    "category": "food",
+    "lat": 33.7753303,
+    "lng": -84.3026959,
+    "description": "406 West Ponce de Leon Avenue, Decatur",
+    "url": "https://www.chaipani.com/decatur",
+    "availability": {
+      "hours": [
+        {
+          "days": [
+            5,
+            6
+          ],
+          "open": "11:30",
+          "close": "14:30"
+        },
+        {
+          "days": [
+            5,
+            6
+          ],
+          "open": "17:00",
+          "close": "22:00"
+        },
+        {
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "open": "11:30",
+          "close": "14:30"
+        },
+        {
+          "days": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "open": "17:00",
+          "close": "21:30"
+        }
+      ]
+    },
+    "media": []
   }
 ]
