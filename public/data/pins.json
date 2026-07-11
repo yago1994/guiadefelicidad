@@ -1005,5 +1005,14 @@
       ]
     },
     "media": []
+  },
+  {
+    "id": "north-avenue-train-station",
+    "name": "North Avenue Train Station",
+    "category": "transit",
+    "lat": 33.7717493,
+    "lng": -84.3870756,
+    "description": "North Ave MARTA Station - Urban Plaza, Old Fourth Ward, Atlanta",
+    "media": []
   }
 ]
