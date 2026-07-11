@@ -914,10 +914,10 @@
   {
     "id": "gmap-westview-corner-grocery",
     "name": "Westview Corner Grocery",
-    "category": "coffee",
+    "category": "market",
     "lat": 33.7438937,
     "lng": -84.4385396,
-    "description": "1562 Ralph David Abernathy Blvd SW, Atlanta, GA 30310",
+    "description": "Cute neighborhood grocery store! Lots of granola health brands.",
     "media": [],
     "origin": "google"
   },
