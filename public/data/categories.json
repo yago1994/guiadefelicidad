@@ -6,6 +6,7 @@
   { "id": "music", "name": "Music", "icon": "🎵", "color": "#7e57c2" },
   { "id": "market", "name": "Markets", "icon": "🧺", "color": "#ffca28" },
   { "id": "active", "name": "Active & outdoors", "icon": "🚴", "color": "#29b6f6" },
+  { "id": "transit", "name": "Transit", "icon": "🚉", "color": "#546e7a" },
   { "id": "art", "name": "Art & culture", "icon": "🎨", "color": "#ec407a" },
   { "id": "food-drink", "name": "Food & drink events", "icon": "🍻", "color": "#ffa726" },
   { "id": "festival", "name": "Festivals", "icon": "🎉", "color": "#d84315" },

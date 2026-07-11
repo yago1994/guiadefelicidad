@@ -40,6 +40,7 @@ const TYPE_TO_CATEGORY = [
   [/market|grocery|store|shopping/, 'market'],
   [/gym|bicycle|bike|sports|stadium|bowling|climbing/, 'active'],
   [/night_club|music|concert/, 'music'],
+  [/subway_station|train_station|transit_station|bus_station|light_rail_station/, 'transit'],
 ]
 
 function categoryFor(types) {

@@ -28,6 +28,8 @@ export function categoryFromOsm(key?: string, value?: string): string {
   if (/tourism=(museum|gallery|artwork|attraction)|amenity=(theatre|cinema|arts_centre)|historic=/.test(v)) return 'art'
   if (/amenity=nightclub|amenity=music_venue|shop=music/.test(v)) return 'music'
   if (/amenity=marketplace/.test(v)) return 'market'
+  if (/railway=(station|halt|tram_stop)|public_transport=|amenity=bus_station|highway=bus_stop|aerialway=station/.test(v))
+    return 'transit'
   if (/leisure=(fitness_centre|sports_centre|pitch|stadium|track|swimming_pool)|sport=|route=/.test(v)) return 'active'
   if (/shop=/.test(v)) return 'market'
   return 'other'

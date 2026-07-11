@@ -792,7 +792,7 @@
   {
     "id": "gmap-west-lake",
     "name": "West Lake",
-    "category": "other",
+    "category": "transit",
     "lat": 33.75327,
     "lng": -84.4453,
     "description": "Atlanta, GA 30318",
@@ -802,7 +802,7 @@
   {
     "id": "gmap-west-end",
     "name": "West End",
-    "category": "other",
+    "category": "transit",
     "lat": 33.73612,
     "lng": -84.41364,
     "description": "680 Lee St SW, Atlanta, GA 30310",
