@@ -784,10 +784,10 @@
   {
     "id": "gmap-press-shop",
     "name": "Press Shop",
-    "category": "art",
+    "category": "market",
     "lat": 33.7369743,
     "lng": -84.38517739999999,
-    "description": "72 Georgia Ave SE Ste 300, Atlanta, GA 30312",
+    "description": "They sell art prints, home goods, baby gifts, wine, and a small selection of books.",
     "media": [],
     "origin": "google"
   },
