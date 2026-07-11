@@ -1182,5 +1182,14 @@
     "lng": -84.44351024018442,
     "media": [],
     "description": "This is Sam and Fluffy's home!"
+  },
+  {
+    "id": "entrance-to-the-park",
+    "name": "Entrance to the park",
+    "category": "park",
+    "lat": 33.73747890814893,
+    "lng": -84.456331618207,
+    "media": [],
+    "description": "This is the easiest spot to enter the park from Sam's house. You can walk (20m), bike (10m), or drive (3m) here."
   }
 ]
