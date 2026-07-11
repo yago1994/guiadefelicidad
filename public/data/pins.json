@@ -350,18 +350,40 @@
     "id": "apres-diem",
     "name": "Apres Diem",
     "category": "food",
-    "lat": 33.77918505070575,
-    "lng": -84.36715338641233,
-    "media": [],
-    "description": "Good datey spot for post-movies, they also have a nice tea sampler. Feels sort of European vibes",
+    "lat": 33.7791816,
+    "lng": -84.3671568,
+    "description": "After movies spot, perfect for eating some small plates and debriefing the movie! They have also good tea sets for late night working",
+    "url": "https://apresdiem.com",
     "availability": {
       "hours": [
         {
-          "open": "18:00",
+          "days": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "open": "11:00",
           "close": "23:00"
+        },
+        {
+          "days": [
+            5,
+            6
+          ],
+          "open": "11:00",
+          "close": "23:59"
+        },
+        {
+          "days": [
+            0
+          ],
+          "open": "11:00",
+          "close": "22:30"
         }
       ]
-    }
+    },
+    "media": []
   },
   {
     "id": "trader-joes",
