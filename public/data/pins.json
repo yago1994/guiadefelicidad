@@ -1086,5 +1086,14 @@
     "lng": -84.2921403,
     "description": "Cute coffee spot, perfect to bring your books from Charis to",
     "media": []
+  },
+  {
+    "id": "oakview-coffee",
+    "name": "Oakview Coffee",
+    "category": "coffee",
+    "lat": 33.7591523,
+    "lng": -84.3032761,
+    "description": "Spacious, artsy coffeeshop, typically pretty quiet, a good spot for working on a laptop",
+    "media": []
   }
 ]
