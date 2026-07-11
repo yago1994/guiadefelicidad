@@ -1022,6 +1022,18 @@
     "lng": -84.3721635,
     "description": "Old Fourth Ward, Atlanta",
     "url": "https://oaklandcemetery.com/",
+    "availability": {
+      "peakHours": [
+        {
+          "from": "16:00",
+          "to": "19:00",
+          "days": [
+            0,
+            6
+          ]
+        }
+      ]
+    },
     "media": []
   }
 ]
