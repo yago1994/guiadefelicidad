@@ -813,11 +813,10 @@
   },
   {
     "id": "gmap-west-lake",
-    "name": "West Lake",
+    "name": "West Lake Marta Station (East-West Line)",
     "category": "transit",
     "lat": 33.75327,
     "lng": -84.4453,
-    "description": "Atlanta, GA 30318",
     "media": [],
     "origin": "google"
   },
