@@ -28,6 +28,12 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/scrape/index.mjs
+        env:
+          # Optional: a `sessionid` cookie from a logged-in Instagram session,
+          # stored as a repo secret. Lets the Instagram source fetch as an
+          # authenticated user (Instagram blocks datacenter IPs otherwise).
+          # If the secret is unset the source just skips — the run still works.
+          IG_SESSIONID: ${{ secrets.IG_SESSIONID }}
       - name: Commit updated events
         id: commit
         run: |

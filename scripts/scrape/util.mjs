@@ -45,6 +45,43 @@ export async function fetchJson(url) {
   return res.json()
 }
 
+// ── Squarespace iCal helpers ────────────────────────────────────────────────
+// Squarespace event pages expose a clean per-event iCal export at
+// `?format=ical`. Shared by every single-venue Squarespace source (The Goat
+// Farm, Dad's Garage), which each fetch one .ics per event and read its VEVENT.
+
+export async function fetchIcs(url) {
+  const res = await fetch(url, {
+    headers: { 'User-Agent': USER_AGENT, Accept: 'text/calendar' },
+    signal: AbortSignal.timeout(20_000),
+  })
+  if (!res.ok) throw new Error(`GET ${url} → ${res.status}`)
+  return res.text()
+}
+
+export function unescapeIcsText(v) {
+  return v.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\[nN]/g, ' ').replace(/\\\\/g, '\\').trim()
+}
+
+/** "20260513T230000Z" → "2026-05-13T23:00:00Z" */
+export function parseIcsDate(v) {
+  const m = v?.match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})(Z)?$/)
+  if (!m) return undefined
+  const [, y, mo, d, h, mi, s, z] = m
+  return `${y}-${mo}-${d}T${h}:${mi}:${s}${z ? 'Z' : ''}`
+}
+
+export function parseVEvent(ics) {
+  // unfold continuation lines (a leading space/tab means "joined with the previous line")
+  const unfolded = ics.replace(/\r\n[ \t]/g, '').replace(/\n[ \t]/g, '')
+  const fields = {}
+  for (const line of unfolded.split(/\r?\n/)) {
+    const m = line.match(/^([A-Z-]+)(?:;[^:]*)?:(.*)$/)
+    if (m) fields[m[1]] = m[2]
+  }
+  return fields
+}
+
 /**
  * Pull every schema.org Event object out of a page's JSON-LD blocks,
  * tolerating @graph wrappers, arrays, and malformed blocks.

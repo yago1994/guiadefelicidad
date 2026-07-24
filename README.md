@@ -9,7 +9,7 @@ A living map of Atlanta where pins appear **contextually** — only what's open,
 - **Fully static** — Vite + React + [MapLibre GL](https://maplibre.org/) with free [OpenFreeMap](https://openfreemap.org/) tiles, hosted on GitHub Pages. No backend.
 - **Two sources of truth:**
   1. **Curated pins** in [public/data/pins.json](public/data/pins.json), managed from the site itself in admin mode.
-  2. **Scraped events** in `public/data/events.json`, refreshed weekly (Mondays) by a GitHub Actions cron ([.github/workflows/scrape-events.yml](.github/workflows/scrape-events.yml)) that sweeps Eventbrite Atlanta listings (incl. a Beltline keyword search), the Creative Loafing calendar, and The Goat Farm's event calendar, geocodes via Nominatim (cached), and categorizes by keywords. Only events in the next 14 days are kept — comfortably inside the weekly cadence, so nothing falls through the gap between runs.
+  2. **Scraped events** in `public/data/events.json`, refreshed weekly (Mondays) by a GitHub Actions cron ([.github/workflows/scrape-events.yml](.github/workflows/scrape-events.yml)) that sweeps Eventbrite Atlanta listings (incl. a Beltline keyword search), the Creative Loafing calendar, The Goat Farm's and Dad's Garage's event calendars, and (best-effort) an Instagram account, geocodes via Nominatim (cached), and categorizes by keywords. Only events in the next 14 days are kept — comfortably inside the weekly cadence, so nothing falls through the gap between runs. Each source fails soft: if one is down or blocked, the run logs it and keeps the rest.
 - **Place search** — the 🔍 button searches restaurants, parks, and landmarks around Atlanta via [Photon](https://photon.komoot.io/) on OpenStreetMap data (free, no key). Anyone can search and get directions; in admin mode, *Add as pin* pre-fills the pin editor and imports the place's opening hours and website from OSM when available.
 - **Time scopes** — Now / Today / This week / All. "Now" honors seasons (months), weekdays, opening hours, date windows, and recurring patterns; **peak hours** make a marker glow. "All" shows everything, dimming what's closed right now.
 - **Recurring patterns** — a pin can exist on an "Nth weekday of the month" schedule (e.g. Critical Mass = last Friday of every month). Combine with "months" for a once-a-year event (e.g. Chomp and Stomp = 1st Saturday of November) — see `Availability.recurrence` in [types.ts](src/lib/types.ts).
@@ -50,8 +50,15 @@ Testing tip: append `?t=2026-04-15T18:30` to the URL to fake the clock and previ
 
 See [src/lib/types.ts](src/lib/types.ts). A pin's `availability` supports `months`, `days` (weekdays), `hours` (may cross midnight), `dateRanges`, `recurrence` (nth-weekday-of-month), and `peakHours` — all optional; omitted means unrestricted.
 
+## Instagram source (best-effort)
+
+The weekly scrape includes a best-effort Instagram source ([scripts/scrape/sources/instagram.mjs](scripts/scrape/sources/instagram.mjs), account `frenchprovatl` by default). Caveats worth knowing:
+
+- **Against Instagram's ToS and easily blocked.** Instagram serves a login wall to unauthenticated clients and blocks datacenter IPs (like the Actions runner), so from CI it often returns nothing. The source **fails soft** — any block just skips it, the rest of the scrape runs normally.
+- **For reliable access, set an `IG_SESSIONID` repo secret** — the `sessionid` cookie from a logged-in browser session. The [workflow](.github/workflows/scrape-events.yml) passes it through as an env var; without it the source is unauthenticated (and usually empty from CI). Point it at other accounts with the `IG_USERNAMES` env var (comma-separated).
+- **Dates are parsed from free-text captions** heuristically (e.g. "Saturday, July 26 at 7pm"), so expect misses. A post with no parseable upcoming date, or no usable Atlanta location, is dropped.
+
 ## Not in v1
 
 - Real-time crowd/occupancy data (no official Google API; the "peak" glow is where it would plug in — e.g. via BestTime.app later).
-- Instagram event ingestion (bot-blocked, against ToS).
 - discoveratlanta.com scraping (hard 403 bot wall).
