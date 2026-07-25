@@ -1,0 +1,33 @@
+name: Forage probe (Concrete Jungle tree map)
+
+# One-off discovery run: loads the Concrete Jungle tree map in headless Chromium,
+# captures the data feed it fetches, and uploads the captured JSON + a summary as
+# an artifact so we can see the endpoint and schema. Read-only — it commits nothing.
+# Trigger it from the Actions tab (Run workflow), then download the artifact.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/scrape/probe-concrete-jungle.mjs
+        env:
+          OUT_DIR: ${{ github.workspace }}/forage-probe-out
+      - name: Upload captured feeds
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: forage-probe-captures
+          path: forage-probe-out/
+          if-no-files-found: warn

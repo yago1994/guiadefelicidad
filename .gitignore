@@ -2,3 +2,5 @@ node_modules/
 dist/
 *.local
 .DS_Store
+scripts/scrape/concrete-jungle-probe/
+forage-probe-out/
