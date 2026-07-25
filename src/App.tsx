@@ -44,7 +44,7 @@ export default function App() {
   const [at, setAt] = useState<Date>(() => new Date())
   const [scope, setScope] = useState<TimeScope>('now')
   const [activeCats, setActiveCats] = useState<Set<string> | null>(null)
-  const [selected, setSelected] = useState<{ kind: 'pin' | 'event'; id: string } | null>(null)
+  const [selected, setSelected] = useState<{ kind: 'pin' | 'event' | 'forage'; id: string } | null>(null)
   const [focus, setFocus] = useState<{ lat: number; lng: number } | null>(null)
   const [showExpList, setShowExpList] = useState(false)
   const [activeExpId, setActiveExpId] = useState<string | null>(null)
@@ -77,6 +77,7 @@ export default function App() {
   }, [])
 
   const pinsById = useMemo(() => new Map((data?.pins ?? []).map((p) => [p.id, p])), [data?.pins])
+  const forageById = useMemo(() => new Map((data?.forage ?? []).map((p) => [p.id, p])), [data?.forage])
   const catsById = useMemo(() => new Map((data?.categories ?? []).map((c) => [c.id, c])), [data?.categories])
   const expTypesById = useMemo(
     () => new Map((data?.experienceTypes ?? []).map((t) => [t.id, t])),
@@ -153,6 +154,24 @@ export default function App() {
         selected: selected?.kind === 'event' && selected.id === ev.id,
       })
     }
+    // Foraging spots are permanent locations with no hours/season, so they
+    // ignore the time scope entirely — always shown, filtered only by category.
+    if (!expDraft) {
+      for (const point of data.forage) {
+        if (activeCats && !activeCats.has(point.category)) continue
+        const cat = catsById.get(point.category)
+        specs.push({
+          id: point.id,
+          kind: 'forage',
+          lat: point.lat,
+          lng: point.lng,
+          icon: cat?.icon ?? '🍎',
+          color: cat?.color ?? '#7cb342',
+          state: 'visible',
+          selected: selected?.kind === 'forage' && selected.id === point.id,
+        })
+      }
+    }
     if (searchResult) {
       specs.push({
         id: '__search',
@@ -206,7 +225,7 @@ export default function App() {
   }, [activeExp, expDraft, pinsById, expTypesById])
 
   // ----- interactions -----
-  const handleMarkerClick = (id: string, kind: 'pin' | 'event') => {
+  const handleMarkerClick = (id: string, kind: 'pin' | 'event' | 'forage') => {
     if (id === '__search') return // the search card is already open
     if (expDraft && kind === 'pin') {
       setExpDraft((d) =>
@@ -215,7 +234,8 @@ export default function App() {
       return
     }
     setSelected({ kind, id })
-    const p = kind === 'pin' ? pinsById.get(id) : data?.events.find((e) => e.id === id)
+    const p =
+      kind === 'pin' ? pinsById.get(id) : kind === 'forage' ? forageById.get(id) : data?.events.find((e) => e.id === id)
     if (p) setFocus({ lat: p.lat, lng: p.lng })
   }
 
@@ -552,12 +572,18 @@ export default function App() {
           const pin = pinsById.get(selected.id)
           return pin ? ({ kind: 'pin', pin } as const) : null
         })()
-      : selected?.kind === 'event'
+      : selected?.kind === 'forage'
         ? (() => {
-            const event = data.events.find((e) => e.id === selected.id)
-            return event ? ({ kind: 'event', event } as const) : null
+            // forage points are Pin-shaped; show them in the pin sheet, read-only
+            const pin = forageById.get(selected.id)
+            return pin ? ({ kind: 'pin', pin } as const) : null
           })()
-        : null
+        : selected?.kind === 'event'
+          ? (() => {
+              const event = data.events.find((e) => e.id === selected.id)
+              return event ? ({ kind: 'event', event } as const) : null
+            })()
+          : null
 
   return (
     <div className="app">
@@ -720,11 +746,15 @@ export default function App() {
           mediaOverrides={mediaOverrides}
           isAdmin={isAdmin}
           onClose={() => setSelected(null)}
-          onEdit={(pin) => {
-            setSelected(null)
-            setPinDraft({ pin, isNew: false })
-          }}
-          onSaveDescription={saveDescription}
+          onEdit={
+            selected?.kind === 'forage'
+              ? undefined // forage points aren't curated pins — no editing into pins.json
+              : (pin) => {
+                  setSelected(null)
+                  setPinDraft({ pin, isNew: false })
+                }
+          }
+          onSaveDescription={selected?.kind === 'forage' ? undefined : saveDescription}
         />
       )}
 

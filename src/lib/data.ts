@@ -13,12 +13,13 @@ async function getJson<T>(path: string, fallback: T): Promise<T> {
 }
 
 export async function loadAppData(): Promise<AppData> {
-  const [categories, pins, experiences, experienceTypes, eventsFile] = await Promise.all([
+  const [categories, pins, experiences, experienceTypes, eventsFile, forage] = await Promise.all([
     getJson<Category[]>('data/categories.json', []),
     getJson<Pin[]>('data/pins.json', []),
     getJson<Experience[]>('data/experiences.json', []),
     getJson<ExperienceType[]>('data/experience-types.json', []),
     getJson<EventsFile>('data/events.json', { updatedAt: null, events: [] }),
+    getJson<Pin[]>('data/forage.json', []),
   ])
   return {
     categories,
@@ -27,6 +28,7 @@ export async function loadAppData(): Promise<AppData> {
     experienceTypes,
     events: eventsFile.events,
     eventsUpdatedAt: eventsFile.updatedAt,
+    forage,
   }
 }
 
