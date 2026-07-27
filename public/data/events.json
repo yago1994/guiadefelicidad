@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-20T11:54:19.869Z",
+  "updatedAt": "2026-07-27T12:35:35.268Z",
   "events": [
     {
       "id": "goatfarm-summer-at-warhorse-2026-05-29",
@@ -12,19 +12,6 @@
       "start": "2026-05-29T15:00:00Z",
       "end": "2026-09-16T03:00:00Z",
       "url": "https://www.thegoatfarm.info/events/summer-at-warhorse",
-      "source": "goatfarm"
-    },
-    {
-      "id": "goatfarm-passing-glance-2026-06-04",
-      "title": "Passing Glance",
-      "category": "art",
-      "venue": "The Goat Farm",
-      "address": "1200 Foster St NW, Atlanta, GA 30318",
-      "lat": 33.785974513235445,
-      "lng": -84.4167698115391,
-      "start": "2026-06-04T21:00:00Z",
-      "end": "2026-07-25T23:00:00Z",
-      "url": "https://www.thegoatfarm.info/events/ku8mm3g42j7rnob4cdhn54nkp7286y",
       "source": "goatfarm"
     },
     {
@@ -41,54 +28,6 @@
       "source": "goatfarm"
     },
     {
-      "id": "creativeloafing-truist-park-tour-2026-07-20",
-      "title": "Truist Park Tour",
-      "category": "music",
-      "venue": "Truist Park",
-      "address": "Truist Park, Atlanta, GA",
-      "lat": 33.890738,
-      "lng": -84.4676163,
-      "start": "2026-07-20T09:00:00-04:00",
-      "url": "https://creativeloafing.com/event-627833-truist-park-tour",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-atlanta-braves-vs-san-diego-padres-2026-07-20",
-      "title": "Atlanta Braves vs. San Diego Padres",
-      "category": "park",
-      "venue": "Truist Park",
-      "address": "Truist Park, Atlanta, GA",
-      "lat": 33.890738,
-      "lng": -84.4676163,
-      "start": "2026-07-20T19:15:00-04:00",
-      "url": "https://creativeloafing.com/event-627832-atlanta-braves-vs-san-diego-padres",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-cory-hanson-arbor-labor-union-little-gold-at-aisle-2026-07-20",
-      "title": "Cory Hanson, Arbor Labor Union, Little Gold at Aisle 5",
-      "category": "other",
-      "venue": "Aisle 5",
-      "address": "Aisle 5, Atlanta, GA",
-      "lat": 33.7642271,
-      "lng": -84.3502481,
-      "start": "2026-07-20T20:00:00-04:00",
-      "url": "https://creativeloafing.com/event-633017-cory-hanson-arbor-labor-union-little-gold-at-aisle",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-lola-s-jam-at-northside-tavern-2026-07-20",
-      "title": "Lola's Jam at Northside Tavern",
-      "category": "other",
-      "venue": "Northside Tavern",
-      "address": "Northside Tavern, Atlanta, GA",
-      "lat": 33.7836216,
-      "lng": -84.4120487,
-      "start": "2026-07-20T22:00:00-04:00",
-      "url": "https://creativeloafing.com/event-631648-lola-s-jam-at-northside-tavern",
-      "source": "creativeloafing"
-    },
-    {
       "id": "goatfarm-elle-2026-07-27",
       "title": "ELLE",
       "category": "art",
@@ -99,6 +38,91 @@
       "start": "2026-07-27T00:00:00Z",
       "end": "2026-07-27T03:00:00Z",
       "url": "https://www.thegoatfarm.info/events/elle",
+      "source": "goatfarm"
+    },
+    {
+      "id": "creativeloafing-noah-kahan-at-truist-park-sold-out-2026-07-27",
+      "title": "Noah Kahan at Truist Park (Sold Out)",
+      "category": "music",
+      "venue": "Truist Park",
+      "address": "Truist Park, Atlanta, GA",
+      "lat": 33.890738,
+      "lng": -84.4676163,
+      "start": "2026-07-27T18:30:00-04:00",
+      "url": "https://creativeloafing.com/event-627840-noah-kahan-at-truist-park-sold-out",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-paint-pint-sweetwater-brewing-2026-07-27",
+      "title": "Paint & Pint @ Sweetwater Brewing",
+      "category": "art",
+      "venue": "SweetWater Brewing Company",
+      "address": "SweetWater Brewing Company, Atlanta, GA",
+      "lat": 33.8083643,
+      "lng": -84.3806922,
+      "start": "2026-07-27T19:00:00-04:00",
+      "url": "https://creativeloafing.com/event-633095-paint-pint-sweetwater-brewing",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-grad-show-feat-ron-tim-s-stand-up-students-2026-07-27",
+      "title": "GRAD SHOW! - Feat. Ron & Tim’s Stand-up Students",
+      "category": "art",
+      "venue": "Dad's Garage Theatre",
+      "address": "Dad's Garage Theatre, Atlanta, GA",
+      "lat": 33.7530549,
+      "lng": -84.3686547,
+      "start": "2026-07-27T19:00:00-04:00",
+      "url": "https://creativeloafing.com/event-633696-grad-show---feat-ron-tim-s-stand-up",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-theatrical-outfit-presents-launchpad-2-0-residency-2026-07-27",
+      "title": "Theatrical Outfit presents Launchpad 2.0 Residency Workshop - Triune",
+      "category": "art",
+      "venue": "Theatrical Outfit",
+      "address": "Theatrical Outfit, Atlanta, GA",
+      "lat": 33.757027,
+      "lng": -84.3896072,
+      "start": "2026-07-27T19:30:00-04:00",
+      "url": "https://creativeloafing.com/event-621085-theatrical-outfit-presents-launchpad-2-0-residency-workshop--",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-big-samson-and-the-truth-s-pro-jam-at-529-bar-2026-07-27",
+      "title": "Big Samson And The Truth's Pro Jam at 529 Bar",
+      "category": "music",
+      "venue": "529 Bar",
+      "address": "529 Bar, Atlanta, GA",
+      "lat": 33.7398862,
+      "lng": -84.3452626,
+      "start": "2026-07-27T20:00:00-04:00",
+      "url": "https://creativeloafing.com/event-632987-big-samson-and-the-truth-s-pro-jam-at-529",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-lola-s-jam-at-northside-tavern-2026-07-27",
+      "title": "Lola's Jam at Northside Tavern",
+      "category": "other",
+      "venue": "Northside Tavern",
+      "address": "Northside Tavern, Atlanta, GA",
+      "lat": 33.7836216,
+      "lng": -84.4120487,
+      "start": "2026-07-27T22:00:00-04:00",
+      "url": "https://creativeloafing.com/event-631656-lola-s-jam-at-northside-tavern",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "goatfarm-reptar-w-cdsm-2026-08-07",
+      "title": "Reptar w/ CDSM",
+      "category": "art",
+      "venue": "The Goat Farm",
+      "address": "1200 Foster St NW, Atlanta, GA 30318",
+      "lat": 33.785974513235445,
+      "lng": -84.4167698115391,
+      "start": "2026-08-07T23:30:00Z",
+      "end": "2026-08-08T03:00:00Z",
+      "url": "https://www.thegoatfarm.info/events/reptar-w-cdsm",
       "source": "goatfarm"
     }
   ]

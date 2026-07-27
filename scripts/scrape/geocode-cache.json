@@ -168,5 +168,14 @@
   "dixie tavern, atlanta, ga": null,
   "peachtree art center, atlanta, ga": null,
   "online event, atlanta, ga": null,
-  "wrfg radio, atlanta, ga": null
+  "wrfg radio, atlanta, ga": null,
+  "marietta melt yard, atlanta, ga": null,
+  "sweetwater brewing company, atlanta, ga": {
+    "lat": 33.8083643,
+    "lng": -84.3806922
+  },
+  "theatrical outfit, atlanta, ga": {
+    "lat": 33.757027,
+    "lng": -84.3896072
+  }
 }
