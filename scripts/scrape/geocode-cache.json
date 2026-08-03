@@ -177,5 +177,27 @@
   "theatrical outfit, atlanta, ga": {
     "lat": 33.757027,
     "lng": -84.3896072
+  },
+  "spalding nix fine art, atlanta, ga": null,
+  "the supermarket, atlanta, ga": {
+    "lat": 33.7716281,
+    "lng": -84.3530317
+  },
+  "fernbank museum of natural history, atlanta, ga": {
+    "lat": 33.7739301,
+    "lng": -84.3278358
+  },
+  "the dekalb history center, atlanta, ga": null,
+  "children's museum of atlanta, atlanta, ga": {
+    "lat": 33.762471,
+    "lng": -84.3917414
+  },
+  "hotel phoenix atlanta, atlanta, ga": {
+    "lat": 33.7550955,
+    "lng": -84.3979559
+  },
+  "the earl, atlanta, ga": {
+    "lat": 33.7659324,
+    "lng": -84.3535315
   }
 }
