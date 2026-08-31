@@ -219,5 +219,20 @@
     "lat": 33.7482178,
     "lng": -84.4275136
   },
-  "moonshadow tavern, atlanta, ga": null
+  "moonshadow tavern, atlanta, ga": null,
+  "alif institute, atlanta, ga": null,
+  "poor hendrix, atlanta, ga": {
+    "lat": 33.7510005,
+    "lng": -84.3095202
+  },
+  "cinefest film theatre at georgia state university, atlanta, ga": null,
+  "the masquerade, atlanta, ga": {
+    "lat": 33.7517171,
+    "lng": -84.3897952
+  },
+  "edgewood garden + coan garden, atlanta, ga": null,
+  "commune, atlanta, ga": {
+    "lat": 18.6173422,
+    "lng": -72.205589
+  }
 }

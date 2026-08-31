@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-24T09:58:28.936Z",
+  "updatedAt": "2026-08-31T17:01:59.962Z",
   "events": [
     {
       "id": "goatfarm-summer-at-warhorse-2026-05-29",
@@ -15,102 +15,6 @@
       "source": "goatfarm"
     },
     {
-      "id": "creativeloafing-truist-park-tour-2026-08-24",
-      "title": "Truist Park Tour",
-      "category": "music",
-      "venue": "Truist Park",
-      "address": "Truist Park, Atlanta, GA",
-      "lat": 33.890738,
-      "lng": -84.4676163,
-      "start": "2026-08-24T09:00:00-04:00",
-      "url": "https://creativeloafing.com/event-627880-truist-park-tour",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-exhibitions-at-fernbank-mondays-2026-08-24",
-      "title": "Exhibitions at Fernbank (Mondays)",
-      "category": "art",
-      "venue": "Fernbank Museum of Natural History",
-      "address": "Fernbank Museum of Natural History, Atlanta, GA",
-      "lat": 33.7739301,
-      "lng": -84.3278358,
-      "start": "2026-08-24T10:00:00-04:00",
-      "url": "https://creativeloafing.com/event-564465-exhibitions-at-fernbank-mondays",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-exhibitions-at-children-s-museum-mondays-2026-08-24",
-      "title": "Exhibitions at Children's Museum (Mondays)",
-      "category": "art",
-      "venue": "Children's Museum of Atlanta",
-      "address": "Children's Museum of Atlanta, Atlanta, GA",
-      "lat": 33.762471,
-      "lng": -84.3917414,
-      "start": "2026-08-24T10:00:00-04:00",
-      "url": "https://creativeloafing.com/event-577728-exhibitions-at-children-s-museum",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-brut-brine-at-zephyr-southern-brasserie-2026-08-24",
-      "title": "Brut & Brine at Zephyr Southern Brasserie",
-      "category": "food-drink",
-      "venue": "Hotel Phoenix Atlanta",
-      "address": "Hotel Phoenix Atlanta, Atlanta, GA",
-      "lat": 33.7550955,
-      "lng": -84.3979559,
-      "start": "2026-08-24T15:00:00-04:00",
-      "url": "https://creativeloafing.com/event-634981-brut-brine-at-zephyr-southern",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-2026-yoga-presented-by-kaiser-permanente-2026-08-24",
-      "title": "2026 Yoga Presented by Kaiser Permanente",
-      "category": "active",
-      "venue": "The Battery Atlanta",
-      "address": "The Battery Atlanta, Atlanta, GA",
-      "lat": 33.8897596,
-      "lng": -84.4685156,
-      "start": "2026-08-24T18:30:00-04:00",
-      "url": "https://creativeloafing.com/event-635176-2026-yoga-presented-by-kaiser-permanente",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-joy-deficit-a-monthly-live-performance-event-2026-08-24",
-      "title": "JOY DEFICIT: A Monthly Live Performance Event",
-      "category": "other",
-      "venue": "Red Light Cafe",
-      "address": "Red Light Cafe, Atlanta, GA",
-      "lat": 33.7878572,
-      "lng": -84.3688693,
-      "start": "2026-08-24T19:30:00-04:00",
-      "url": "https://creativeloafing.com/event-635499-joy-deficit-a-monthly-live-performance",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-jam-sessions-with-joe-gransden-every-monday-night-2026-08-24",
-      "title": "Jam Sessions with Joe Gransden Every Monday Night",
-      "category": "other",
-      "venue": "Napoleon's",
-      "address": "Napoleon's, Atlanta, GA",
-      "lat": 33.7482178,
-      "lng": -84.4275136,
-      "start": "2026-08-24T19:30:00-04:00",
-      "url": "https://creativeloafing.com/event-636238-jam-sessions-with-joe-gransden-every-monday",
-      "source": "creativeloafing"
-    },
-    {
-      "id": "creativeloafing-lola-s-jam-at-northside-tavern-2026-08-24",
-      "title": "Lola's Jam at Northside Tavern",
-      "category": "other",
-      "venue": "Northside Tavern",
-      "address": "Northside Tavern, Atlanta, GA",
-      "lat": 33.7836216,
-      "lng": -84.4120487,
-      "start": "2026-08-24T22:00:00-04:00",
-      "url": "https://creativeloafing.com/event-636293-lola-s-jam-at-northside-tavern",
-      "source": "creativeloafing"
-    },
-    {
       "id": "goatfarm-rampant-gallery-presents-j-bah-blvd-2026-08-30",
       "title": "RAMPANT GALLERY PRESENTS: J BAH BLVD",
       "category": "art",
@@ -124,6 +28,126 @@
       "source": "goatfarm"
     },
     {
+      "id": "creativeloafing-truist-park-tour-2026-08-31",
+      "title": "Truist Park Tour",
+      "category": "music",
+      "venue": "Truist Park",
+      "address": "Truist Park, Atlanta, GA",
+      "lat": 33.890738,
+      "lng": -84.4676163,
+      "start": "2026-08-31T09:00:00-04:00",
+      "url": "https://creativeloafing.com/event-627893-truist-park-tour",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-exhibitions-at-fernbank-mondays-2026-08-31",
+      "title": "Exhibitions at Fernbank (Mondays)",
+      "category": "art",
+      "venue": "Fernbank Museum of Natural History",
+      "address": "Fernbank Museum of Natural History, Atlanta, GA",
+      "lat": 33.7739301,
+      "lng": -84.3278358,
+      "start": "2026-08-31T10:00:00-04:00",
+      "url": "https://creativeloafing.com/event-564465-exhibitions-at-fernbank-mondays",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-exhibitions-at-children-s-museum-mondays-2026-08-31",
+      "title": "Exhibitions at Children's Museum (Mondays)",
+      "category": "art",
+      "venue": "Children's Museum of Atlanta",
+      "address": "Children's Museum of Atlanta, Atlanta, GA",
+      "lat": 33.762471,
+      "lng": -84.3917414,
+      "start": "2026-08-31T10:00:00-04:00",
+      "url": "https://creativeloafing.com/event-577728-exhibitions-at-children-s-museum",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-poor-hendrix-dog-adoption-event-2026-08-31",
+      "title": "Poor Hendrix Dog Adoption Event",
+      "category": "other",
+      "venue": "Poor Hendrix",
+      "address": "Poor Hendrix, Atlanta, GA",
+      "lat": 33.7510005,
+      "lng": -84.3095202,
+      "start": "2026-08-31T11:00:00-04:00",
+      "url": "https://creativeloafing.com/event-637187-poor-hendrix-dog-adoption-event",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-2026-yoga-presented-by-kaiser-permanente-2026-08-31",
+      "title": "2026 Yoga Presented by Kaiser Permanente",
+      "category": "active",
+      "venue": "The Battery Atlanta",
+      "address": "The Battery Atlanta, Atlanta, GA",
+      "lat": 33.8897596,
+      "lng": -84.4685156,
+      "start": "2026-08-31T18:30:00-04:00",
+      "url": "https://creativeloafing.com/event-635181-2026-yoga-presented-by-kaiser-permanente",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-big-d-and-the-kids-table-at-the-masquerade-2026-08-31",
+      "title": "Big D And The Kids Table at The Masquerade",
+      "category": "music",
+      "venue": "The Masquerade",
+      "address": "The Masquerade, Atlanta, GA",
+      "lat": 33.7517171,
+      "lng": -84.3897952,
+      "start": "2026-08-31T19:00:00-04:00",
+      "url": "https://creativeloafing.com/event-634228-big-d-and-the-kids-table-at-the",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-jam-sessions-with-joe-gransden-every-monday-night-2026-08-31",
+      "title": "Jam Sessions with Joe Gransden Every Monday Night",
+      "category": "other",
+      "venue": "Napoleon's",
+      "address": "Napoleon's, Atlanta, GA",
+      "lat": 33.7482178,
+      "lng": -84.4275136,
+      "start": "2026-08-31T19:30:00-04:00",
+      "url": "https://creativeloafing.com/event-636243-jam-sessions-with-joe-gransden-every-monday",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-squidpisser-at-529-bar-2026-08-31",
+      "title": "Squidpisser at 529 Bar",
+      "category": "other",
+      "venue": "529 Bar",
+      "address": "529 Bar, Atlanta, GA",
+      "lat": 33.7398862,
+      "lng": -84.3452626,
+      "start": "2026-08-31T20:00:00-04:00",
+      "url": "https://creativeloafing.com/event-633000-squidpisser-at-529-bar",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-ronnie-donnie-and-johnny-at-529-bar-2026-08-31",
+      "title": "Ronnie, Donnie And Johnny at 529 Bar",
+      "category": "other",
+      "venue": "529 Bar",
+      "address": "529 Bar, Atlanta, GA",
+      "lat": 33.7398862,
+      "lng": -84.3452626,
+      "start": "2026-08-31T20:00:00-04:00",
+      "url": "https://creativeloafing.com/event-635425-ronnie-donnie-and-johnny-at-529-bar",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-lola-s-jam-at-northside-tavern-2026-08-31",
+      "title": "Lola's Jam at Northside Tavern",
+      "category": "other",
+      "venue": "Northside Tavern",
+      "address": "Northside Tavern, Atlanta, GA",
+      "lat": 33.7836216,
+      "lng": -84.4120487,
+      "start": "2026-08-31T22:00:00-04:00",
+      "url": "https://creativeloafing.com/event-636300-lola-s-jam-at-northside-tavern",
+      "source": "creativeloafing"
+    },
+    {
       "id": "goatfarm-inside-out-outside-in-2026-09-05",
       "title": "Inside Out / Outside In",
       "category": "art",
@@ -134,6 +158,45 @@
       "start": "2026-09-05T21:00:00Z",
       "end": "2026-10-11T01:00:00Z",
       "url": "https://www.thegoatfarm.info/events/inside-out-outside-in",
+      "source": "goatfarm"
+    },
+    {
+      "id": "goatfarm-leaflet-women-in-riso-2026-09-08",
+      "title": "Leaflet: Women in RISO",
+      "category": "art",
+      "venue": "The Goat Farm",
+      "address": "1200 Foster St NW, Atlanta, GA 30318",
+      "lat": 33.785974513235445,
+      "lng": -84.4167698115391,
+      "start": "2026-09-08T22:00:00Z",
+      "end": "2026-09-09T01:00:00Z",
+      "url": "https://www.thegoatfarm.info/events/leaflet-women-in-riso",
+      "source": "goatfarm"
+    },
+    {
+      "id": "goatfarm-ivy-lab-2026-09-12",
+      "title": "Ivy Lab",
+      "category": "art",
+      "venue": "The Goat Farm",
+      "address": "1200 Foster St NW, Atlanta, GA 30318",
+      "lat": 33.785974513235445,
+      "lng": -84.4167698115391,
+      "start": "2026-09-12T23:00:00Z",
+      "end": "2026-09-13T03:59:00Z",
+      "url": "https://www.thegoatfarm.info/events/ivy-lab",
+      "source": "goatfarm"
+    },
+    {
+      "id": "goatfarm-bitchin-bajas-2026-09-13",
+      "title": "Bitchin Bajas",
+      "category": "art",
+      "venue": "The Goat Farm",
+      "address": "1200 Foster St NW, Atlanta, GA 30318",
+      "lat": 33.785974513235445,
+      "lng": -84.4167698115391,
+      "start": "2026-09-13T23:00:00Z",
+      "end": "2026-09-14T03:00:00Z",
+      "url": "https://www.thegoatfarm.info/events/bitchin-bajas",
       "source": "goatfarm"
     }
   ]
