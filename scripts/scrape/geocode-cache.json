@@ -234,5 +234,14 @@
   "commune, atlanta, ga": {
     "lat": 18.6173422,
     "lng": -72.205589
-  }
+  },
+  "westin peachtree plaza hotel, atlanta, ga": {
+    "lat": 33.7594396,
+    "lng": -84.3883759
+  },
+  "park tavern, atlanta, ga": {
+    "lat": 33.7821472,
+    "lng": -84.3692388
+  },
+  "420 garden bar, atlanta, ga": null
 }
