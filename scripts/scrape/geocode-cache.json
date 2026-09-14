@@ -243,5 +243,21 @@
     "lat": 33.7821472,
     "lng": -84.3692388
   },
-  "420 garden bar, atlanta, ga": null
+  "420 garden bar, atlanta, ga": null,
+  "full circle studios, atlanta, ga": null,
+  "gas south convention center, atlanta, ga": null,
+  "atlanta convention center at americasmart (not marked on map), atlanta, ga": null,
+  "piedmont park, atlanta, ga": {
+    "lat": 33.7890478,
+    "lng": -84.3718862
+  },
+  "area 51 - aurora cineplex and the fringe miniature golf, atlanta, ga": null,
+  "halfway crooks beer, atlanta, ga": {
+    "lat": 33.7370641,
+    "lng": -84.3858156
+  },
+  "terminal west, atlanta, ga": {
+    "lat": 33.7814978,
+    "lng": -84.4154409
+  }
 }
