@@ -259,5 +259,14 @@
   "terminal west, atlanta, ga": {
     "lat": 33.7814978,
     "lng": -84.4154409
+  },
+  "spruill center for the arts, atlanta, ga": null,
+  "the eastern, atlanta, ga": {
+    "lat": 33.745379,
+    "lng": -84.3605337
+  },
+  "buckhead theatre, atlanta, ga": {
+    "lat": 33.8403347,
+    "lng": -84.3799215
   }
 }
