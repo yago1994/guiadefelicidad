@@ -3,7 +3,7 @@ import maplibregl from 'maplibre-gl'
 
 export interface MarkerSpec {
   id: string
-  kind: 'pin' | 'event'
+  kind: 'pin' | 'event' | 'forage'
   lat: number
   lng: number
   icon: string
@@ -35,7 +35,7 @@ interface Props {
   /** When set, renders draggable vertex handles for reshaping a line. */
   editableLine: [number, number][] | null
   onEditableLineChange: (coords: [number, number][]) => void
-  onMarkerClick: (id: string, kind: 'pin' | 'event') => void
+  onMarkerClick: (id: string, kind: 'pin' | 'event' | 'forage') => void
   onMarkerMoved: (id: string, lngLat: { lat: number; lng: number }) => void
   onMapClick: (lngLat: { lat: number; lng: number }) => void
 }
@@ -206,7 +206,7 @@ export default function MapView({
       const el = document.createElement('div')
       el.className = `marker-root ${spec.state === 'peak' ? 'peak' : ''} ${spec.state === 'dimmed' ? 'dimmed' : ''} ${
         spec.kind === 'event' ? 'event' : ''
-      } ${spec.selected ? 'selected' : ''}`
+      } ${spec.kind === 'forage' ? 'forage' : ''} ${spec.selected ? 'selected' : ''}`
       const inner = document.createElement('div')
       inner.className = 'marker'
       inner.style.setProperty('--marker-color', spec.color)

@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { fetchEvents as eventbrite } from './sources/eventbrite.mjs'
 import { fetchEvents as creativeLoafing } from './sources/creativeloafing.mjs'
 import { fetchEvents as goatFarm } from './sources/goatfarm.mjs'
+import { fetchEvents as dadsGarage } from './sources/dadsgarage.mjs'
 import { apiCalls, geocode, saveCache } from './geocode.mjs'
 import { categorize, eventId, inAtlanta } from './util.mjs'
 
@@ -14,6 +15,7 @@ const SOURCES = [
   ['eventbrite', eventbrite],
   ['creativeloafing', creativeLoafing],
   ['goatfarm', goatFarm],
+  ['dadsgarage', dadsGarage],
 ]
 // paired with the weekly cron: every event enters this window at least a
 // week before it happens, so one run per week is enough to catch it

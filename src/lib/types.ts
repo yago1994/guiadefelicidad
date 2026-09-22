@@ -68,8 +68,8 @@ export interface Pin {
    * (e.g. the full BeltLine loop, where some quadrants aren't yet connected).
    */
   line?: [number, number][] | [number, number][][]
-  /** Pins imported from the Google Maps list sync. */
-  origin?: 'google'
+  /** Non-curated pins imported by a sync/scraper (kept out of hand-editing). */
+  origin?: 'google' | 'fallingfruit'
 }
 
 export interface Category {
@@ -125,6 +125,12 @@ export interface AppData {
   experienceTypes: ExperienceType[]
   events: EventItem[]
   eventsUpdatedAt: string | null
+  /**
+   * Foraging spots (edible trees/plants) scraped from Falling Fruit. Kept in
+   * their own array — and their own data file — so this machine-generated,
+   * always-on layer never mixes into the hand-curated `pins`.
+   */
+  forage: Pin[]
 }
 
 export type TimeScope = 'now' | 'today' | 'week' | 'all'

@@ -1,0 +1,53 @@
+name: Forage sync (Falling Fruit)
+
+# Rebuilds public/data/forage.json from the Falling Fruit API. Runs weekly and
+# on demand. Foraging spots change slowly, so a weekly cadence is plenty.
+on:
+  workflow_dispatch:
+  schedule:
+    # Mondays 09:40 UTC — offset from the events scrape so they don't overlap.
+    - cron: '40 9 * * 1'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: forage-fallingfruit
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: node scripts/scrape/forage-fallingfruit.mjs
+        env:
+          # Optional: your own Falling Fruit API key (defaults to their public key).
+          FALLINGFRUIT_API_KEY: ${{ secrets.FALLINGFRUIT_API_KEY }}
+      - name: Commit updated forage data
+        id: commit
+        run: |
+          git config user.name "forage-bot"
+          git config user.email "actions@github.com"
+          git add public/data/forage.json
+          if git diff --cached --quiet; then
+            echo "No forage changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Update forage data from Falling Fruit"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      # A push with the default GITHUB_TOKEN doesn't trigger deploy.yml's
+      # `on: push` (anti-recursion) — dispatch it explicitly.
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        run: gh workflow run deploy.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}

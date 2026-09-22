@@ -7,9 +7,10 @@ A living map of Atlanta where pins appear **contextually** — only what's open,
 ## How it works
 
 - **Fully static** — Vite + React + [MapLibre GL](https://maplibre.org/) with free [OpenFreeMap](https://openfreemap.org/) tiles, hosted on GitHub Pages. No backend.
-- **Two sources of truth:**
+- **Three sources of truth:**
   1. **Curated pins** in [public/data/pins.json](public/data/pins.json), managed from the site itself in admin mode.
-  2. **Scraped events** in `public/data/events.json`, refreshed weekly (Mondays) by a GitHub Actions cron ([.github/workflows/scrape-events.yml](.github/workflows/scrape-events.yml)) that sweeps Eventbrite Atlanta listings (incl. a Beltline keyword search), the Creative Loafing calendar, and The Goat Farm's event calendar, geocodes via Nominatim (cached), and categorizes by keywords. Only events in the next 14 days are kept — comfortably inside the weekly cadence, so nothing falls through the gap between runs.
+  2. **Scraped events** in `public/data/events.json`, refreshed weekly (Mondays) by a GitHub Actions cron ([.github/workflows/scrape-events.yml](.github/workflows/scrape-events.yml)) that sweeps Eventbrite Atlanta listings (incl. a Beltline keyword search), the Creative Loafing calendar, The Goat Farm's and Dad's Garage's event calendars, geocodes via Nominatim (cached), and categorizes by keywords. Only events in the next 14 days are kept — comfortably inside the weekly cadence, so nothing falls through the gap between runs. Each source fails soft: if one is down or blocked, the run logs it and keeps the rest.
+  3. **Forage spots** in `public/data/forage.json` — edible trees and plants from the open [Falling Fruit](https://fallingfruit.org) API, refreshed weekly ([.github/workflows/forage-fallingfruit.yml](.github/workflows/forage-fallingfruit.yml)). They're permanent locations (no hours/season), so they render as always-on pins under the **Forage** 🍎 category and stay in their own file — never mixed into the hand-curated `pins.json`.
 - **Place search** — the 🔍 button searches restaurants, parks, and landmarks around Atlanta via [Photon](https://photon.komoot.io/) on OpenStreetMap data (free, no key). Anyone can search and get directions; in admin mode, *Add as pin* pre-fills the pin editor and imports the place's opening hours and website from OSM when available.
 - **Time scopes** — Now / Today / This week / All. "Now" honors seasons (months), weekdays, opening hours, date windows, and recurring patterns; **peak hours** make a marker glow. "All" shows everything, dimming what's closed right now.
 - **Recurring patterns** — a pin can exist on an "Nth weekday of the month" schedule (e.g. Critical Mass = last Friday of every month). Combine with "months" for a once-a-year event (e.g. Chomp and Stomp = 1st Saturday of November) — see `Availability.recurrence` in [types.ts](src/lib/types.ts).
@@ -41,6 +42,7 @@ npm install
 npm run dev        # local dev server
 npm test           # visibility-engine unit tests
 npm run scrape     # run the events scraper locally
+npm run forage     # rebuild forage.json from Falling Fruit (DRY_RUN=1 to preview)
 npm run build      # production build (tsc + vite)
 ```
 
