@@ -268,5 +268,20 @@
   "buckhead theatre, atlanta, ga": {
     "lat": 33.8403347,
     "lng": -84.3799215
+  },
+  "goizueta stage for youth & families @ the alliance theatre, atlanta, ga": null,
+  "georgia state university student center, atlanta, ga": null,
+  "atlanta symphony hall, atlanta, ga": {
+    "lat": 33.7888698,
+    "lng": -84.3854319
+  },
+  "a cappella books, atlanta, ga": null,
+  "center for puppetry arts, atlanta, ga": {
+    "lat": 33.7927584,
+    "lng": -84.3898138
+  },
+  "margaret mitchell house, atlanta, ga": {
+    "lat": 33.7813853,
+    "lng": -84.3845861
   }
 }
