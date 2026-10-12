@@ -287,5 +287,16 @@
   "coca-cola roxy, atlanta, ga": {
     "lat": 33.8904123,
     "lng": -84.4698261
-  }
+  },
+  "center parc stadium, atlanta, ga": {
+    "lat": 33.7355267,
+    "lng": -84.3886513
+  },
+  "actor's express theatre company, atlanta, ga": null,
+  "the punchline comedy club, atlanta, ga": null,
+  "drunken unicorn, atlanta, ga": {
+    "lat": 33.773819,
+    "lng": -84.3632965
+  },
+  "cosm atlanta, atlanta, ga": null
 }
