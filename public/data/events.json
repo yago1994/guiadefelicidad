@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-26T16:04:11.757Z",
+  "updatedAt": "2026-11-02T19:25:42.344Z",
   "events": [
     {
       "id": "goatfarm-rampant-gallery-presents-an-uncanny-exhibition-by--2026-10-17",
@@ -28,16 +28,16 @@
       "source": "goatfarm"
     },
     {
-      "id": "goatfarm-phoenix-city-2026-10-29",
-      "title": "Phoenix City",
+      "id": "goatfarm-posy-press-november-offerings-2026-11-03",
+      "title": "Posy Press: November Offerings",
       "category": "art",
       "venue": "The Goat Farm",
       "address": "1200 Foster St NW, Atlanta, GA 30318",
       "lat": 33.785974513235445,
       "lng": -84.4167698115391,
-      "start": "2026-10-29T23:30:00Z",
-      "end": "2026-10-31T01:00:00Z",
-      "url": "https://www.thegoatfarm.info/events/phoenix-city",
+      "start": "2026-11-03T23:00:00Z",
+      "end": "2026-11-19T22:00:00Z",
+      "url": "https://www.thegoatfarm.info/events/posy-press-november-offerings",
       "source": "goatfarm"
     },
     {
