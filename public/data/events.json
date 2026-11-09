@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-02T19:25:42.344Z",
+  "updatedAt": "2026-11-09T19:44:19.736Z",
   "events": [
     {
       "id": "goatfarm-rampant-gallery-presents-an-uncanny-exhibition-by--2026-10-17",
@@ -51,6 +51,103 @@
       "start": "2026-11-05T23:00:00Z",
       "end": "2026-12-13T00:00:00Z",
       "url": "https://www.thegoatfarm.info/events/pollinator-art-space-presents-honeycomb-iii",
+      "source": "goatfarm"
+    },
+    {
+      "id": "creativeloafing-hc-run-club-2026-11-09",
+      "title": "HC Run Club",
+      "category": "active",
+      "venue": "Halfway Crooks Beer",
+      "address": "Halfway Crooks Beer, Atlanta, GA",
+      "lat": 33.7370641,
+      "lng": -84.3858156,
+      "start": "2026-11-09T18:45:00-05:00",
+      "url": "https://creativeloafing.com/event-640151-hc-run-club",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-jam-sessions-with-joe-gransden-every-monday-night-2026-11-09",
+      "title": "Jam Sessions with Joe Gransden Every Monday Night",
+      "category": "other",
+      "venue": "Napoleon's",
+      "address": "Napoleon's, Atlanta, GA",
+      "lat": 33.7482178,
+      "lng": -84.4275136,
+      "start": "2026-11-09T19:30:00-05:00",
+      "url": "https://creativeloafing.com/event-639209-jam-sessions-with-joe-gransden-every-monday",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-rap-j-at-the-supermarket-2026-11-09",
+      "title": "Rap J at The Supermarket",
+      "category": "market",
+      "venue": "The Supermarket",
+      "address": "The Supermarket, Atlanta, GA",
+      "lat": 33.7716281,
+      "lng": -84.3530317,
+      "start": "2026-11-09T19:30:00-05:00",
+      "url": "https://creativeloafing.com/event-639620-rap-j-at-the-supermarket",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-atlanta-songwriters-club-meet-up-2026-11-09",
+      "title": "Atlanta Songwriters Club Meet Up",
+      "category": "other",
+      "venue": "Red Light Cafe",
+      "address": "Red Light Cafe, Atlanta, GA",
+      "lat": 33.7878572,
+      "lng": -84.3688693,
+      "start": "2026-11-09T19:30:00-05:00",
+      "url": "https://creativeloafing.com/event-640337-atlanta-songwriters-club-meet-up",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-surprise-chef-frogs-in-a-pond-north-america-tour-a-2026-11-09",
+      "title": "Surprise Chef - Frogs in a Pond North America Tour at Terminal West",
+      "category": "music",
+      "venue": "Terminal West",
+      "address": "Terminal West, Atlanta, GA",
+      "lat": 33.7814978,
+      "lng": -84.4154409,
+      "start": "2026-11-09T20:00:00-05:00",
+      "url": "https://creativeloafing.com/event-638545-surprise-chef---frogs-in-a-pond-north-america-tour-at-terminal",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-prateek-kuhad-full-moon-chamber-tour-acoustic-at-v-2026-11-09",
+      "title": "Prateek Kuhad: Full Moon Chamber Tour (Acoustic) at Variety Playhouse",
+      "category": "music",
+      "venue": "Variety Playhouse",
+      "address": "Variety Playhouse, Atlanta, GA",
+      "lat": 33.76351,
+      "lng": -84.3508547,
+      "start": "2026-11-09T20:00:00-05:00",
+      "url": "https://creativeloafing.com/event-638551-prateek-kuhad-full-moon-chamber-tour-acoustic-at-variety",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "creativeloafing-lola-s-jam-at-northside-tavern-2026-11-09",
+      "title": "Lola’s Jam at Northside Tavern",
+      "category": "other",
+      "venue": "Northside Tavern",
+      "address": "Northside Tavern, Atlanta, GA",
+      "lat": 33.7836216,
+      "lng": -84.4120487,
+      "start": "2026-11-09T22:00:00-05:00",
+      "url": "https://creativeloafing.com/event-639242-lola-s-jam-at-northside-tavern",
+      "source": "creativeloafing"
+    },
+    {
+      "id": "goatfarm-improvement-movement-2026-11-22",
+      "title": "Improvement Movement",
+      "category": "art",
+      "venue": "The Goat Farm",
+      "address": "1200 Foster St NW, Atlanta, GA 30318",
+      "lat": 33.785974513235445,
+      "lng": -84.4167698115391,
+      "start": "2026-11-22T00:00:00Z",
+      "end": "2026-11-22T02:00:00Z",
+      "url": "https://www.thegoatfarm.info/events/improvement-movement",
       "source": "goatfarm"
     }
   ]
