@@ -299,5 +299,9 @@
     "lng": -84.3632965
   },
   "cosm atlanta, atlanta, ga": null,
-  "virtual, atlanta, ga": null
+  "virtual, atlanta, ga": null,
+  "atlanta tech village - buckhead, atlanta, ga": {
+    "lat": 33.8485608,
+    "lng": -84.3734291
+  }
 }
